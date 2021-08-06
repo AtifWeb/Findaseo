@@ -1,0 +1,141 @@
+.sm-btn {
+  height: 34px;
+  min-width: 85px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #2d96d6;
+  background-color: #fff;
+  color: #2d96d6;
+  cursor: pointer;
+}
+
+.d-flex,
+.d-flex-align-center,
+.d-flex-justify-center {
+  display: flex;
+}
+.d-flex-align-center {
+  align-items: center;
+}
+.d-flex-justify-center {
+  justify-content: center;
+}
+
+.d-grid,
+.grid-col-2,
+.grid-col-3,
+.grid-col-4 {
+  display: grid;
+}
+.grid-col-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.grid-col-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.grid-col-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.main-wrapper {
+  /*  */
+}
+
+.Sidebar {
+  width: 110px;
+  padding: 2rem 0rem;
+  background-color: #0f1957;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.Sidebar nav {
+  margin-top: 3rem;
+  width: 100%;
+  text-align: center;
+}
+
+.Sidebar nav > * + * {
+  margin-top: 0.5rem;
+}
+.Sidebar nav > * {
+  display: block;
+  width: 100%;
+}
+.Sidebar nav a {
+  padding: 0.4rem 0rem;
+  display: block;
+  position: relative;
+  min-width: 100%;
+}
+.Sidebar nav li.active a svg path {
+  fill: #2d96d7;
+}
+.Sidebar nav li.active a::after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  content: "";
+  background-color: #2d96d7;
+}
+
+.Sidebar .logout-area {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 4rem;
+  width: 100%;
+  justify-content: center;
+  flex: 1;
+}
+
+/* body area */
+.main-wrapper .body-area {
+  flex: 1;
+  height: 100vh;
+  overflow: auto;
+}
+.main-wrapper .body-area .BodyHeader {
+  border-bottom: 1px solid #e5e5e5;
+  height: 70px;
+  padding: 0rem 2rem;
+  justify-content: space-between;
+}
+.main-wrapper .body-area .BodyHeader .left-area {
+  width: 400px;
+}
+.main-wrapper .body-area .BodyHeader .left-area input {
+  flex: 1;
+  margin-left: 10px;
+  height: 35px;
+  border: none;
+  color: #9ca2c9;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+}
+.main-wrapper .body-area .BodyHeader .right-area > * + * {
+  margin-left: 1.7rem;
+}
+.main-wrapper .body-area .BodyHeader .right-area .profile-name-area > * + * {
+  margin-left: 15px;
+}
+.main-wrapper .body-area .BodyHeader .right-area .profile-name-area p {
+  font-size: 15px;
+  color: #282d4a;
+}
+
+.main-wrapper .body-area .BodyHeader .right-area .icon-wrapper {
+  cursor: pointer;
+  display: flex;
+}

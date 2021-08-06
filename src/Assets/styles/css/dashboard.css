@@ -1,0 +1,229 @@
+.body-main-area {
+  padding: 2rem;
+}
+.body-main-area > h2,
+.body-main-area .body-box > .right-side h2 {
+  font-size: 24px;
+
+  font-weight: 700;
+  color: #282d4a;
+}
+
+/* settings css */
+.body-main-area .body-box {
+  margin-top: 2rem;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  box-shadow: 0px 11px 100px 0px #0000000d;
+}
+.body-main-area .body-box > .left-side,
+.body-main-area .body-box > .right-side {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  border-right: 1px solid #ddd;
+}
+.body-main-area .body-box > .left-side > * + * {
+  margin-top: 3rem;
+}
+/* .body-main-area .body-box .left-side ul {
+  background-color: red;
+} */
+.body-main-area .body-box .left-side ul > * {
+  display: block;
+}
+.body-main-area .body-box .left-side ul > * + * {
+  margin-top: 1rem;
+}
+.body-main-area .body-box .left-side ul li.heading {
+  font-size: 12px;
+  color: #9ca2c9;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.body-main-area .body-box .left-side ul a {
+  color: #282d4a;
+  position: relative;
+  font-size: 15px;
+  padding: 0.3rem 0rem;
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  cursor: pointer;
+}
+.body-main-area .body-box .left-side ul li.active a {
+  color: #2d96d6;
+}
+
+.body-main-area .body-box .left-side ul li.active a::after {
+  position: absolute;
+  right: -1px;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  content: "";
+  background-color: #2d96d6;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+/* right area */
+.body-main-area .body-box > .right-side {
+  width: 70%;
+  border-right: none;
+}
+.body-main-area .body-box > .right-side h2 {
+  font-size: 20px !important ;
+}
+.body-main-area .body-box > .right-side ul {
+  margin-top: 2rem;
+}
+.body-main-area .body-box > .right-side ul .head {
+  width: 100%;
+  justify-content: space-between;
+  border-top: 1px solid #282d4a1a;
+  padding: 0rem 1rem;
+  border-bottom: 1px solid #282d4a1a;
+  height: 48px;
+  cursor: pointer;
+}
+.body-main-area .body-box > .right-side ul .head > * {
+  pointer-events: none;
+}
+
+.body-main-area .body-box > .right-side ul .head p {
+  font-size: 15px;
+  color: #282d4a;
+
+  font-weight: 500;
+
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+.body-main-area .body-box > .right-side ul .body {
+  display: none;
+}
+.body-main-area .body-box > .right-side ul li.active .head {
+  background: #f2f3f8;
+}
+.body-main-area .body-box > .right-side ul li.active .head svg {
+  transform: rotate(180deg);
+}
+.body-main-area .body-box > .right-side ul li.active .body {
+  display: block;
+}
+
+.body-main-area .body-box > .right-side ul li .body {
+  padding: 1rem;
+}
+.body-main-area .body-box > .right-side ul li .body .wrapper {
+  margin-bottom: 1.5rem;
+}
+.body-main-area .body-box > .right-side ul li .body .wrapper > h5 {
+  font-size: 12px;
+  color: #9ca2c9;
+
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+.body-main-area
+  .body-box
+  > .right-side
+  ul
+  li
+  .body
+  .wrapper
+  .selection-wrapper {
+  margin-bottom: 1rem;
+}
+.body-main-area .body-box .right-side ul li .body .wrapper .left-side input {
+  display: none !important;
+}
+
+.body-main-area .body-box .right-side ul li .body .wrapper .left-side p {
+  font-size: 15px;
+  width: 100px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+.body-main-area .body-box .right-side ul li .body .wrapper .left-side label {
+  height: 12px;
+  width: 24px;
+  background: #dee0ed;
+  position: relative;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+.body-main-area
+  .body-box
+  .right-side
+  ul
+  li
+  .body
+  .wrapper
+  .left-side
+  label
+  .ball {
+  height: 11px;
+  width: 11px;
+  border-radius: 8px;
+  background-color: #fff;
+  display: block;
+  position: absolute;
+  left: 3%;
+  top: 50%;
+  transition: 0.3s ease all;
+  transform: translateY(-50%);
+}
+.body-main-area
+  .body-box
+  .right-side
+  ul
+  li
+  .body
+  .wrapper
+  .left-side
+  input:checked
+  + label
+  .ball {
+  left: 45%;
+}
+.body-main-area
+  .body-box
+  .right-side
+  ul
+  li
+  .body
+  .wrapper
+  .left-side
+  input:checked
+  + label {
+  background: #2d96d6;
+}
+.body-main-area .body-box .right-side ul li .body .wrapper .right-side {
+  margin-left: 1rem;
+  flex: 1;
+}
+.body-main-area .body-box .right-side ul li .body .wrapper .right-side input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #d7dae9;
+  border-radius: 4px;
+  outline: none;
+  padding: 0rem 1rem;
+  font-family: "DM Sans", sans-serif;
+}
+.body-main-area .body-box .right-side ul li .body .sm-btn {
+  background-color: #2d96d6;
+  color: #fff;
+  margin-top: 0.7rem;
+  padding: 0rem 1rem;
+}
