@@ -227,3 +227,294 @@
   margin-top: 0.7rem;
   padding: 0rem 1rem;
 }
+
+/* contact area */
+.Contact .body-area .body-main-area .body-box .left-side {
+  padding: 2rem;
+  min-width: 300px;
+}
+.Contact .body-area .body-main-area .body-box .left-side .top-area {
+  justify-content: space-between;
+}
+.Contact .body-area .body-main-area .body-box .left-side .top-area img {
+  cursor: pointer;
+}
+.Contact .body-area .body-main-area .body-box .left-side .top-area h3,
+.Contact .body-area .body-main-area .body-box .top-area h3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: #282d4a;
+}
+.Contact .body-area .body-main-area .body-box .left-side ul > * {
+  display: flex;
+}
+.Contact .body-area .body-main-area .body-box .left-side ul > * + * {
+  margin-top: 1.6rem;
+}
+.Contact .body-area .body-main-area .body-box .left-side ul > li .icon-wrapper {
+  background: #2d96d61f;
+  height: 27px;
+  width: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.Contact .body-area .body-main-area .body-box .left-side ul > li.active > p {
+  color: #282d4a;
+}
+.Contact .body-area .body-main-area .body-box .left-side ul > li > p {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-left: 1rem;
+  color: #9ca2c9;
+  flex: 1;
+
+  cursor: pointer;
+}
+
+/* right-area */
+.Contact .body-area .body-main-area .body-box .right-area {
+  padding: 2rem;
+  overflow: hidden;
+}
+.Contact .body-area .body-main-area .body-box .top-area h3 {
+  flex: 1;
+}
+.Contact .body-area .body-main-area .body-box .top-area .export-area {
+  margin-right: 2rem;
+}
+.Contact .body-area .body-main-area .body-box .top-area .export-area > * + *,
+.EmailTickets
+  .body-area
+  .body-main-area
+  .body-box
+  .top-area
+  .export-area
+  > *
+  + * {
+  margin-left: 10px;
+}
+.Contact .body-area .body-main-area .body-box .top-area .export-area > p,
+.EmailTickets .body-area .body-main-area .body-box .top-area .export-area > p {
+  font-size: 15px;
+
+  font-weight: 400;
+}
+.Contact
+  .body-area
+  .body-main-area
+  .body-box
+  .top-area
+  .slider-area
+  .slider-images {
+  margin-left: 1.5rem;
+}
+.Contact
+  .body-area
+  .body-main-area
+  .body-box
+  .top-area
+  .slider-area
+  .slider-images
+  > *,
+.EmailTickets .top-area .right-area > .slider-area .slider-images > * {
+  cursor: pointer;
+}
+.Contact
+  .body-area
+  .body-main-area
+  .body-box
+  .top-area
+  .slider-area
+  .slider-images
+  > *
+  + *,
+.EmailTickets .top-area .right-area > .slider-area .slider-images > * + * {
+  margin-left: 0.5rem;
+}
+
+/* table area */
+.Contact .body-area .body-main-area .table-wrapper {
+  overflow: auto;
+}
+.Contact .body-area .body-main-area .table {
+  margin-top: 1rem;
+  width: 100%;
+  /* min-width: 100px; */
+}
+.Contact .body-area .body-main-area .table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.Contact .body-area .body-main-area .table-head,
+.Contact .body-area .body-main-area .table-body .row {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0rem;
+  border-bottom: 1px solid #282d4a1a;
+}
+.Contact .body-area .body-main-area .table .col1 {
+  min-width: 50px;
+}
+.Contact .body-area .body-main-area .table .col2,
+.Contact .body-area .body-main-area .table .col3 {
+  flex: 1;
+  min-width: 140px;
+}
+.Contact .body-area .body-main-area .table .col2 p {
+  margin-left: 10px;
+
+  font-size: 15px;
+
+  font-weight: 500;
+  color: #282d4a;
+
+  letter-spacing: -0.01em;
+}
+.Contact .body-area .body-main-area .table .col3 p,
+.Contact .body-area .body-main-area .table .col5 p {
+  font-size: 15px;
+
+  font-weight: 400;
+  color: #282d4a;
+  letter-spacing: -0.01em;
+}
+.Contact .body-area .body-main-area .table .col4 {
+  flex: 1;
+  min-width: 150px;
+}
+.Contact .body-area .body-main-area .table .col4 select {
+  border: 1px solid #0000001a;
+  height: 36px;
+  padding: 0rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.Contact .body-area .body-main-area .table .col5 {
+  min-width: 130px;
+}
+.Contact .body-area .body-main-area .table .col6 {
+  min-width: 90px;
+}
+.Contact .body-area .body-main-area .table .col7 {
+  min-width: 120px;
+}
+.Contact .body-area .body-main-area .table .col7 img {
+  cursor: pointer;
+}
+.Contact .body-area .body-main-area .table .col7 img + img {
+  margin-left: 10px;
+}
+.Contact .body-area .body-main-area .table-head h5 {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #a0a4bf;
+}
+
+/* email tickets */
+.EmailTickets .body-main-area .body-box {
+  display: block;
+}
+.EmailTickets .body-main-area .body-box input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.EmailTickets .top-area {
+  border-bottom: 1px solid #0000001a;
+}
+.EmailTickets .top-area,
+.EmailTickets .table-body-area {
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.EmailTickets .top-area .checkbox-wrapper,
+.EmailTickets .table-body-area .checkbox-wrapper {
+  min-width: 50px;
+}
+.EmailTickets .top-area .drop-down-wrapper > p {
+  color: #9ca2c9;
+  margin-right: 10px;
+}
+.EmailTickets .top-area .drop-down-wrapper .drop-down {
+  cursor: pointer;
+  margin-right: 2rem;
+}
+.EmailTickets .top-area .drop-down-wrapper .drop-down > p {
+  color: #282d4a;
+  margin-right: 10px;
+}
+.EmailTickets .top-area .drop-down-wrapper > p,
+.EmailTickets .top-area .drop-down-wrapper .drop-down > p {
+  font-size: 15px;
+  font-weight: 400;
+}
+.EmailTickets .top-area .right-area > .slider-area {
+  margin-left: 2rem;
+}
+.EmailTickets .top-area .right-area > .slider-area p {
+  margin-right: 1.5rem;
+}
+
+/* table body area */
+.EmailTickets .table-body-area {
+  overflow: auto;
+  flex-direction: column;
+  padding: 0rem;
+}
+.EmailTickets .table-body-area .row {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.EmailTickets .table-body-area .row:hover {
+  background-color: #f2f3f8;
+}
+.EmailTickets .table-body-area .profile-area {
+  flex: 1;
+
+  min-width: 400px;
+}
+.EmailTickets .table-body-area .profile-area img {
+  margin-right: 20px;
+}
+
+.EmailTickets .table-body-area .profile-area .presentation h4 {
+  font-size: 18px;
+  color: #282d4a;
+
+  font-weight: 500;
+}
+.EmailTickets .table-body-area .profile-area .presentation p {
+  color: #9ca2c9;
+
+  font-size: 15px;
+  margin-top: 2px;
+  font-weight: 400;
+}
+.EmailTickets .table-body-area .right-side > * + * {
+  margin-left: 1.5rem;
+}
+.EmailTickets .table-body-area .right-side .icon-wrapper p {
+  font-size: 15px;
+  margin-left: 10px;
+  font-weight: 400;
+  color: #282d4a;
+}
+.EmailTickets .table-body-area .right-side .open-btn {
+  background: #e3f4f0;
+  color: #16a085;
+  border-radius: 4px;
+  height: 36px;
+  font-size: 12px;
+  font-weight: 500;
+  width: 88px;
+  border: none;
+  outline: none;
+}

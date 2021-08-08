@@ -17,7 +17,7 @@ function Settings() {
     },[])
     return (
         <div className="Settings main-wrapper d-flex">
-            <Sidebar/>
+            <Sidebar active="settings"/>
             <div className="body-area">
                 {/* header */}
                 <BodyHeader/>
