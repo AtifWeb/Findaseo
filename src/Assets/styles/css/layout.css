@@ -119,13 +119,20 @@
   margin-left: 10px;
   height: 35px;
   border: none;
-  color: #9ca2c9;
+  background-color: transparent;
+
   font-weight: 400;
   font-family: "Poppins", sans-serif;
   outline: none;
 }
+.main-wrapper .body-area .BodyHeader .left-area input::placeholder {
+  color: #9ca2c9;
+}
 .main-wrapper .body-area .BodyHeader .right-area > * + * {
   margin-left: 1.7rem;
+}
+.main-wrapper .body-area .BodyHeader .right-area .sm-btn {
+  background-color: transparent;
 }
 .main-wrapper .body-area .BodyHeader .right-area .profile-name-area > * + * {
   margin-left: 15px;

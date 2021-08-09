@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Settings from "./pages/Settings";
 import Contact from "./pages/Contact";
 import EmailTickets from "./pages/EmailTickets";
+import Operators from "./pages/Operators";
+import LiveChat from "./pages/LiveChat";
 
 function App() {
   return (
@@ -18,6 +20,12 @@ function App() {
           </Route>
           <Route path="/dashhboard/EmailTickets" exact>
           <EmailTickets />
+          </Route>
+          <Route path="/dashboard/operators" exact>
+          <Operators />
+          </Route>
+          <Route path="/dashboard/LiveChat" exact>
+          <LiveChat />
           </Route>
          
         </Switch>
