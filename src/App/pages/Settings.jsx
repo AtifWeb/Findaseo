@@ -162,7 +162,7 @@ function Settings() {
                                                 <p>Email</p>
                                             </div>
                                             <div className="right-side">
-                                                <input type="text"  placeholder="Enter your name..."/>
+                                                <input type="text"  placeholder="Enter your email..."/>
                                             </div>
                                             </div>
 
@@ -176,7 +176,7 @@ function Settings() {
 Number</p>
                                             </div>
                                             <div className="right-side">
-                                                <input type="text"  placeholder="Enter your name..."/>
+                                                <input type="text"  placeholder="Enter your phone number..."/>
                                             </div>
                                             </div>
                                         </div>

@@ -25,7 +25,8 @@
 .body-main-area .body-box {
   margin-top: 2rem;
   width: 100%;
-
+  background: #fff !important;
+  border-radius: 7px;
   display: grid;
   grid-template-columns: 0.3fr 1fr;
   box-shadow: 0px 11px 100px 0px #0000000d;
@@ -429,6 +430,54 @@
 }
 
 /* email tickets */
+.EmailTickets .navigation-bar {
+  background: #fff;
+  border-radius: 7px;
+  padding: 0rem 2rem;
+  margin-top: 20px;
+}
+.EmailTickets .navigation-bar li {
+  height: 69px;
+  justify-content: center;
+  color: #9ca2c9;
+  position: relative;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.EmailTickets .navigation-bar li.active {
+  color: #282d4a;
+}
+.EmailTickets .navigation-bar li.active::after {
+  width: 100%;
+  height: 3px;
+  background: #2d96d6;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.EmailTickets .navigation-bar li.active span {
+  background: #e74c3c;
+}
+.EmailTickets .navigation-bar li span {
+  height: 18px;
+  width: 18px;
+  background: #9ca2c9;
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  margin-left: 10px;
+}
+.EmailTickets .navigation-bar li + li {
+  margin-left: 3rem;
+}
 .EmailTickets .body-main-area .body-box {
   display: block;
 }
@@ -440,6 +489,7 @@
 .EmailTickets .top-area {
   border-bottom: 1px solid #0000001a;
 }
+
 .EmailTickets .top-area,
 .EmailTickets .table-body-area {
   padding: 1.2rem 1.5rem;
@@ -532,6 +582,26 @@
 }
 
 /* Operators */
+.Operators .right-area .top-area > h3 {
+  flex: none !important;
+}
+.Operators .right-area .top-area > button {
+  background: #2d96d6;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 4px;
+  height: 36px;
+  font-size: 12px;
+  font-weight: 500;
+  width: 143px;
+  border: none;
+  margin-left: 20px;
+  outline: none;
+}
+.Operators .right-area .top-area .slider-area {
+  flex: 1 !important;
+  justify-content: flex-end;
+}
 .Operators .body-area .body-main-area .table .col4 {
   flex: none;
   min-width: 130px;

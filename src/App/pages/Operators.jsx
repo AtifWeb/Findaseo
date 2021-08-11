@@ -57,7 +57,7 @@ function Operators() {
                     <div className="right-area">
                         <div className="top-area d-flex-align-center">
                             <h3>Operators</h3>
-                         
+                            <button>Add New Operator</button>
 
                             <div className="slider-area  d-flex-align-center">
                                 <p>

@@ -46,6 +46,29 @@ function EmailTickets() {
 
                 <div className="body-main-area">
                 <h2>Email Tickets</h2>
+
+                <ul className="navigation-bar d-flex-align-center">
+                    <li className="active d-flex-align-center">
+                    <p>All Tickets</p>
+                    <span>3</span>
+                    </li>
+                    <li className="d-flex-align-center">
+                    <p>Open</p>
+                    <span>1</span>
+                    </li>
+                    <li className="d-flex-align-center">
+                    <p>Due Today</p>
+                    <span>3</span>
+                    </li>
+                    <li className="d-flex-align-center">
+                    <p>On Hold</p>
+                    <span>0</span>
+                    </li>
+                    <li className="d-flex-align-center">
+                    <p>Unassigned</p>
+                    <span>0</span>
+                    </li>
+                </ul>
                     <div className="body-box">
                         <div className="top-area d-flex-align-center">
                            <div className="left-side d-flex-align-center">
