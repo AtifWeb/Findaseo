@@ -6,6 +6,7 @@ import Contact from "./pages/Contact";
 import EmailTickets from "./pages/EmailTickets";
 import Operators from "./pages/Operators";
 import LiveChat from "./pages/LiveChat";
+import LiveVisitors from "./pages/LiveVisitors";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/dashboard/LiveChat" exact>
           <LiveChat />
+          </Route>
+          <Route path="/dashboard/LiveVisitors" exact>
+          <LiveVisitors />
           </Route>
          
         </Switch>
