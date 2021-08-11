@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/dashhboard/settings" exact>
+          <Route path="/dashboard/settings" exact>
           <Settings/>
           </Route>
           <Route path="/dashhboard/contact" exact>
