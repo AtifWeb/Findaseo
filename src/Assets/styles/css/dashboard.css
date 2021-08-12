@@ -1046,26 +1046,26 @@
 
 /* live visitors area */
 .grid-box-area {
+  grid-template-rows: 390px 390px;
   grid-gap: 2rem;
+  margin-top: 2rem;
 }
-.grid-box-area > .top-area {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  box-shadow: 0px 11px 100px 0px #0000000d;
-  border-radius: 7px;
-  background-color: #fff;
-  margin-top: 1rem;
+.grid-box-area .visitors-in-site .table {
+  height: 700px;
+  overflow: auto;
 }
-.grid-box-area .top-area .map-area {
-  grid-column: span 2;
+.grid-box-area .visitors-in-site .table::-webkit-scrollbar {
+  width: 3px;
 }
-.grid-box-area .top-area .traffic-channels {
-  border-left: 1px solid #ddd;
+.grid-box-area .visitors-in-site .table::-webkit-scrollbar-thumb {
+  background: #ddd;
+}
+.grid-box-area .traffic-channels {
+  padding-bottom: 1rem;
 }
 
-.grid-box-area .top-area .traffic-channels h4,
-.grid-box-area .top-area .map-area h4,
+.grid-box-area .traffic-channels h4,
+.grid-box-area .map-area h4,
 .grid-box-area .visitors-in-site h4,
 .chart-warpper h4 {
   padding: 1.5rem;
@@ -1075,13 +1075,13 @@
   font-style: normal;
   font-weight: 700;
 }
-.grid-box-area .top-area .traffic-channels .table-head,
-.grid-box-area .top-area .traffic-channels .table-body {
+.grid-box-area .traffic-channels .table-head,
+.grid-box-area .traffic-channels .table-body {
   padding: 1rem 1.5rem;
 
   border-bottom: 1px solid #282d4a1a;
 }
-.grid-box-area .top-area .traffic-channels .table-head > *:not(:first-child),
+.grid-box-area .traffic-channels .table-head > *:not(:first-child),
 .grid-box-area
   .top-area
   .traffic-channels
@@ -1090,39 +1090,46 @@
   > *:not(:first-child) {
   text-align: center;
 }
-.grid-box-area .top-area .traffic-channels .table-body {
+.grid-box-area .traffic-channels .table-body {
   border-bottom: none;
   height: 265px;
+
   overflow: auto;
 }
-.grid-box-area .top-area .traffic-channels .table-body::-webkit-scrollbar {
+.grid-box-area .traffic-channels .table-body::-webkit-scrollbar {
   width: 3px;
 }
-.grid-box-area
-  .top-area
-  .traffic-channels
-  .table-body::-webkit-scrollbar-thumb {
+.grid-box-area .traffic-channels .table-body::-webkit-scrollbar-thumb {
   background-color: #ddd;
 }
-.grid-box-area .top-area .traffic-channels .table-head li {
+.grid-box-area .traffic-channels .table-head li {
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 500;
 
   color: #9ca2c9;
 }
-.grid-box-area .top-area .traffic-channels .table-body li {
+.grid-box-area .traffic-channels .table-body li {
   font-size: 15px;
   font-weight: 400;
   color: #282d4a;
 }
-.grid-box-area .top-area .traffic-channels .table-body ul + ul {
+.grid-box-area .traffic-channels .table-body ul + ul {
   margin-top: 1rem;
 }
-
+.grid-box-area .map-area,
+.grid-box-area .traffic-channels {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0px 11px 100px 0px #0000000d;
+}
+.grid-box-area .map-area .map {
+  padding: 1rem;
+}
 .grid-box-area .visitors-in-site {
   background-color: #fff;
   grid-column: span 2;
+  grid-row: span 2;
   padding: 1.5rem;
   box-shadow: 0px 11px 100px 0px #0000000d;
   border-radius: 7px;
@@ -1216,7 +1223,12 @@
 .grid-box-area .visitors-in-site .table-body .row li:nth-child(2) .tag.yellow {
   background: #dc8c0e;
 }
-
+.grid-box-area .visitors-in-site .table-body .row li:nth-child(2) .tag.purple {
+  background: #7822e6;
+}
+.grid-box-area .visitors-in-site .table-body .row li:nth-child(2) .tag.green {
+  background: #16a085;
+}
 .grid-box-area
   .visitors-in-site
   .table-body

@@ -1,12 +1,12 @@
-import "../App.css";
-import '../Assets/styles/css/dashboard.css'
+import "./App.css";
+import './Assets/styles/css/dashboard.css'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Settings from "./pages/Settings";
-import Contact from "./pages/Contact";
-import EmailTickets from "./pages/EmailTickets";
-import Operators from "./pages/Operators";
-import LiveChat from "./pages/LiveChat";
-import LiveVisitors from "./pages/LiveVisitors";
+import Settings from "./App/pages/Settings";
+import Contact from "./App/pages/Contact";
+import EmailTickets from "./App/pages/EmailTickets";
+import Operators from "./App/pages/Operators";
+import LiveChat from "./App/pages/LiveChat";
+import LiveVisitors from "./App/pages/LiveVisitors";
 
 function App() {
   return (

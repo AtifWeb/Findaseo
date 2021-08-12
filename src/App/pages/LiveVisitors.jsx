@@ -82,153 +82,9 @@ function LiveVisitors() {
                 <div className="body-main-area">
                 <h2>Live Visitors</h2>
                 <div className="grid-box-area grid-col-3">
-                    <div className="top-area">
-                        <div className="map-area">
-                        <h4>Traffic Channels</h4>
-                        <div style={{height: 300}} className="map">
-                        <VectorMap map={'world_mill'}
-                       backgroundColor="#fff"
-                       zoomOnScroll={false}
-                       regionStyle={{
-                        initial: {
-                          fill: "#dfe1f7"
-                        },
-                        hover: {
-                          fill: "#7822e6"
-                        },
-                        selected: {
-                            fill: "#7822e6"
-                          },
-                      }}
-                      series={{
-                        regions: [
-                          {
-                            values: mapData, //this is your data
-                            scale: ["#7822e6"], //your color game's here
-                            normalizeFunction: "polynomial"
-                          }
-                        ]
-                      }}
-                      regionsSelectable={true}
-                       containerStyle={{
-                           width: '100%',
-                           height: '100%'
-                       }}
-                       containerClassName="map"
-            />
-        </div>
-                        </div>
-                        <div className="traffic-channels">
-                            <h4>Traffic Channels</h4>
-                            <div className="table">
-                                <ul className="table-head grid-col-3">
-                                    <li>
-                                    STATES
-                                    </li>
-                                    <li>
-                                    Orders
-                                    </li>
-                                    <li>
-                                    Sales
-                                    </li>
-                                </ul>
-                                <ul className="table-body">
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        United States
-                                        </li>
-                                        <li>
-                                        23,890
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        Germany
-                                        </li>
-                                        <li>
-                                        16,890
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        Japan
-                                        </li>
-                                        <li>
-                                        12,900
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        Portugal
-                                        </li>
-                                        <li>
-                                        9,800
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        Rusia
-                                        </li>
-                                        <li>
-                                        11,890
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        France
-                                        </li>
-                                        <li>
-                                        8,099
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                    <ul className="row grid-col-3">
-                                        <li>
-                                        Spain
-                                        </li>
-                                        <li>
-                                        23,890
-                                        </li>
-                                        <li>
-                                        $3,900
-                                        </li>
-                                    </ul>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    
 
-
-                    {/* chart area */}
-
-                    <div className="chart-warpper">
-<h4>Visitors Statistic</h4>
-<div className="chart-container">
-<p>2,378 <span>Visitors</span></p>
-<Doughnut data={data} options={options} />
-</div>
-                    </div>
-
-
-
-                    <div className="visitors-in-site ">
+                <div className="visitors-in-site ">
                      <div className="top-area d-flex-align-center">
                      <h4>Visitors on yours site at the moment</h4>
                         <div className="slider-area  d-flex-align-center">
@@ -355,9 +211,220 @@ function LiveVisitors() {
                     <button>Start Chat</button>
                     </li> 
                              </div>
+
+                             
+                             <div className="row">
+                             <li>
+                    4.
+                    </li>
+                    <li>
+                    <div className="tag purple">
+                    D
+                    </div>
+                    <div className="presentation">
+                        <h5>#e897dhj</h5>
+                        <p>New</p>
+                    </div>
+                    </li>
+                    <li>
+                    2 days ago
+                    </li>
+                    <li>
+                    <a href="http://palevay.com">http://palevay.com</a>
+                    </li>
+                    <li >
+                    <div className="icons-wrapper">
+                    
+
+
+                            <img src={JapanFlag} alt="" />
+                            <img src={Chrome} alt="" />
+                    </div>
+
+                    <button>Start Chat</button>
+                    </li> 
+                             </div>
+
+
+                             
+                             <div className="row">
+                             <li>
+                    5.
+                    </li>
+                    <li>
+                    <div className="tag green">
+                    E
+                    </div>
+                    <div className="presentation">
+                        <h5>#e897dhj</h5>
+                        <p>New</p>
+                    </div>
+                    </li>
+                    <li>
+                    2 days ago
+                    </li>
+                    <li>
+                    <a href="http://palevay.com">http://palevay.com</a>
+                    </li>
+                    <li >
+                    <div className="icons-wrapper">
+                    
+
+
+                            <img src={JapanFlag} alt="" />
+                            <img src={Chrome} alt="" />
+                    </div>
+
+                    <button>Start Chat</button>
+                    </li> 
+                             </div>
                          </ul>
                      </div>
                     </div>
+
+
+                        <div className="traffic-channels">
+                            <h4>Traffic Channels</h4>
+                            <div className="table">
+                                <ul className="table-head grid-col-3">
+                                    <li>
+                                    STATES
+                                    </li>
+                                    <li>
+                                    Orders
+                                    </li>
+                                    <li>
+                                    Sales
+                                    </li>
+                                </ul>
+                                <ul className="table-body">
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        United States
+                                        </li>
+                                        <li>
+                                        23,890
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        Germany
+                                        </li>
+                                        <li>
+                                        16,890
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        Japan
+                                        </li>
+                                        <li>
+                                        12,900
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        Portugal
+                                        </li>
+                                        <li>
+                                        9,800
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        Rusia
+                                        </li>
+                                        <li>
+                                        11,890
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        France
+                                        </li>
+                                        <li>
+                                        8,099
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                    <ul className="row grid-col-3">
+                                        <li>
+                                        Spain
+                                        </li>
+                                        <li>
+                                        23,890
+                                        </li>
+                                        <li>
+                                        $3,900
+                                        </li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        
+                    
+                        <div className="map-area">
+                        <h4>Visitors Analytics</h4>
+                        <div style={{height: 300}} className="map">
+                        <VectorMap map={'world_mill'}
+                       backgroundColor="#fff"
+                       zoomOnScroll={false}
+                       regionStyle={{
+                        initial: {
+                          fill: "#dfe1f7"
+                        },
+                        hover: {
+                          fill: "#7822e6"
+                        },
+                        selected: {
+                            fill: "#7822e6"
+                          },
+                      }}
+                      series={{
+                        regions: [
+                          {
+                            values: mapData, //this is your data
+                            scale: ["#7822e6"], //your color game's here
+                            normalizeFunction: "polynomial"
+                          }
+                        ]
+                      }}
+                      regionsSelectable={true}
+                       containerStyle={{
+                           width: '100%',
+                           height: '100%'
+                       }}
+                       containerClassName="map"
+            />
+        </div>
+                        </div>
+
+                    
+
+
+                    {/* chart area */}
+
+                
+
                 </div>
                 </div>
             </div>
