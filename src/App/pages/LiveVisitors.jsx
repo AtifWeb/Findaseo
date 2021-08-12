@@ -278,7 +278,146 @@ function LiveVisitors() {
                     <button>Start Chat</button>
                     </li> 
                              </div>
+
+                                
+                             <div className="row">
+                             <li>
+                    6.
+                    </li>
+                    <li>
+                    <div className="tag">
+                    F
+                    </div>
+                    <div className="presentation">
+                        <h5>#e897dhj</h5>
+                        <p>New</p>
+                    </div>
+                    </li>
+                    <li>
+                    2 days ago
+                    </li>
+                    <li>
+                    <a href="http://palevay.com">http://palevay.com</a>
+                    </li>
+                    <li >
+                    <div className="icons-wrapper">
+                    
+
+
+                            <img src={JapanFlag} alt="" />
+                            <img src={Chrome} alt="" />
+                    </div>
+
+                    <button>Start Chat</button>
+                    </li> 
+                             </div>
+
+
+
+                             <div className="row ">
+                             <li>
+                    7.
+                    </li>
+                    <li>
+                    <div className="tag blue">
+                    H
+                    </div>
+                    <div className="presentation">
+                        <h5>#e897dhj</h5>
+                        <p>New</p>
+                    </div>
+                    </li>
+                    <li>
+                    2 days ago
+                    </li>
+                    <li>
+                    <a href="http://palevay.com">http://palevay.com</a>
+                    </li>
+                    <li >
+                    <div className="icons-wrapper">
+                    
+
+
+                            <img src={JapanFlag} alt="" />
+                            <img src={Chrome} alt="" />
+                    </div>
+
+                    <button>Start Chat</button>
+                    </li> 
+                             </div>
+
+
+
+                             <div className="row ">
+                             <li>
+                    8.
+                    </li>
+                    <li>
+                    <div className="tag blue">
+                    I
+                    </div>
+                    <div className="presentation">
+                        <h5>#e897dhj</h5>
+                        <p>New</p>
+                    </div>
+                    </li>
+                    <li>
+                    2 days ago
+                    </li>
+                    <li>
+                    <a href="http://palevay.com">http://palevay.com</a>
+                    </li>
+                    <li >
+                    <div className="icons-wrapper">
+                    
+
+
+                            <img src={JapanFlag} alt="" />
+                            <img src={Chrome} alt="" />
+                    </div>
+
+                    <button>Start Chat</button>
+                    </li> 
+                             </div>
+
+
+
+                             <div className="row ">
+                             <li>
+                    9.
+                    </li>
+                    <li>
+                    <div className="tag yellow">
+                    U
+                    </div>
+                    <div className="presentation">
+                        <h5>#e897dhj</h5>
+                        <p>New</p>
+                    </div>
+                    </li>
+                    <li>
+                    2 days ago
+                    </li>
+                    <li>
+                    <a href="http://palevay.com">http://palevay.com</a>
+                    </li>
+                    <li >
+                    <div className="icons-wrapper">
+                    
+
+
+                            <img src={JapanFlag} alt="" />
+                            <img src={Chrome} alt="" />
+                    </div>
+
+                    <button>Start Chat</button>
+                    </li> 
+                             </div>
+
+
                          </ul>
+
+
                      </div>
                     </div>
 
