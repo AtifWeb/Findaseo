@@ -9,6 +9,7 @@ import LiveChat from "./App/pages/LiveChat";
 import LiveVisitors from "./App/pages/LiveVisitors";
 import Home from "./App/pages/Home";
 import Analytics from "./App/pages/Analytics";
+import CalenderBooking from "./App/pages/CalenderBooking";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path="/dashhboard/Analytics" exact>
           <Analytics/>
+          </Route>
+          <Route path="/dashhboard/CalenderBooking" exact>
+          <CalenderBooking/>
           </Route>
           <Route path="/dashhboard/settings" exact>
           <Settings/>
