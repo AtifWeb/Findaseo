@@ -1,12 +1,206 @@
+/* dashboard */
+
+.top-banner-results {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0px 11px 100px 0px #0000000d;
+  padding: 2rem 2rem;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.top-banner-results .presentation {
+  margin-left: 1rem;
+}
+.top-banner-results .heading {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+
+  line-height: 20px;
+  letter-spacing: -0.01em;
+
+  color: #9ca2c9;
+}
+.top-banner-results .box:first-child p {
+  font-size: 20px;
+}
+.top-banner-results .box {
+  /* padding: 0rem 1rem; */
+}
+.top-banner-results .box:nth-child(3) {
+  /* border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd; */
+}
+.top-banner-results .presentation p {
+  font-size: 30px;
+}
+.top-banner-results .box:last-child .presentation {
+  border-right: none;
+}
+.top-banner-results .presentation p,
+.top-banner-results .box:first-child p {
+  color: #282d4a;
+
+  font-weight: 500;
+  line-height: 39px;
+  letter-spacing: -0.01em;
+}
+
+.Home .bottom-area {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+.Home .bottom-area > * {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 7px;
+  box-shadow: 0px 11px 100px 0px #0000000d;
+}
+.Home .bottom-area > * .dots {
+  cursor: pointer;
+}
+.Home .bottom-area .top {
+  justify-content: space-between;
+}
+.Home .bottom-area .top h3 {
+  font-size: 20px;
+
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+
+  color: #282d4a;
+}
+.Home .bottom-area .top select {
+  border: 1px solid #0000001a;
+  color: #9ca2c9;
+  height: 44px;
+  cursor: pointer;
+  padding: 0rem 1.5rem;
+  border-radius: 5px;
+  outline: none;
+  padding-left: 1rem;
+}
+.Home .bottom-area .top a {
+  color: #2d96d6;
+
+  font-size: 15px;
+
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+.Home .bottom-area > *:nth-child(1) {
+  grid-column: span 7;
+}
+.Home .bottom-area > *:nth-child(2),
+.Home .bottom-area > *:last-child {
+  grid-column: span 3;
+}
+.Home .bottom-area > *:nth-child(3) {
+  grid-column: span 3;
+}
+.Home .bottom-area > *:nth-child(4) {
+  grid-column: span 4;
+}
+.Home .todo-list .bottom,
+.Home .Customer-Lists .bottom {
+  margin-top: 1.5rem;
+}
+.Home .todo-list .bottom > * + *,
+.Home .Customer-Lists .bottom > * + * {
+  margin-top: 1rem;
+}
+.Home .todo-list .bottom > * p,
+.Home .Customer-Lists .bottom > * p {
+  flex: 1;
+  margin-left: 10px;
+
+  font-size: 15px;
+
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+.Home .Customer-Lists .bottom .presentation {
+  flex: 1;
+}
+.Home .Customer-Lists .bottom .presentation p:first-child {
+  font-size: 15px;
+
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+.Home .Customer-Lists .bottom .presentation p:last-child {
+  font-size: 15px;
+
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+
+  color: #9ca2c9;
+}
+
+.Home .Customer-Lists .bottom button {
+  background: #e3f4f0;
+  color: #16a085;
+  border-radius: 4px;
+  height: 36px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  width: 88px;
+  border: none;
+  outline: none;
+}
+
+.Home .chart-container {
+  height: 250px;
+  margin-top: 14px;
+  position: relative;
+}
+.Home .chart-container p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #282d4a;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.Home .chart-container p span {
+  display: block;
+
+  font-size: 13px;
+
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.Home .dognut-chart,
+.Home .visitor-vector-map {
+  display: flex;
+  flex-direction: column;
+}
+.Home .dognut-chart .top,
+.Home .visitor-vector-map .top {
+  flex: 0.8;
+  align-items: flex-start;
+}
+
 .body-main-area {
   padding: 2rem;
 }
-/* .map-area .map path {
-  fill: #dfe1f7;
-}
-.map-area .map path:hover {
-  fill: #7822e6;
-} */
 .jvectormap-zoomin,
 .jvectormap-zoomout {
   display: none;
@@ -575,6 +769,7 @@
   border-radius: 4px;
   height: 36px;
   font-size: 12px;
+  cursor: pointer;
   font-weight: 500;
   width: 88px;
   border: none;

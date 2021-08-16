@@ -7,6 +7,8 @@ import EmailTickets from "./App/pages/EmailTickets";
 import Operators from "./App/pages/Operators";
 import LiveChat from "./App/pages/LiveChat";
 import LiveVisitors from "./App/pages/LiveVisitors";
+import Home from "./App/pages/Home";
+import Analytics from "./App/pages/Analytics";
 
 function App() {
   return (
@@ -14,6 +16,12 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact>
+          <Home/>
+          </Route>
+          <Route path="/dashhboard/Analytics" exact>
+          <Analytics/>
+          </Route>
+          <Route path="/dashhboard/settings" exact>
           <Settings/>
           </Route>
           <Route path="/dashhboard/contact" exact>
