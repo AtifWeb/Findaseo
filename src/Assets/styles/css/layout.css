@@ -165,25 +165,29 @@
     left: 0;
   }
   .main-wrapper .body-area .BodyHeader .right-area {
-    position: fixed;
-    bottom: 0;
+    position: absolute;
+    top: 4rem;
     left: 0%;
+    flex-direction: row-reverse;
     z-index: 22;
     width: 100%;
-    background-color: #0f1957;
+    background-color: #fff;
     padding: 1rem 2rem;
   }
+  .main-wrapper .body-area .BodyHeader .right-area > * + * {
+    margin-left: 0px;
+  }
   .main-wrapper .body-area .BodyHeader .right-area .profile-name-area p {
-    color: #fff;
+    color: #000;
   }
   .main-wrapper .body-area .BodyHeader .right-area .sm-btn {
-    color: #fff;
-    border-color: #fff;
+    color: #9953b7;
+    border-color: #9953b7;
   }
   .main-wrapper .body-area .BodyHeader .right-area .icon-wrapper {
     flex: 1;
-
+    justify-content: flex-start;
+    margin-left: 1rem;
     display: flex;
-    justify-content: flex-end;
   }
 }
