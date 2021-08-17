@@ -109,6 +109,19 @@
   padding: 0rem 2rem;
   justify-content: space-between;
 }
+.bottom-header {
+  position: fixed;
+  bottom: 0;
+  display: none !important;
+  left: 0;
+  width: 100%;
+  background: #0f1957;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.bottom-header a {
+  display: block;
+}
 .main-wrapper .body-area .BodyHeader .left-area {
   width: 400px;
 }
@@ -163,6 +176,9 @@
   }
   .Sidebar.active {
     left: 0;
+  }
+  .bottom-header {
+    display: flex !important;
   }
   .main-wrapper .body-area .BodyHeader .right-area {
     position: absolute;
