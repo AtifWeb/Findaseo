@@ -115,6 +115,7 @@
   display: none !important;
   left: 0;
   width: 100%;
+  z-index: 22;
   background: #0f1957;
   justify-content: space-between;
   padding: 1rem 2rem;
