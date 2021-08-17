@@ -1097,7 +1097,7 @@
 
 /* middle-side */
 .messages-box-area .middle-side .contact-area {
-  height: 120px;
+  min-height: 120px;
   border-bottom: 1px solid #ddd;
   padding: 1rem 2rem;
   display: flex;
@@ -1657,4 +1657,245 @@
   box-shadow: 0px 11px 100px 0px #0000000d;
   border-radius: 7px;
   background-color: #fff;
+}
+@media screen and (max-width: 1400px) {
+  .visitor-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  /* analyticsc area */
+  .Home .bottom-area > * {
+    grid-column: span 10 !important;
+  }
+}
+@media screen and (max-width: 1050px) {
+  /* calender area */
+  .CalenderBooking .navigation-bar {
+    overflow: auto;
+  }
+  .CalenderBooking .navigation-bar > * {
+    min-width: 200px !important;
+  }
+  .bottom-calender-area.grid-col-4 > * {
+    grid-column: span 4;
+  }
+  #calender {
+    grid-column: span 4;
+  }
+  .fc-col-header,
+  .fc .fc-daygrid-body,
+  .fc .fc-scrollgrid-section-body table {
+    width: 100% !important;
+  }
+
+  .bottom-calender-area.grid-col-4 > *:first-child {
+    order: 2;
+  }
+  .bottom-calender-area.grid-col-4 > *:last-child {
+    order: 1;
+  }
+  /* settings area */
+
+  .body-main-area .body-box > .right-side {
+    width: 100%;
+    padding-right: 2rem;
+  }
+  /* analyticsc area */
+  .Home .bottom-area > * {
+    grid-column: span 10 !important;
+  }
+  .top-banner-results {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+  }
+  /* contacts area */
+  .body-main-area .body-box {
+    grid-template-columns: 1fr;
+  }
+  .body-main-area .body-box > .left-side,
+  .body-main-area .body-box > .right-side {
+    border-right: none;
+  }
+  .Contact .body-area .body-main-area .table .col2 {
+    min-width: 160px;
+  }
+  .Contact .body-area .body-main-area .body-box .right-area .top-area {
+    flex-direction: column !important;
+  }
+  .Contact .body-area .body-main-area .body-box .right-area .top-area h3 {
+    margin-bottom: 20px;
+  }
+  .Contact .body-area .body-main-area .body-box .right-area {
+    height: 100%;
+  }
+  .Contact .body-area .body-main-area .body-box .top-area .export-area {
+    display: none;
+  }
+  .main-wrapper .body-area {
+    height: 100% !important;
+    margin-bottom: 5rem;
+  }
+  .visitor-grid > * {
+    grid-column: span 2;
+  }
+  .visitors-in-site {
+    overflow: auto;
+  }
+  .visitors-in-site .table {
+    width: 1050px;
+    overflow: auto;
+  }
+
+  /* Operators */
+  .Operators .body-area .body-main-area .body-box .right-area .top-area {
+    flex-direction: row !important;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .LiveChat .messages-box-area > *:nth-child(odd) {
+    display: none;
+  }
+  .LiveChat .messages-box-area {
+    grid-template-columns: 1fr;
+  }
+  .messages-box-area
+    .middle-side
+    .messages-container-wrapper
+    .message-container {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .EmailTickets .navigation-bar {
+    overflow: auto;
+  }
+  .EmailTickets .navigation-bar > * {
+    min-width: 150px;
+  }
+
+  .EmailTickets .table-body-area .row {
+    min-width: 800px !important;
+  }
+  .EmailTickets .top-area {
+    overflow: auto;
+  }
+  .EmailTickets .top-area > * {
+    min-width: 500px;
+    justify-content: flex-end;
+  }
+}
+@media screen and (max-width: 650px) {
+  /* analyticsc area */
+
+  .top-banner-results {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-box-area .visitors-in-site .top-area {
+    width: 1050px;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  /* settings area */
+  .body-main-area
+    .body-box
+    > .right-side
+    ul
+    li
+    .body
+    .wrapper
+    .selection-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .body-main-area .body-box .right-side ul li .body .wrapper .left-side p {
+    width: 150px;
+  }
+  .body-main-area .body-box .right-side ul li .body .wrapper .right-side {
+    margin-top: 1rem;
+    width: 100%;
+    margin-left: 0rem;
+  }
+  /* Operators */
+  .Operators .body-area .body-main-area .body-box .right-area .top-area {
+    flex-direction: column !important;
+  }
+  .Operators
+    .body-area
+    .body-main-area
+    .body-box
+    .right-area
+    .top-area
+    > *
+    + *
+    + * {
+    margin-top: 1rem;
+  }
+  .Operators .right-area .top-area > button {
+    margin-left: 0px;
+  }
+}
+@media screen and (max-width: 450px) {
+  /* messages area */
+  .contact-images {
+    flex-wrap: wrap;
+  }
+  .messages-box-area .middle-side .contact-area .contact-images > * + * {
+    margin-left: 0rem;
+  }
+
+  .messages-box-area .middle-side .message-container .message {
+    max-width: 90%;
+  }
+  /* analyticsc area */
+  .top-banner-results .presentation p,
+  .top-banner-results .box:first-child p {
+    font-size: 24px;
+  }
+  .Home .Customer-Lists .bottom button {
+    min-width: 88px;
+  }
+  .Home .Customer-Lists .bottom .presentation p:last-child {
+    word-break: break-all;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main-wrapper .body-area .BodyHeader .right-area .profile-name-area p {
+    display: none;
+  }
+}
+@media screen and (max-width: 370px) {
+  /* analyticsc area */
+  .Home .bottom-area .top {
+    flex-direction: column;
+  }
+  .Home .bottom-area .top h3 {
+    margin-bottom: 10px;
+  }
+}
+@media screen and (max-width: 330px) {
+  /* calender area */
+  .fc-h-event .fc-event-title {
+    font-size: 12px;
+  }
+  .calender-days > div {
+    width: 25px;
+    height: 25px;
+  }
+  .body-main-area .body-box .right-side ul li .body .wrapper .left-side p {
+    width: 100%;
+  }
+  .body-main-area .body-box > .right-side ul li .body {
+    padding: 1rem 0rem;
+  }
+  .body-main-area .body-box > .right-side {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
 }

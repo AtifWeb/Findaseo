@@ -1,5 +1,7 @@
 import React from 'react'
 import Photo from '../../Assets/img/Photo.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 function BodyHeader() {
     return (
         <div className="BodyHeader d-flex-align-center">
@@ -32,6 +34,10 @@ function BodyHeader() {
 
                         </div>
                 </div>
+            </div>
+
+            <div className="burger-icon" onClick={e=>document.querySelector(".Sidebar").classList.toggle("active")}>
+            <FontAwesomeIcon icon={faBars} />
             </div>
         </div>
     )

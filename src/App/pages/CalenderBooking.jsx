@@ -23,8 +23,7 @@ function CalenderBooking() {
 
                 <div className="body-main-area">
                 <h2>Calendar Booking</h2>
-            <label htmlFor="calender-prev-button">calender-prev-button</label>
-            <label htmlFor="calender-next-button">calender-next-button</label>
+    
                 <ul className="navigation-bar d-flex-align-center">
                     <li className="active d-flex-align-center">
                     <p>Schduled Meetings</p>

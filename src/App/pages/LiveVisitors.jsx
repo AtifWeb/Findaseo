@@ -81,7 +81,7 @@ function LiveVisitors() {
                 <BodyHeader/>
                 <div className="body-main-area">
                 <h2>Live Visitors</h2>
-                <div className="grid-box-area grid-col-3">
+                <div className="grid-box-area visitor-grid grid-col-3">
                     
 
                 <div className="visitors-in-site ">
@@ -419,6 +419,7 @@ function LiveVisitors() {
 
 
                      </div>
+                     
                     </div>
 
 
