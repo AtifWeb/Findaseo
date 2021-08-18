@@ -42,7 +42,7 @@ function EmailTickets() {
               <Sidebar active="EmailTickets"/>
               <div className="body-area">
                 {/* header */}
-                <BodyHeader/>
+                <BodyHeader active="EmailTickets"/>
 
                 <div className="body-main-area">
                 <h2>Email Tickets</h2>

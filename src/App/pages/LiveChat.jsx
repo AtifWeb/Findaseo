@@ -14,7 +14,7 @@ function LiveChat() {
               <Sidebar active="LiveChat"/>
               <div className="body-area">
                 {/* header */}
-                <BodyHeader/>
+                <BodyHeader  active="LiveChat"/>
 
                 <div className="body-main-area">
                 <h2>Live Chats</h2>

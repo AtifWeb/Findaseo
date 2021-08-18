@@ -118,10 +118,18 @@
   z-index: 22;
   background: #0f1957;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 0rem 1rem;
 }
 .bottom-header a {
   display: block;
+}
+.bottom-header li {
+  padding: 1rem 1rem;
+  position: relative;
+}
+
+.bottom-header li.active svg path {
+  fill: #2d96d6;
 }
 .main-wrapper .body-area .BodyHeader .left-area {
   width: 400px;
@@ -168,7 +176,7 @@
     height: 100vh;
     transition: 0.5s ease all;
     overflow: auto;
-    width: 50%;
+    width: 30%;
     z-index: 222;
     padding-bottom: 8rem;
   }

@@ -19,7 +19,7 @@ function CalenderBooking() {
               <Sidebar active="calender"/>
               <div className="body-area">
                 {/* header */}
-                <BodyHeader/>
+                <BodyHeader active="calender"/>
 
                 <div className="body-main-area">
                 <h2>Calendar Booking</h2>

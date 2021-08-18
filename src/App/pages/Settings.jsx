@@ -20,7 +20,7 @@ function Settings() {
             <Sidebar active="settings"/>
             <div className="body-area">
                 {/* header */}
-                <BodyHeader/>
+                <BodyHeader active="settings"/>
 
                 <div className="body-main-area">
                     <h2>Settings</h2>

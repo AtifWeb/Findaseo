@@ -78,7 +78,7 @@ function LiveVisitors() {
               <Sidebar active="LiveVisitor"/>
               <div className="body-area">
                 {/* header */}
-                <BodyHeader/>
+                <BodyHeader active="LiveVisitor"/>
                 <div className="body-main-area">
                 <h2>Live Visitors</h2>
                 <div className="grid-box-area visitor-grid grid-col-3">
