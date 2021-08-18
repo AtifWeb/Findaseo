@@ -825,6 +825,7 @@
 .EmailTickets .navigation-bar li span {
   height: 18px;
   width: 18px;
+  min-width: 18px;
   background: #9ca2c9;
   color: #fff;
   font-size: 10px;
@@ -1706,6 +1707,12 @@
   .body-main-area .body-box {
     grid-template-columns: 1fr;
   }
+  .body-main-area .body-box > .left-side > * + * {
+    margin-top: 2rem;
+  }
+  .Contact .body-area .body-main-area .body-box .left-side ul > * + * {
+    margin-top: 10px;
+  }
   .body-main-area .body-box > .left-side,
   .body-main-area .body-box > .right-side {
     border-right: none;
@@ -1750,11 +1757,14 @@
   }
 }
 @media screen and (max-width: 1200px) {
-  .LiveChat .messages-box-area > *:nth-child(odd) {
+  .LiveChat .messages-box-area > *.right-side {
     display: none;
   }
   .LiveChat .messages-box-area {
     grid-template-columns: 1fr;
+  }
+  .messages-box-area .middle-side {
+    display: none;
   }
   .messages-box-area
     .middle-side
@@ -1773,6 +1783,12 @@
   .EmailTickets .navigation-bar {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  .EmailTickets .navigation-bar li {
+    height: 45px;
+  }
+  .CalenderBooking .navigation-bar .button-wrapper {
+    justify-content: center;
   }
   .EmailTickets .navigation-bar li + li {
     margin-left: 0rem;
@@ -1866,6 +1882,7 @@
 
   .top-banner-results {
     grid-template-columns: 1fr;
+    grid-gap: 1rem;
   }
 }
 @media screen and (max-width: 600px) {
@@ -1990,7 +2007,7 @@
 }
 @media screen and (max-width: 370px) {
   /* analyticsc area */
-  .Home .bottom-area .top {
+  .Home .bottom-area .chart-line-wrapper .top {
     flex-direction: column;
   }
   .Home .bottom-area .top h3 {
@@ -2001,6 +2018,9 @@
   }
 }
 @media screen and (max-width: 330px) {
+  .body-main-area {
+    padding: 2rem 1rem;
+  }
   /* calender area */
   .fc-h-event .fc-event-title {
     font-size: 12px;

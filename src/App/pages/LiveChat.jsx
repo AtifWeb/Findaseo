@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BodyHeader from '../component/BodyHeader'
 import Sidebar from '../component/Sidebar'
 import PlusIcon from '../../Assets/img/purple-plus.png'
@@ -8,6 +8,19 @@ import Person3 from '../../Assets/img/Frame 3.png'
 import PersonBig from '../../Assets/img/PersonBig.png'
 import time from '../../Assets/img/svg/time.svg'
 function LiveChat() {
+    useEffect(()=>{
+     if(window.innerWidth<1201){
+        let Users=document.querySelectorAll(".LiveChat .messages-box-area > .left-side .users");
+        let ChatArea=document.querySelector(".LiveChat .messages-box-area > .middle-side");
+        let LeftArea=document.querySelector(".LiveChat .messages-box-area > .left-side");
+        Users.forEach(EachUser=>{
+            EachUser.addEventListener("click",()=>{
+                LeftArea.style.display="none"
+                ChatArea.style.display="block"
+            })
+        })
+     }
+    },[])
     return (
         <div className="LiveChat main-wrapper d-flex">
               {/* sidebar */}
