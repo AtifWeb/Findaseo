@@ -262,7 +262,7 @@ function LiveVisitors() {
                          </ul>  
 
                          <ul className="table-body">
-                             <div className="row">
+                             <div className="row ">
                              <li>
                     1.
                     </li>
@@ -271,8 +271,15 @@ function LiveVisitors() {
                         A
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj   <div className="icons-wrapper ">
+                    
+
+                    <img src={GermanyFlag} alt="" />
+                    <img src={FireFox} alt="" />
+            </div>
+</h5>
                         <p>New</p>
+                       
                     </div>
                     </li>
                     <li>

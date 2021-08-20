@@ -127,8 +127,16 @@ function LiveVisitors() {
                         A
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+                    <img src={GermanyFlag} alt="" />
+                    <img src={FireFox} alt="" />
+            </div>
+            </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -158,8 +166,18 @@ function LiveVisitors() {
                         C
                     </div>
                     <div className="presentation">
-                        <h5>#f56hjk8</h5>
+                        <h5>#f56hjk8 <div className="icons-wrapper">
+                    
+
+                    <img src={GermanyFlag} alt="" />
+                    <img src={FireFox} alt="" />
+            </div>
+            
+            
+            
+            </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -189,8 +207,19 @@ function LiveVisitors() {
                     B
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -222,8 +251,18 @@ function LiveVisitors() {
                     D
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -256,8 +295,18 @@ function LiveVisitors() {
                     E
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -289,8 +338,18 @@ function LiveVisitors() {
                     F
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -323,8 +382,19 @@ function LiveVisitors() {
                     H
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -357,8 +427,18 @@ function LiveVisitors() {
                     I
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
@@ -391,8 +471,18 @@ function LiveVisitors() {
                     U
                     </div>
                     <div className="presentation">
-                        <h5>#e897dhj</h5>
+                        <h5>#e897dhj
+                        <div className="icons-wrapper">
+                    
+
+
+                    <img src={JapanFlag} alt="" />
+                    <img src={Chrome} alt="" />
+            </div>
+
+                        </h5>
                         <p>New</p>
+                        <a href="http://palevay.com">http://palevay.com</a>
                     </div>
                     </li>
                     <li>
