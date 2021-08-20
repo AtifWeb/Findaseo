@@ -1897,6 +1897,14 @@
   .Contact .body-area .body-main-area .table .col1 {
     display: none;
   }
+  .EmailTickets .top-area .right-area {
+    justify-content: space-between;
+    flex: 1;
+  }
+  .EmailTickets .top-area .left-side,
+  .EmailTickets .table-body-area .checkbox-wrapper {
+    display: none;
+  }
 }
 @media screen and (max-width: 430px) {
   .EmailTickets .top-area > *.right-area .export-area {
@@ -1907,11 +1915,18 @@
     margin-bottom: 10px;
   }
   .EmailTickets .table-body-area .profile-area {
-    flex-direction: column;
-    text-align: center;
+    /* flex-direction: column; */
+    /* text-align: center; */
+    align-items: flex-start;
+  }
+  .EmailTickets .table-body-area .profile-area > img {
+    margin-right: 20px;
   }
   .EmailTickets .top-area .right-area > .slider-area {
     margin-left: 0px;
+  }
+  .EmailTickets .top-area .right-area {
+    justify-content: center;
   }
 }
 @media screen and (max-width: 400px) {
