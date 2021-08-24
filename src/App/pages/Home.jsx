@@ -11,6 +11,7 @@ import Person3 from '../../Assets/img/Frame 3.png'
 import user from '../../Assets/img/user.png'
 import BlueLow from '../../Assets/img/blue-low.png'
 import ChatGreen from '../../Assets/img/chat-green.png'
+import OrangeCalender from '../../Assets/img/orangecalender.svg'
 import CalenderPurple from '../../Assets/img/calender-purple.png'
 import MessageBlue from '../../Assets/img/message-blue.png'
 import ArrowRight from '../../Assets/img/arrow-right.png'
@@ -104,8 +105,38 @@ function Home() {
                                 <a href="#"><img src={ArrowRight} alt="" /></a>
                             </li>
                             <li className="d-flex-align-center">
-                                <img src={GreenMessage} alt="" />
+                               <div className="icon-wrapper orange">
+                               <img src={OrangeCalender} alt="" />
+                               </div>
                                 <p>Configure Calendar Meeting</p>
+                                <a href="#"><img src={ArrowRight} alt="" /></a>
+                            </li>
+                            <li className="d-flex-align-center">
+                            <div className="icon-wrapper whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            </div>
+                                <p>Integrate WhatsApp</p>
+                                <a href="#"><img src={ArrowRight} alt="" /></a>
+                            </li>
+                            <li className="d-flex-align-center ">
+                            <div className="icon-wrapper messenger">
+                            <i class="fab fa-facebook-messenger"></i>
+                            </div>
+                                <p>Integrate Messenger</p>
+                                <a href="#"><img src={ArrowRight} alt="" /></a>
+                            </li>
+                            <li className="d-flex-align-center">
+                            <div className="icon-wrapper hours">
+                            <i class="fas fa-hourglass-start"></i>
+                            </div>
+                                <p>Set Operating Hours</p>
+                                <a href="#"><img src={ArrowRight} alt="" /></a>
+                            </li>
+                            <li className="d-flex-align-center">
+                            <div className="icon-wrapper contacts">
+                            <i class="far fa-address-book"></i>
+                            </div>
+                                <p>Import Contacts</p>
                                 <a href="#"><img src={ArrowRight} alt="" /></a>
                             </li>
                         </ul>

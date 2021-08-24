@@ -114,6 +114,44 @@
 .Home .Customer-Lists .bottom > * + * {
   margin-top: 1rem;
 }
+.Home .todo-list .bottom > * .icon-wrapper {
+  min-width: 41px;
+  height: 41px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.Home .todo-list .bottom > * .icon-wrapper > i {
+  font-size: 20px;
+}
+.Home .todo-list .bottom > * .icon-wrapper.messenger > i {
+  font-size: 18px;
+}
+.Home .todo-list .bottom > * .icon-wrapper.contacts > i {
+  font-size: 18px;
+}
+.Home .todo-list .bottom > * .icon-wrapper.hours i {
+  font-size: 17px;
+}
+.Home .todo-list .bottom > * .icon-wrapper.orange {
+  background: #e67e22;
+}
+.Home .todo-list .bottom > * .icon-wrapper.whatsapp {
+  background: #0dc143;
+}
+
+.Home .todo-list .bottom > * .icon-wrapper.messenger {
+  background: #00b7f7;
+}
+.Home .todo-list .bottom > * .icon-wrapper.contacts {
+  background: #f7b90f;
+}
+.Home .todo-list .bottom > * .icon-wrapper.hours {
+  background: #a8165e;
+}
 .Home .todo-list .bottom > * p,
 .Home .Customer-Lists .bottom > * p {
   flex: 1;
@@ -1915,8 +1953,6 @@
     margin-bottom: 10px;
   }
   .EmailTickets .table-body-area .profile-area {
-    /* flex-direction: column; */
-    /* text-align: center; */
     align-items: flex-start;
   }
   .EmailTickets .table-body-area .profile-area > img {
