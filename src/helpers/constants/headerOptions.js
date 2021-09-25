@@ -1,7 +1,7 @@
 export const HeaderOptions = [
   {
     name: "home",
-    url: "/home",
+    url: "/",
     type: null,
   },
   {

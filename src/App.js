@@ -19,12 +19,13 @@ import { Features } from "./App/pages/FrontPages/Plus/Features/Features";
 import { Careers } from "./App/pages/FrontPages/Plus/Careers/Careers";
 import { PrivacyPolicy } from "./App/pages/FrontPages/Plus/Privacy Policy/PrivacyPolicy";
 import { Login } from "./App/pages/FrontPages/Plus/Auth/Login/Login";
+import { Register } from "./App/pages/FrontPages/Plus/Auth/Register/Register";
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" exact>
+          {/* <Route path="/" exact>
             <Home />
           </Route>
           <Route path="/dashhboard/Analytics" exact>
@@ -50,11 +51,11 @@ function App() {
           </Route>
           <Route path="/dashboard/LiveVisitors" exact>
             <LiveVisitors />
-          </Route>
+          </Route> */}
 
           {/* front page routing */}
 
-          <Route path="/home" exact>
+          <Route path="/" exact>
             <HomePage />
           </Route>
 
@@ -74,6 +75,9 @@ function App() {
           {/* Auth */}
           <Route path="/plus/auth/login" exact>
             <Login />
+          </Route>
+          <Route path="/plus/auth/register" exact>
+            <Register />
           </Route>
         </Switch>
       </Router>
