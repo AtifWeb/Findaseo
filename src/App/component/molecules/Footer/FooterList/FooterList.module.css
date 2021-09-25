@@ -1,0 +1,47 @@
+.FooterList > * + * {
+  margin-top: 1rem;
+}
+.specialtext {
+  margin-bottom: 1.8rem;
+  font-weight: 600;
+  font-size: 25px;
+}
+.normalText {
+  font-weight: 400;
+  line-height: 1.6rem;
+  color: rgba(255, 255, 255, 0.712);
+}
+
+.form {
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+.input {
+  width: 100%;
+  flex: 1;
+  margin-right: 5px;
+  padding-left: 1rem;
+  background: none;
+  outline: none;
+
+  border: 1px solid #fff;
+  border-radius: 5px;
+  height: 100%;
+}
+.input::placeholder {
+  color: #fff;
+}
+
+.button {
+  width: 100px;
+  height: 100%;
+  background: #f3f3f7;
+  color: #0f1958;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 5px;
+}

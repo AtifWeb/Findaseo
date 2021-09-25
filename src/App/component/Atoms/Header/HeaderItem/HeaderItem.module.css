@@ -1,0 +1,22 @@
+.HeaderItem {
+  color: #333;
+  transition: 0.3s ease all;
+  font-size: 16px;
+  text-transform: capitalize;
+  position: relative;
+}
+.active {
+  color: red;
+}
+.HeaderItem:hover::after {
+  position: absolute;
+
+  content: "";
+  color: #13225f !important;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: #13225f;
+}

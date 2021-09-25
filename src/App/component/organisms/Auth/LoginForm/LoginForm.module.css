@@ -1,0 +1,15 @@
+.heading {
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 45px;
+}
+.helpingMessage {
+  display: block;
+  text-align: center;
+  margin: 2rem 0rem;
+}
+@media screen and (max-width: 600px) {
+  .heading {
+    font-size: 35px;
+  }
+}

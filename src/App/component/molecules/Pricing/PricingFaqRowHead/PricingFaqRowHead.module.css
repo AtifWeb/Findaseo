@@ -1,0 +1,22 @@
+.head {
+  background: #fff;
+
+  padding: 1rem 1.5rem;
+  box-shadow: 0 5px 15px -5px rgb(0 0 0 / 10%);
+  border-radius: 10px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.question {
+  pointer-events: none;
+  font-size: 17px;
+  color: #333;
+}
+
+.dropdown {
+  pointer-events: none;
+}

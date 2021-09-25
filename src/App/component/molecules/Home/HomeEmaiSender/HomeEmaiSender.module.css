@@ -1,0 +1,45 @@
+.InputWrapper {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.textInput {
+  width: 100%;
+  flex: 1;
+  height: 100%;
+  padding-left: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+  border: 1px solid rgba(156, 156, 156, 0.933);
+}
+.SubmitButton {
+  height: 100%;
+  background: #13225f;
+  border: none;
+  outline: none;
+  min-width: 120px;
+  font-size: 17px;
+  color: #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
+
+.small {
+  margin-top: 0.5rem;
+  display: block;
+}
+@media screen and (max-width: 850px) {
+  .Form {
+    width: 80% !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  .Form {
+    width: 100% !important;
+  }
+}

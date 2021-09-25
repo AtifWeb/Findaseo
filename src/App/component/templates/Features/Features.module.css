@@ -1,0 +1,37 @@
+.Features {
+  padding: 4rem 0rem;
+  margin: 6rem 0rem;
+  margin-bottom: 0px;
+  background: #f8f9f9;
+}
+.FeaturesHeading {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+.featuresWrapper {
+  width: 80%;
+
+  margin: 0rem auto;
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+}
+@media screen and (max-width: 900px) {
+  .featuresWrapper {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 650px) {
+  .featuresWrapper {
+    grid-template-columns: 1fr;
+    width: 80%;
+  }
+}
+@media screen and (max-width: 350px) {
+  .featuresWrapper {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}

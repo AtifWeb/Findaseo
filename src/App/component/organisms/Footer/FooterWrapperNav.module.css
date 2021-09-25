@@ -1,0 +1,16 @@
+.FooterWrapperNav {
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 0.7fr 1fr;
+  grid-gap: 4rem;
+}
+@media screen and (max-width: 850px) {
+  .FooterWrapperNav {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 600px) {
+  .FooterWrapperNav {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,17 @@
+.head,
+.Subhead {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 1.4rem;
+  margin-top: 3rem;
+}
+.list {
+  display: block;
+  margin-bottom: 2rem;
+}
+.Subhead {
+  font-size: 17px;
+}
+.subList {
+  padding-left: 2rem;
+}

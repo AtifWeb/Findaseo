@@ -1,0 +1,23 @@
+.HomeContactBanner {
+  background: #002650;
+  color: #fff;
+
+  padding: 2rem 2rem;
+}
+.HomeContactBannerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 250px;
+  align-items: center;
+}
+@media screen and (max-width: 850px) {
+  .HomeContactBannerContent {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 600px) {
+  .heading {
+    font-size: 28px;
+  }
+}
