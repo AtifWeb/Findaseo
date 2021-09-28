@@ -12,10 +12,12 @@ export const FeaturesCompany = () => {
         <div className={styles.featuresWrapper}>
           {Features.map((Each) => (
             <HomeCard
+              img={Each.img}
               LargeText={Each.LargeText}
               bgcolor={Each.bgColor}
               title={Each.value}
               desc={Each.desc}
+              list={Each.list}
             />
           ))}
         </div>
