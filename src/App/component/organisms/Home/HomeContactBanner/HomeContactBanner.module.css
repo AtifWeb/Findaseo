@@ -21,3 +21,8 @@
     font-size: 28px;
   }
 }
+@media screen and (max-width: 450px) {
+  .heading {
+    font-size: 22px;
+  }
+}

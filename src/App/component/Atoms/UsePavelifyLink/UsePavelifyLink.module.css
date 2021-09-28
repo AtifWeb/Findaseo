@@ -11,3 +11,9 @@
   align-items: center;
   justify-content: center;
 }
+@media screen and (max-width: 450px) {
+  .UsePavelifyLink {
+    width: 70% !important;
+    font-size: 14px !important;
+  }
+}

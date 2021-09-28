@@ -49,3 +49,11 @@
   line-height: 28px;
   letter-spacing: 0.22px;
 }
+@media screen and (max-width: 450px) {
+  .head {
+    font-size: 23px !important;
+  }
+  .para {
+    font-size: 0.9rem !important;
+  }
+}
