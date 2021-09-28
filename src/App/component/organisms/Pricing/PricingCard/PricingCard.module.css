@@ -8,13 +8,13 @@
   padding-bottom: 0rem;
 }
 .mainheading {
-  font-size: 35px;
+  font-size: 26px;
   text-align: center;
   color: #333;
   padding: 0rem 1.5rem;
 }
 .price {
-  font-size: 26px;
+  font-size: 18px;
   padding: 0rem 1.5rem;
 }
 .duration {
@@ -22,6 +22,7 @@
   margin: 1rem 0rem;
   margin-top: 0.5rem;
   padding: 0rem 1.5rem;
+  text-align: center;
 }
 
 .button {
@@ -30,12 +31,16 @@
 
   width: 90%;
   margin: 0rem auto;
-  height: 55px;
+  height: 45px;
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   outline: none;
   margin-bottom: 1rem;
+}
+.freeTrailLink {
+  font-size: 14px;
+  color: #13225f;
 }

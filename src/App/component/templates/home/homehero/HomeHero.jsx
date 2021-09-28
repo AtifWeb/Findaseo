@@ -1,4 +1,5 @@
 import React from "react";
+import { UsePavelifyLink } from "../../../Atoms/UsePavelifyLink/UsePavelifyLink";
 import { HomeEmaiSender } from "../../../molecules/Home/HomeEmaiSender/HomeEmaiSender";
 import styles from "./HomeHero.module.css";
 export const HomeHero = () => {
@@ -18,7 +19,12 @@ export const HomeHero = () => {
           lots more all at once.
         </small>
 
-        <HomeEmaiSender widthInput="70%" />
+        <UsePavelifyLink
+          text="Use Pavelify for Free"
+          style={{ width: "50%" }}
+        />
+
+        {/* <HomeEmaiSender widthInput="70%" /> */}
       </div>
 
       <div className={styles.Image}>

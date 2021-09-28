@@ -10,14 +10,14 @@ export const Fields = [
   ],
   [
     {
-      object: "InputWrapper",
+      object: "GridInputWrapper",
       label: "First name",
       id: "fname",
       inputType: "text",
       inputPlaceholder: "Enter First Name",
     },
     {
-      object: "InputWrapper",
+      object: "GridInputWrapper",
       label: "Last name",
       id: "lname",
       inputType: "text",
@@ -33,18 +33,29 @@ export const Fields = [
   ],
   [
     {
-      object: "InputWrapper",
+      object: "GridInputWrapper",
       label: "Company name",
       id: "cname",
       inputType: "text",
       inputPlaceholder: "Enter Company Name",
     },
     {
-      object: "InputWrapper",
+      object: "GridInputWrapper",
       label: "Number of employees",
       id: "number_emp",
       inputType: "text",
       inputPlaceholder: "Number of employees",
+    },
+    {
+      object: "radio",
+      type: "radio",
+      id: "radio",
+      heading: "What are you solving for?",
+      checkboxes: [
+        "Manage customer service requests",
+        "Manage and engage sales leads ",
+        "Both of Above",
+      ],
     },
     {
       object: "InputWrapper",

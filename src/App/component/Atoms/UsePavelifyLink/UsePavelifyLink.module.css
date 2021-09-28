@@ -1,0 +1,13 @@
+.UsePavelifyLink {
+  margin-top: 2rem;
+  height: 50px;
+  background: #13215e;
+  color: #fff;
+  display: block;
+  padding: 0rem 1rem;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

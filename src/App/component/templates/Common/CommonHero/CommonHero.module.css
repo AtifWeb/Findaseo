@@ -44,6 +44,9 @@
     margin: 0rem auto;
     margin-top: 5rem;
   }
+  .full_width {
+    width: 100%;
+  }
 }
 @media screen and (max-width: 800px) {
   .Image {

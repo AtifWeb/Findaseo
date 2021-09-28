@@ -12,7 +12,17 @@ export const RegisterForm = () => {
 
   return (
     <div className={styles.RegisterForm}>
-      <h2 className={styles.heading}>Start Your Registration</h2>
+      <div className={styles.progressWrapper}>
+        <p>
+          Step <span className="step2">1</span> of 3
+        </p>
+        <span className={styles.progress}>
+          <span className={styles.progressInner} id="progress_inner"></span>
+        </span>
+      </div>
+      <h2 className={`${styles.heading} heading-steps`}>
+        Start your free Zendesk trial
+      </h2>
       <div className={styles.FeildsWrapper}>
         {Step.map((feild) => (
           <>
@@ -23,11 +33,40 @@ export const RegisterForm = () => {
                 inputType={feild.inputType}
                 inputPlaceholder={feild.inputPlaceholder}
                 InputWidth="100%"
+                style={{ gridColumn: "span 2", marginTop: 0 }}
+              />
+            )}
+            {feild.object == "GridInputWrapper" && (
+              <InputWrapper
+                id={feild.id}
+                labelText={feild.label}
+                inputType={feild.inputType}
+                inputPlaceholder={feild.inputPlaceholder}
+                InputWidth="100%"
+                style={{ marginTop: 0 }}
               />
             )}
 
+            {feild.object == "radio" && (
+              <div style={{ gridColumn: "span 2" }}>
+                <h4 className={styles.radioheading}>{feild.heading}</h4>
+                <ul>
+                  {feild["checkboxes"].map((EachCheckbox) => (
+                    <li className={styles.radiolist}>
+                      <input
+                        type="radio"
+                        style={{ marginRight: 10 }}
+                        name="solving"
+                      />
+                      <label htmlFor="">{EachCheckbox}</label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {feild.object == "button" && (
-              <Button text={feild.text} style={{ marginTop: 20 }} />
+              <Button text={feild.text} style={{ gridColumn: "span 2" }} />
             )}
           </>
         ))}

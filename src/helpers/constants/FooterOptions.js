@@ -1,10 +1,11 @@
 export const FooterOptions = [
-  [
-    {
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus tenetur illo ducimus numquam exercitationem inventore error nemo harum temporibus veritatis.",
-      type: "long text",
-    },
-  ],
+  // [
+  //   {
+  //     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus tenetur illo ducimus numquam exercitationem inventore error nemo harum temporibus veritatis.",
+  //     type: "long text",
+  //   },
+  // ],
+  [],
   [
     {
       text: "Product",
@@ -57,19 +58,20 @@ export const FooterOptions = [
       url: "/",
     },
   ],
-  [
-    {
-      text: "Subscribe",
-      type: "heading",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus tenetur illo ducimus numquam exercitationem inventore error nemo harum temporibus veritatis.",
-      type: "long text",
-    },
-    {
-      text: "Email Address",
-      buttontext: "Subscribe",
-      type: "form",
-    },
-  ],
+  [],
+  // [
+  //   {
+  //     text: "Subscribe",
+  //     type: "heading",
+  //   },
+  //   {
+  //     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus tenetur illo ducimus numquam exercitationem inventore error nemo harum temporibus veritatis.",
+  //     type: "long text",
+  //   },
+  //   {
+  //     text: "Email Address",
+  //     buttontext: "Subscribe",
+  //     type: "form",
+  //   },
+  // ],
 ];

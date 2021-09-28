@@ -6,10 +6,10 @@
 }
 .Content {
   margin: 0rem auto !important;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   display: grid;
 
-  grid-gap: 2rem;
+  grid-gap: 1rem;
 }
 @media screen and (max-width: 1000px) {
   .Content {

@@ -7,9 +7,11 @@ export const InputWrapper = ({
   inputType,
   inputPlaceholder,
   InputWidth,
+  style,
+  inputStyle = null,
 }) => {
   return (
-    <div className={styles.InputWrapper}>
+    <div className={styles.InputWrapper} style={style}>
       <label htmlFor={id} className={styles.label}>
         {labelText}
       </label>

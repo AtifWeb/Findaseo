@@ -19,7 +19,7 @@ export const PricingCard = ({
           {" "}
           <p className={styles.price}>{price}</p>
           <small className={styles.duration}>{duration}</small>
-          <button className={styles.button}>Buy Now</button>
+          <button className={styles.button}>Get Started for Free</button>
           <Link className={styles.freeTrailLink} to={free_trail_link}>
             Free Trail
           </Link>

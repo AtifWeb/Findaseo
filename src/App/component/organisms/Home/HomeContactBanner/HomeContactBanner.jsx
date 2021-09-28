@@ -1,4 +1,5 @@
 import React from "react";
+import { UsePavelifyLink } from "../../../Atoms/UsePavelifyLink/UsePavelifyLink";
 import { HomeEmaiSender } from "../../../molecules/Home/HomeEmaiSender/HomeEmaiSender";
 import styles from "./HomeContactBanner.module.css";
 export const HomeContactBanner = () => {
@@ -8,7 +9,10 @@ export const HomeContactBanner = () => {
         <h1 className={styles.heading}>
           Start Converting Your Website Traffic Now
         </h1>
-        <HomeEmaiSender widthInput="40%" />
+        <UsePavelifyLink
+          text="Use Pavelify for Free"
+          style={{ width: "30%", backgroundColor: "#fff", color: "#13215E" }}
+        />
       </div>
     </div>
   );
