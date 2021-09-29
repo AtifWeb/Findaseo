@@ -52,6 +52,7 @@ function LiveChat() {
   const [chats, setChats] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
   const [message, setMessage] = useState("");
+  const [filter, setFilter] = useState("");
   const { unreadChats } = useSelector((store) => store);
 
   useEffect(() => {
@@ -77,6 +78,14 @@ function LiveChat() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    setPrevLoaded(false);
+    socket.off("previousConversation");
+    socket.off("message");
+    setChats([]);
+  }, [params?.user]);
+
   useEffect(() => {
     getChats();
   }, [history?.location]);
@@ -93,7 +102,7 @@ function LiveChat() {
         },
       })
         .then((result) => {
-          console.log(result.data);
+          // console.log(result.data);
           if (result.data.success) {
             setConversation(result.data.conversations);
             setChatter(result.data.user);
@@ -135,6 +144,7 @@ function LiveChat() {
       });
     }
   }, [chatter, socket]);
+
   useEffect(() => {
     scrollDown();
   }, [chats]);
@@ -308,7 +318,7 @@ function LiveChat() {
         <BodyHeader active="LiveChat" />
 
         <div className="body-main-area">
-          <h2>Live Chats</h2>
+          {/* <h2>Live Chats</h2> */}
           <div className="messages-box-area">
             {/* left side */}
             <div className="left-side">
@@ -317,7 +327,7 @@ function LiveChat() {
                 {/* <img src={PlusIcon} alt="" /> */}
               </div>
 
-              <form action="">
+              <div>
                 <div className="input-wrapper">
                   <svg
                     width="13"
@@ -342,35 +352,60 @@ function LiveChat() {
                     />
                   </svg>
 
-                  <input type="text" placeholder="Search name..." />
+                  <input
+                    type="text"
+                    name={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                    placeholder="Search name..."
+                  />
                 </div>
-              </form>
+              </div>
 
               <div className="users">
-                {conversations.map((conversation, index) => (
-                  <NeutralButton
-                    type="button"
-                    className="btn"
-                    onClick={() =>
-                      history.push(`/LiveChat/${conversation?.uuid}`)
-                    }
-                    key={String(conversation?.uuid)}
-                  >
-                    <div className="user d-flex-align-center">
-                      <img src={Person1} alt="" />
-                      <div className="presentation d-flex-align-center">
-                        <div className="left-side">
-                          <h4>{conversation?.name}</h4>
-                          <p>Hello sir...</p>
+                {conversations.map(
+                  (conversation, index) =>
+                    // filter &&
+                    conversation.name
+                      .toLowerCase()
+                      .indexOf(filter.toLowerCase()) !== -1 && (
+                      <NeutralButton
+                        type="button"
+                        className=""
+                        onClick={() =>
+                          history.push(`/LiveChat/${conversation?.uuid}`)
+                        }
+                        key={String(conversation?.uuid)}
+                      >
+                        <div className="user d-flex-align-center">
+                          <img src={Person1} alt="" />
+                          <div className="presentation d-flex-align-center">
+                            <div className="left-side">
+                              <h4>{conversation?.name}</h4>
+                              <p>
+                                {conversation?.latestChat?.sender === "Operator"
+                                  ? "Op: "
+                                  : ""}
+                                {conversation?.latestChat?.message}
+                              </p>
+                            </div>
+                            <div className="right-side">
+                              <p>
+                                {format(
+                                  new Date(conversation?.latestChat?.timestamp),
+                                  "p"
+                                )}
+                              </p>
+                              {conversation?.hasNewMessage ? (
+                                <span className="badge d-flex-align-center">
+                                  1
+                                </span>
+                              ) : null}
+                            </div>
+                          </div>
                         </div>
-                        <div className="right-side">
-                          <p>10:00 AM</p>
-                          {/* <span className="badge d-flex-align-center">2</span> */}
-                        </div>
-                      </div>
-                    </div>
-                  </NeutralButton>
-                ))}
+                      </NeutralButton>
+                    )
+                )}
                 {/* <div className="user d-flex-align-center">
                   <img src={Person2} alt="" />
                   <div className="presentation d-flex-align-center">
@@ -532,7 +567,7 @@ function LiveChat() {
                 <div className="profile-area">
                   <div style={{ position: "relative" }}>
                     <img src={PersonBig} alt="" />
-                    <Status></Status>
+                    <Status online={visitor?.online}></Status>
                   </div>
                   <p className="name">{visitor?.name}</p>
                   <p className="email">{visitor?.email}</p>

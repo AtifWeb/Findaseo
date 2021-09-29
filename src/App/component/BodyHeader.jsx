@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NeutralButton from "./NeutralButton";
 import { useHistory } from "react-router";
+import { capitalize } from "@material-ui/core";
 
 export const Dropdown = styled.div`
   background-color: white;
@@ -67,7 +68,7 @@ function BodyHeader({ active }) {
           </Link>
         </li>
 
-        <li className={`${active === "calender" && "active"}`}>
+        <li className={`${active === "calendar" && "active"}`}>
           <Link to="/CalendarBooking">
             <svg
               width="34"
@@ -108,6 +109,7 @@ function BodyHeader({ active }) {
           </Link>
         </li>
       </ul>
+      <h2 className="me-3">{capitalize(active || "Home")}</h2>
       <form className="left-area d-flex-align-center">
         <svg
           width="24"

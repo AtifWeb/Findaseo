@@ -1,3 +1,6 @@
+body {
+  background: transparent;
+}
 .messages {
   display: flex;
   flex-direction: column;
@@ -11,8 +14,9 @@
 }
 .right {
   align-self: flex-end;
-  background-color: lightgrey;
+  background-color: #eff2f6;
   text-align: right;
+  color: #333;
 }
 
 .left {

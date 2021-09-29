@@ -19,6 +19,8 @@ import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import Modal from "App/component/Modal";
 import NeutralButton from "App/component/NeutralButton";
+import { format } from "date-fns";
+import { capitalize } from "@material-ui/core";
 
 function Operators() {
   const [loading, setLoading] = useState(false);
@@ -153,7 +155,7 @@ function Operators() {
       <Sidebar active="operators" />
       <div className="body-area">
         {/* header */}
-        <BodyHeader />
+        <BodyHeader active="operators" />
 
         <Modal open={open} setOpen={setOpen} close>
           <div className="modal-body mx-auto text-center">
@@ -231,7 +233,7 @@ function Operators() {
         </Modal>
 
         <div className="body-main-area">
-          <h2>Operators</h2>
+          {/* <h2>Operators</h2> */}
           <div className="body-box" style={{ display: "block" }}>
             {/* right area */}
             <div className="right-area">
@@ -309,12 +311,20 @@ function Operators() {
                             </button>
                           </div>
                           <div className="col col5">
-                            <p>Sun 12 June 2021</p>
+                            <p>
+                              {operator?.last_login
+                                ? `${format(
+                                    new Date(operator?.last_login),
+                                    "PP"
+                                  )}`
+                                : ""}
+                            </p>
                           </div>
                           <div className="col col6">
                             <h5>
                               {operator?.department?.reduce(
-                                (prev, curr) => `${prev}, ${curr}`
+                                (prev, curr) =>
+                                  `${capitalize(prev)}, ${capitalize(curr)}`
                               )}
                             </h5>
                           </div>

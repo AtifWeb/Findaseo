@@ -35,6 +35,7 @@ function Embed() {
 
   useEffect(() => {
     if (user) {
+      console.log({ user });
       greetTheUser();
       socket.emit("existingClient", { ...user, cID: params.company });
       updateInfo();
@@ -93,6 +94,8 @@ function Embed() {
     let dat = {
       name: user?.name ? user?.name : "",
       uuid: user.uuid,
+      email: user?.email ? user?.email : "",
+      phoneNumber: user?.phoneNumber ? user?.phoneNumber : "",
     };
 
     socket.emit("updateInfo", dat);
@@ -189,9 +192,9 @@ function Embed() {
           setAppearance(
             JSON.parse(result.data.configuration.chatConfiguration.appearance)
           );
-          console.log(
-            JSON.parse(result.data.configuration.chatConfiguration.appearance)
-          );
+          // console.log(
+          //   JSON.parse(result.data.configuration.chatConfiguration.appearance)
+          // );
           setLoading(false);
         } else {
           //
@@ -345,14 +348,14 @@ function Embed() {
           <div>
             <button
               title="Attach file"
-              className="btn text-muted"
+              className=" text-muted"
               style={{ width: "40px" }}
             >
               <i className="fa fa-paperclip"></i>
             </button>
             <button
               title="Insert Emoji"
-              className="btn text-muted"
+              className=" text-muted"
               style={{ width: "40px" }}
             >
               <i className="fa fa-smile"></i>

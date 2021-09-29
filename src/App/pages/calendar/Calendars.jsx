@@ -15,11 +15,13 @@ import NeutralButton from "App/component/NeutralButton";
 import daysOfTheWeek from "App/helpers/days";
 import Sidebar from "App/component/Sidebar";
 import BodyHeader from "App/component/BodyHeader";
+import copy from "clipboard-copy";
+import { MAIN_URL } from "../settings/Livechat";
 
 const Departments = (props) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Google Meet");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [days, setDays] = useState([]);
@@ -138,7 +140,7 @@ const Departments = (props) => {
 
     setName("");
     setDays([]);
-    setLocation("");
+    // setLocation("");
     setFrom(null);
     setTo(null);
     setSlug("");
@@ -153,13 +155,18 @@ const Departments = (props) => {
     );
   };
 
+  const copyLink = async (link) => {
+    await copy(link);
+    const alertID = StatusAlertService.showSuccess("Copied successfully");
+  };
+
   return (
     <div className="EmailTickets CalendarBooking main-wrapper d-flex">
       {/* sidebar */}
       <Sidebar active="calender" />
       <div className="body-area">
         {/* header */}
-        <BodyHeader active="calender" />
+        <BodyHeader active="calendar" />
         <div className="body-main-area">
           <StatusAlert />
           <Modal open={showModal} setOpen={setShowModal} close>
@@ -169,9 +176,9 @@ const Departments = (props) => {
                   {action === "create"
                     ? " Create New"
                     : action === "edit"
-                    ? "Edit Calendar"
+                    ? "Edit Topic"
                     : "Delete"}{" "}
-                  Calendar
+                  Topic
                 </h4>
                 <button
                   type="button"
@@ -291,6 +298,7 @@ const Departments = (props) => {
                             id="zoom"
                             checked={location === "Zoom"}
                             onChange={(e) => setLocation(e.target.value)}
+                            disabled
                           />
                         </div>
                         <div className="col form-group">
@@ -309,7 +317,7 @@ const Departments = (props) => {
                     </div>
                   </div>
                 ) : (
-                  <p>Are you sure you want to delete this calendar event?</p>
+                  <p>Are you sure you want to delete this topic event?</p>
                 )}
               </div>
               <div className="modal-footer mt-4">
@@ -337,12 +345,12 @@ const Departments = (props) => {
             </div>
           </Modal>
           <div className="top-area d-flex-align-center">
-            <h3>Calendars</h3>
+            <h3>Topics</h3>
 
             <div className="slider-area  d-flex-align-center">
               <div className="top-area d-flex-align-center">
                 <button type="button" onClick={addCalendar}>
-                  Add New Calendar
+                  Add New Topic
                 </button>
               </div>
             </div>
@@ -383,9 +391,13 @@ const Departments = (props) => {
                         <p>{capitalize(calendar?.name)}</p>
                       </div>
                       <div className="col col3 d-flex-align-center">
-                        <a target="_blank" href={`/calendar/${calendar.slug}`}>
-                          Link
-                        </a>
+                        <NeutralButton
+                          onClick={() =>
+                            copyLink(`${MAIN_URL}/calendar/${calendar.slug}`)
+                          }
+                        >
+                          <i className="fa fa-lg fa-copy"></i>
+                        </NeutralButton>
                       </div>
                       <div className="col col3 d-flex-align-center">
                         <span>

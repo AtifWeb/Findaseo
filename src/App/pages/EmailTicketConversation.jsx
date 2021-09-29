@@ -209,7 +209,7 @@ function EmailTicketConversation() {
               {" "}
               {reply
                 ? ticket.byOperator
-                  ? "O: " + user?.name
+                  ? "Op: " + user?.name
                   : ticket?.from?.value[0]?.name ||
                     ticket?.from?.value[0]?.address
                 : ticket?.emailData?.from?.value[0]?.name ||
@@ -246,7 +246,7 @@ function EmailTicketConversation() {
         <BodyHeader active="EmailTickets" />
 
         <div className="body-main-area">
-          <h2>Email Ticket</h2>
+          {/* <h2>Email Ticket</h2> */}
           <div className="messages-box-area">
             {/* <div className="left-side"></div> */}
             {/* middile side */}
@@ -380,8 +380,10 @@ function EmailTicketConversation() {
             {ticket ? (
               <div className="right-side">
                 <div className="top-area d-flex-align-center">
-                  <button>Assign Chat</button>
-                  <button>Forward Chat</button>
+                  <NeutralButton className="open-btn">
+                    Mark as Resolved
+                  </NeutralButton>
+                  {/* <button>Forward Chat</button> */}
                 </div>
                 <div className="profile-area">
                   <div style={{ position: "relative" }}>

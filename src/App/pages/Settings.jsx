@@ -6,6 +6,9 @@ import BodyHeader from "../component/BodyHeader";
 import Sidebar from "../component/Sidebar";
 import Departments from "./settings/Departments";
 import LiveChatSettings from "./settings/Livechat";
+import EmailTicketSettings from "./settings/EmailTicket";
+import OperatingHoursSettings from "./settings/OperatingHours";
+import QuickReponseSettings from "./settings/QuickResponse";
 
 function Settings() {
   const params = useParams();
@@ -24,7 +27,7 @@ function Settings() {
         <BodyHeader active="settings" />
 
         <div className="body-main-area">
-          <h2>Settings</h2>
+          {/* <h2>Settings</h2> */}
           <div className="body-box">
             <div className="left-side">
               <ul>
@@ -34,11 +37,19 @@ function Settings() {
                     Live Chats
                   </Link>
                 </li>
-                <li>
-                  <Link>Email Tickets</Link>
+                <li
+                  className={params?.channel === "EmailTickets" ? "active" : ""}
+                >
+                  <Link onClick={() => history.push("/settings/EmailTickets")}>
+                    Email Tickets
+                  </Link>
                 </li>
                 <li>
-                  <Link>Calendars</Link>
+                  <Link
+                    onClick={() => history.push("/CalendarBooking/calendars")}
+                  >
+                    Calendars
+                  </Link>
                 </li>
                 <li>
                   <Link>Messengers</Link>
@@ -49,11 +60,19 @@ function Settings() {
 
               <ul>
                 <li className="heading">General</li>
-                <li>
-                  <Link>Quick Response</Link>
+                <li
+                  className={
+                    params?.channel === "QuickResponse" ? "active" : ""
+                  }
+                >
+                  <Link onClick={() => history.push("/settings/QuickResponse")}>
+                    Quick Response
+                  </Link>
                 </li>
                 <li>
-                  <Link>Operators</Link>
+                  <Link onClick={() => history.push("/Operators")}>
+                    Operators
+                  </Link>
                 </li>
                 <li
                   className={params?.channel === "Departments" ? "active" : ""}
@@ -73,14 +92,34 @@ function Settings() {
                 <li>
                   <Link>Notifications</Link>
                 </li>
-                <li>
-                  <Link>Operation Hours</Link>
+                <li
+                  className={
+                    params?.channel === "OperatingHours" ? "active" : ""
+                  }
+                >
+                  <Link
+                    onClick={() => history.push("/settings/OperatingHours")}
+                  >
+                    Operation Hours
+                  </Link>
                 </li>
               </ul>
             </div>
 
             {/* right side */}
             {params?.channel === "LiveChat" ? <LiveChatSettings /> : null}
+
+            {params?.channel === "EmailTickets" ? (
+              <EmailTicketSettings />
+            ) : null}
+
+            {params?.channel === "OperatingHours" ? (
+              <OperatingHoursSettings />
+            ) : null}
+
+            {params?.channel === "QuickResponse" ? (
+              <QuickReponseSettings />
+            ) : null}
 
             {params?.channel === "Departments" ? <Departments /> : null}
           </div>

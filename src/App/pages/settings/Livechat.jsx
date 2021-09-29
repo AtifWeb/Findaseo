@@ -6,6 +6,8 @@ import { getUser } from "App/helpers/auth";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 
+export const MAIN_URL = window.location.protocol + "//" + window.location.host;
+
 const LiveChatSettings = () => {
   const params = useParams();
 
@@ -28,7 +30,7 @@ const LiveChatSettings = () => {
         },
       })
         .then((result) => {
-          // console.log(JSON.parse(result.data.configuration.appearance));
+          console.log(result.data.configuration);
           if (result.data.success) {
             setPreChat(
               JSON.parse(result.data.configuration.chatConfiguration.preChat)
@@ -80,8 +82,6 @@ const LiveChatSettings = () => {
           setLoading(false);
         });
   };
-
-  const URL = window.location.protocol + "//" + window.location.host;
 
   useEffect(() => {
     let Head = document.querySelectorAll(".right-side .head");
@@ -774,16 +774,15 @@ const LiveChatSettings = () => {
                   id=""
                   cols="50"
                   rows="10"
-                  value={` <script>
-			var para = document.createElement("IFRAME");
-            para.style.position = "fixed"; 
-			para.style.border = "none";
-            para.style.backgroundColor = "transparent"; 
-			para.style.bottom = "0px"; 
-			para.style.right = "0px"; 
-			 para.src = "${URL}/snippet/${user.cID}";
-            document.body.appendChild(para); 
-			</script>`}
+                  value={`<script>
+! function(e, t) {
+	e.chatID = "${user.cID}";
+	var a = t.createElement("script");
+	a.type = "text/javascript", a.async = !0, a.src = "${MAIN_URL}/embed.js";
+	var c = t.getElementsByTagName("script")[0];
+	c.parentNode.insertBefore(a, c)
+}(window, document);
+</script>`}
                 ></textarea>
               </div>
               <h3>You can also use the direct link:</h3>
@@ -793,7 +792,7 @@ const LiveChatSettings = () => {
                 id=""
                 cols="50"
                 rows="10"
-                value={`${URL}/embed/${user.cID}`}
+                value={`${MAIN_URL}/embed/${user.cID}`}
               ></textarea>
             </div>
           </div>

@@ -12,9 +12,10 @@ import React, {
 } from "react";
 import { useParams } from "react-router";
 import "Assets/styles/css/widget.css";
+import Person1 from "Assets/img/Frame 1.png";
+import NeutralButton from "App/component/NeutralButton";
 
 const Snippet = () => {
-  //useScript("/js/snippet.js");
   const params = useParams();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -37,6 +38,7 @@ const Snippet = () => {
   const [loading, setLoading] = useState(true);
   const [appearance, setAppearance] = useState();
   const [sidebar, setSidebar] = useState();
+  const [menus, setMenus] = useState(false);
 
   const URL = window.location.protocol + "//" + window.location.host;
   //hostname
@@ -51,6 +53,7 @@ const Snippet = () => {
 
   useEffect(() => {
     getConfigurations();
+    // document.body.style.background = "transparent";
   }, []);
 
   useEffect(() => {
@@ -231,13 +234,13 @@ const Snippet = () => {
     background: "white",
     borderBottomRightRadius: "14px",
     borderBottomLeftRadius: "14px",
-    height: "500px",
+    height: "580px",
     width: "380px",
   };
   return (
     !!sidebar && (
       <div
-        className={`w-full ${open ? "shadow-lg" : ""}`}
+        className={`text-white ${open ? "boxChat" : ""}`}
         style={
           open
             ? {
@@ -274,70 +277,79 @@ const Snippet = () => {
               sendName={sendName}
             />
           ) : (
-            <div className="w-100">
-              <div
-                className="shadow-lg"
-                // style={{
-
-                // }}
-              >
+            <div className="w-100 boxChat">
+              <div>
                 <div
                   style={{
                     borderTopRightRadius: "14px",
                     borderTopLeftRadius: "14px",
                     backgroundColor: appearance?.backgroundColor,
                   }}
-                  className="bg-gradient py-4 px-2 d-flex justify-content-between text-light"
+                  className="bg-gradient py-4 px-2 d-flex justify-content-between align-items-center text-light"
                 >
                   {operator?.name ? (
                     <div>
                       <img
                         style={{ width: "30px", height: "30px" }}
                         alt="Support"
-                        src="/images/logo.png"
-                        className="rounded-circle float-start me-2"
+                        src={Person1}
+                        className="rounded-circle float-start me-2 "
                       />
-                      <span>{operator?.name}</span>
+                      <span className="d-inline-block pt-1">
+                        {operator?.name}
+                      </span>
                     </div>
                   ) : (
                     <div></div>
                   )}
                   <h4>{appearance?.gettingStartedStatus}</h4>
-                  <div>
-                    <button
-                      className="btn"
+                  <div className="d-flex justify-content-center">
+                    <NeutralButton
+                      className="d-flex"
                       type="button"
                       id="optionsDropdown"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
+                      onClick={() => setMenus((prev) => !prev)}
                     >
                       <i className="text-white fa fa-ellipsis-v"></i>
-                    </button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="optionsDropdown"
+                    </NeutralButton>
+                    <NeutralButton
+                      onClick={() => setOpen((prev) => !prev)}
+                      className="d-flex text-white"
                     >
-                      <li>
+                      <i className="text-light fa fa-chevron-down"></i>
+                    </NeutralButton>
+                  </div>
+                  {menus && (
+                    <ul
+                      className="dropdown-menu boxChat"
+                      aria-labelledby="optionsDropdown"
+                      style={{
+                        position: "absolute",
+                        background: "white",
+                        right: "20px",
+                        top: "60px",
+                        borderRadius: "12px",
+                        padding: "20px 12px",
+                        boxShadow: "2px 2px 2px lightgrey",
+                      }}
+                    >
+                      <li className="mb-2">
                         <a className="dropdown-item" href="#">
-                          Action
+                          Turn off notifications
                         </a>
                       </li>
                       <li>
                         <a className="dropdown-item" href="#">
-                          Another action
+                          Turn on sound
                         </a>
                       </li>
                     </ul>
-                    <button
-                      onClick={() => setOpen((prev) => !prev)}
-                      className="btn"
-                    >
-                      <i className="text-light fa fa-chevron-down"></i>
-                    </button>
-                  </div>
+                  )}
                 </div>
 
-                <div className="bg-sub-info py-2 text-white px-3">
+                <div className="bg-sub-info py-2 text-white px-3 boxChat">
                   <span>
                     <i
                       style={{ fontSize: "5px" }}
@@ -348,8 +360,8 @@ const Snippet = () => {
                 </div>
 
                 <div
-                  style={{ height: "280px" }}
-                  className="bg-white messages px-2 my-2"
+                  style={{ height: "350px" }}
+                  className=" messages px-2 my-2"
                 >
                   {chats &&
                     chats.map((chat, index) => (
@@ -363,7 +375,7 @@ const Snippet = () => {
                             : null
                         }
                         key={String(index)}
-                        className={`${
+                        className={`mb-1 ${
                           chat.sender === "Visitor" ? "right" : "left"
                         }`}
                       >
@@ -373,23 +385,37 @@ const Snippet = () => {
                   <div ref={messagesEndRef} />
                 </div>
                 <div className="border-top">
-                  <input
-                    className="form-control border-0 py-3 px-4"
-                    placeholder="Type your message to respond..."
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyUp={(e) => {
-                      e.stopPropagation();
-                      var event = e || window.event;
-                      var charCode = event.which || event.keyCode;
+                  <div className="d-flex justify-content-center">
+                    <div
+                      style={{
+                        width: "90%",
+                        height: "0.05rem",
+                        background: "lightgrey",
+                      }}
+                    >
+                      {" "}
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <input
+                      className="form-control border-0 py-3 px-4 "
+                      style={{ border: "none", width: "96%" }}
+                      placeholder="Type your message to respond..."
+                      type="text"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      onKeyUp={(e) => {
+                        e.stopPropagation();
+                        var event = e || window.event;
+                        var charCode = event.which || event.keyCode;
 
-                      if (charCode == "13") {
-                        // Enter pressed
-                        messageSender();
-                      }
-                    }}
-                  />
+                        if (charCode == "13") {
+                          // Enter pressed
+                          messageSender();
+                        }
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <div
@@ -397,37 +423,66 @@ const Snippet = () => {
                     borderBottomRightRadius: "14px",
                     borderBottomLeftRadius: "14px",
                   }}
-                  className="px-2 position-relative bg-white"
+                  className="px-2 position-relative bg-white pt-3"
                 >
-                  <button title="Attach file" className="btn text-muted ">
+                  <button
+                    title="Attach file"
+                    type="button"
+                    className=" text-muted me-4 ms-3"
+                    style={{
+                      display: "inline",
+                      border: "none",
+                      background: "white",
+                      fontSize: "17px",
+                      cursor: "pointer",
+                    }}
+                  >
                     <i className="fa fa-paperclip"></i>
                   </button>
-                  <button title="Insert Emoji" className="btn text-muted  ">
+                  <button
+                    type="button"
+                    className=" text-muted "
+                    style={{
+                      display: "inline",
+                      border: "none",
+                      background: "white",
+                      fontSize: "17px",
+                      cursor: "pointer",
+                    }}
+                    title="Insert Emoji"
+                  >
                     <i className="fa fa-smile"></i>
                   </button>
 
-                  <small className="text-secondary py-auto ms-5">
+                  <small className="text-muted py-auto ms-5">
                     {" "}
-                    Powered by <i className="fa fa-bolt text-primary"></i>{" "}
+                    Powered by{" "}
+                    <i
+                      style={{ color: appearance?.backgroundColor }}
+                      className="fa fa-bolt "
+                    ></i>{" "}
                     <b>Pavelify</b>
                   </small>
 
                   <div
-                    className="text-end d-inline-block position-absolute"
-                    style={{ left: "94%", bottom: "20px" }}
+                    className="text-end d-inline-block position-absolute "
+                    style={{ left: "92%", bottom: "0px" }}
                   >
                     <button
                       onClick={() => messageSender()}
                       disabled={!message?.trim()}
-                      id="sendBtn"
                       title="Send"
-                      className={`btn text-white text-center ${
+                      className={` text-white text-center  ${
                         !message?.trim() ? "disabled" : ""
                       }`}
                       style={{
-                        width: "50px",
-                        height: "50px",
+                        width: "57px",
+                        height: "57px",
                         backgroundColor: appearance?.backgroundColor,
+                        borderRadius: "50%",
+                        border: "none",
+                        cursor: "pointer",
+                        boxShadow: `grey 0px 22px 70px 4px`,
                       }}
                     >
                       <i
@@ -450,16 +505,17 @@ const Snippet = () => {
             )}
             <button
               onClick={() => setOpen((prev) => !prev)}
+              className="boxs"
               style={{
                 backgroundColor: appearance?.backgroundColor,
-                //   padding: "1.2rem 1rem",
                 color: "white",
                 borderRadius: "50%",
                 border: "none",
-                boxShadow: "1px 2px 4px 2px  #a0a9cf",
                 cursor: "pointer",
-                width: "55px",
-                height: "55px",
+                width: "62px",
+                height: "62px",
+                boxShadow: `${appearance?.backgroundColor} 0px 22px 70px 4px`,
+                zIndex: `${Number.MAX_SAFE_INTEGER}`,
               }}
               id="open-chat"
             >
@@ -550,11 +606,14 @@ const PrechatSurvey = ({
 const ButtonLabel = ({ show, buttonLabelText }) =>
   show && (
     <h5
-      className="bg-light px-4 py-2 my-auto me-3 ms-3"
+      className=" px-4 py-2 my-auto me-3 ms-3"
       style={{
         borderRadius: "24px",
         boxShadow: "3px 3px 3px  #959697",
-        fontWeight: "lighter",
+        fontWeight: "300",
+        background: "white",
+        color: "#333",
+        fontSize: "17px",
       }}
     >
       {buttonLabelText}

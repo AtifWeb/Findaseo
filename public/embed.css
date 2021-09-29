@@ -1,0 +1,24 @@
+#weasl-container > iframe.weasl-iframe-takeover {
+  width: 100vw;
+  height: 100vh;
+  display: initial;
+  top: 0;
+  left: 0;
+  /* background-color: red; */
+}
+
+#weasl-container > iframe.weasl-iframe-info-msg {
+  width: initial;
+  height: 70px;
+  display: initial;
+  bottom: 20px;
+  left: 20px;
+}
+
+#weasl-container > iframe {
+  position: fixed;
+  width: 0;
+  height: 0;
+  display: none;
+  border: none;
+}

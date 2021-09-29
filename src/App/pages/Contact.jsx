@@ -26,35 +26,38 @@ function Contact() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setContacts([]);
     getContacts();
   }, [params?.channel]);
 
   const getContacts = () => {
     if (!user) return;
 
-    if (params.channel === "LiveChat") {
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/contacts/live-chat`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setContacts(result.data.contacts);
-            setLoading(false);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
+    // if (params.channel === "LiveChat") {
+    Axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/contacts/${params?.channel}`,
+      data: {
+        cID: user?.cID,
+      },
+    })
+      .then((result) => {
+        if (result.data.success) {
+          setContacts(result.data.contacts);
+
+          // @todo filter the emailticket from here to remove duplicate emails
           setLoading(false);
-        });
-    } else {
-      setContacts([]);
-    }
+        } else {
+          //
+        }
+      })
+      .catch((e) => {
+        console.log(handleError(e));
+        setLoading(false);
+      });
+    // } else {
+    //   setContacts([]);
+    // }
   };
   useEffect(() => {
     let Checkbox = document.querySelector("#all-check-checkbox");
@@ -75,16 +78,31 @@ function Contact() {
       }
     });
   }, []);
+
+  const getUserEmailFromEmailTicket = (ticket) => {
+    let email = "";
+    let name = "";
+    if (
+      ticket?.emailData?.to?.value[0].address?.indexOf("pavelify.com") === -1
+    ) {
+      email = ticket?.emailData?.to?.value[0].address;
+      name = ticket?.emailData?.to?.value[0].name;
+    } else {
+      email = ticket?.emailData?.from?.value[0].address;
+      name = ticket?.emailData?.from?.value[0].name;
+    }
+    return { email, name };
+  };
   return (
     <div className="Contact main-wrapper d-flex">
       {/* sidebar */}
       <Sidebar active="contact" />
       <div className="body-area">
         {/* header */}
-        <BodyHeader />
+        <BodyHeader active="contact" />
 
         <div className="body-main-area">
-          <h2>Contacts</h2>
+          {/* <h2>Contacts</h2> */}
           <div className="body-box">
             <div className="left-side">
               <div className="top-area d-flex-align-center">
@@ -187,22 +205,40 @@ function Contact() {
                             </div>
                             <div className="col col2 d-flex-align-center">
                               <NeutralButton
-                                onClick={() =>
-                                  history.push(`/LiveChat/${contact?.uuid}`)
+                                onClick={
+                                  params?.channel === "LiveChat"
+                                    ? () =>
+                                        history.push(
+                                          `/LiveChat/${contact?.uuid}`
+                                        )
+                                    : null
                                 }
                               >
                                 <img src={Person1} alt="" />
                               </NeutralButton>
                               <NeutralButton
-                                onClick={() =>
-                                  history.push(`/LiveChat/${contact?.uuid}`)
+                                onClick={
+                                  params?.channel === "LiveChat"
+                                    ? () =>
+                                        history.push(
+                                          `/LiveChat/${contact?.uuid}`
+                                        )
+                                    : null
                                 }
                               >
-                                <p>{contact?.name}</p>
+                                <p>
+                                  {params?.channel === "LiveChat"
+                                    ? contact?.name
+                                    : getUserEmailFromEmailTicket(contact).name}
+                                </p>
                               </NeutralButton>
                             </div>
                             <div className="col col3">
-                              <p>{contact?.email}</p>
+                              <p>
+                                {params?.channel === "LiveChat"
+                                  ? contact?.email
+                                  : getUserEmailFromEmailTicket(contact).email}
+                              </p>
                             </div>
                             <div className="col col4">
                               <select name="" id="">

@@ -8,15 +8,19 @@ import { Calender } from "../../Assets/script/js/Calender";
 import { getUser } from "App/helpers/auth";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { format } from "date-fns";
+import CalendarBookingIndex from "./calendar-booking";
+import CalendarTypes from "./calendar-booking/types";
 function CalendarBooking() {
   const history = useHistory();
+  const params = useParams();
   const [user] = useState(getUser());
   const [bookings, setBookings] = useState([]);
   const [totalCalendars, setTotalCalendars] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [past, setPast] = useState(0);
+  const [past, setPast] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -34,6 +38,7 @@ function CalendarBooking() {
         .then((result) => {
           if (result.data.success) {
             setBookings(result.data.bookings);
+            console.log(result.data);
             let ev = [];
             result.data.bookings?.forEach((boo) => {
               let month = String(
@@ -63,6 +68,7 @@ function CalendarBooking() {
             setEvents(ev);
             setTotalCalendars(result.data.calendars);
             setPast(result.data.pastBookings);
+            setUpcoming(result.data?.upcoming);
             setLoading(false);
             // setCalendars(result.data.calendars);
           } else {
@@ -76,147 +82,88 @@ function CalendarBooking() {
   };
 
   useEffect(() => {
-    document
-      .querySelector(".fc-prev-button")
-      .setAttribute("id", "calender-prev-button");
-    document
-      .querySelector(".fc-next-button")
-      .setAttribute("id", "calender-next-button");
-    Calender();
-  }, [events]);
+    let fc = document.querySelector(".fc-prev-button");
+
+    fc?.setAttribute("id", "calender-prev-button");
+    fc?.setAttribute("id", "calender-next-button");
+    fc && Calender();
+  }, [events, params?.type]);
   return (
     <div className="EmailTickets CalendarBooking main-wrapper d-flex">
       {/* sidebar */}
-      <Sidebar active="calender" />
+      <Sidebar active="calendar" />
       <div className="body-area">
         {/* header */}
-        <BodyHeader active="calender" />
+        <BodyHeader active="calendar" />
 
         <div className="body-main-area">
-          <h2>Calendar Booking</h2>
+          {/* <h2>Calendar Booking</h2> */}
 
           <ul className="navigation-bar d-flex-align-center">
-            <li className="active d-flex-align-center">
+            <li
+              className={`${
+                params?.type === "scheduled" ? "active" : ""
+              } d-flex-align-center`}
+              onClick={() => history.push("/CalendarBooking/scheduled")}
+            >
               <p>Scheduled Meetings</p>
               <span>{bookings.length}</span>
             </li>
-            <li className="d-flex-align-center">
+            <li
+              className={`${
+                params?.type === "upcoming" ? "active" : ""
+              } d-flex-align-center`}
+              onClick={() => history.push("/CalendarBooking/upcoming")}
+            >
               <p>Upcoming Meetings</p>
-              <span> {bookings.length - past}</span>
+              <span> {upcoming?.length}</span>
             </li>
-            <li className="d-flex-align-center">
+            <li
+              className={`${
+                params?.type === "past" ? "active" : ""
+              } d-flex-align-center`}
+              onClick={() => history.push("/CalendarBooking/past")}
+            >
               <p>Past Meetings</p>
-              <span>{past}</span>
+              <span>{past?.length}</span>
             </li>
-            <li className="d-flex-align-center">
+            {/* <li
+              className={`${
+                params?.type === "pending" ? "active" : ""
+              } d-flex-align-center`}
+              onClick={() => history.push("/CalendarBooking/pending")}
+            >
               <p>Pending</p>
               <span>0</span>
-            </li>
-            <li className="d-flex-align-center">
-              <p>Meeting Categories</p>
-              <span>0</span>
-            </li>
+            </li> */}
+
             <li className="button-wrapper">
               <button
                 className="schedule-btn w-75"
                 type="button"
                 onClick={() => history.push("/CalendarBooking/calendars")}
               >
-                Manage Calendars ({totalCalendars})
+                Manage Topics ({totalCalendars})
               </button>
             </li>
           </ul>
 
           <div
-            className="bottom-calender-area grid-col-4"
+            className={`bottom-calender-area ${
+              params?.type ? "" : "grid-col-4"
+            }`}
             style={{ marginTop: 40 }}
           >
-            <div style={{ background: "#fff" }}>
-              <div class="box calender stagger">
-                <div class="calender-top">
-                  <label
-                    htmlFor="calender-prev-button"
-                    class="icon-wrapper"
-                    id="calender-back-icon-wrapper"
-                  >
-                    <svg
-                      width="10"
-                      height="17"
-                      viewBox="0 0 10 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9 1.5L2 8.5L9 15.5"
-                        stroke="#282D4A"
-                        strokeWidth="1.6"
-                      />
-                    </svg>
-                  </label>
-                  <strong class="Calender-DateTime">Dec, 2021</strong>
-                  <label
-                    htmlFor="calender-next-button"
-                    class="icon-wrapper"
-                    id="calender-towards-icon-wrapper"
-                  >
-                    <svg
-                      width="10"
-                      height="17"
-                      viewBox="0 0 10 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 1.5L8 8.5L1 15.5"
-                        stroke="#282D4A"
-                        strokeWidth="1.6"
-                      />
-                    </svg>
-                  </label>
-                </div>
-                <div class="calender-days-name">
-                  <span>M</span>
-                  <span>T</span>
-                  <span>W</span>
-                  <span>T</span>
-                  <span>F</span>
-                  <span>S</span>
-                  <span>S</span>
-                </div>
-                <div class="calender-days"></div>
-              </div>
-
-              <div className="bottom-after-calender">
-                <h3>Scheduled Lists</h3>
-                <ul>
-                  {bookings?.map((booking, index) => (
-                    <li key={String(index)}>
-                      <u>
-                        {format(new Date(booking?.time), "PP")} &nbsp;
-                        {format(
-                          new Date(booking?.locationData?.startTime),
-                          "p"
-                        )}
-                        :
-                      </u>
-                      &nbsp;
-                      {booking?.duration} Meeting with {booking?.name} @
-                      {booking?.location} (<b>{booking?.locationData?.topic}</b>
-                      )
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div id="calender">
-              <FullCalendar
-                plugins={[dayGridPlugin]}
-                initialView="dayGridMonth"
-                events={events}
-                eventColor="#7822e624"
+            {params?.type ? (
+              <CalendarTypes
+                bookings={bookings}
+                past={past}
+                upcoming={upcoming}
+                type={params?.type}
               />
-            </div>
+            ) : (
+              <CalendarBookingIndex bookings={bookings} events={events} />
+            )}
           </div>
         </div>
       </div>

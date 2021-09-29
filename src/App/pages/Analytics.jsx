@@ -19,25 +19,146 @@ import MessageBlue from "../../Assets/img/message-blue.png";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import { VectorMap } from "react-jvectormap";
 import {
-  data,
+  // data,
   options,
   Lineoptions,
-  Linedata,
+  // Linedata,
   BarData,
   BarOptions,
 } from "../Utils/AnalyticsChart";
 import NeutralButton from "App/component/NeutralButton";
+import { useHistory } from "react-router";
+import { getUser } from "App/helpers/auth";
+import { useState } from "react";
+import { useEffect } from "react";
+import Axios from "Lib/Axios/axios";
+import handleError from "App/helpers/handleError";
+import { capitalize } from "@material-ui/core";
 function Analytics() {
+  const history = useHistory();
+  const [user] = useState(getUser());
+  const [contacts, setContacts] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [tickets, setTickets] = useState([]);
+  const [visits, setVisits] = useState([]);
+  const [visitsByCountry, setVisitsByCountry] = useState({});
+  const [visitsByCountryCode, setVisitsByCountryCode] = useState({});
+  const [loading, setLoading] = useState(false);
   const mapData = {
-    CN: 100000,
-    IN: 9900,
-    SA: 86,
-    EG: 70,
-    SE: 0,
-    FI: 0,
-    FR: 0,
-    US: 20,
-    pk: 20,
+    ...visitsByCountryCode,
+  };
+
+  let data = {
+    labels: Object.keys(visitsByCountry),
+    datasets: [
+      {
+        label: "# of Visits",
+        data: Object.values(visitsByCountry),
+        backgroundColor: ["#9953B7", "#18AB8F", "#2D96D6", "#EEF0F6"],
+        hoverOffset: 5,
+        borderColor: ["#9953B7", "#18AB8F", "#2D96D6", "#EEF0F6"],
+        borderWidth: 1,
+        cutout: 80,
+      },
+    ],
+  };
+
+  let Linedata = (canvas) => {
+    let CTX = document.querySelector(".chart-line canvas").getContext("2d");
+    var gradient = CTX.createLinearGradient(0, 140, 0, 220);
+    gradient.addColorStop(0, "#D1E9F7");
+
+    gradient.addColorStop(1, "#ECF6FC");
+
+    return {
+      labels: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      datasets: [
+        {
+          label: "Unique Visits",
+          data: [
+            3000, 3000, 9000, 7000, 6000, 6500, 8000, 9500, 300, 400, 333, 7000,
+          ],
+          fill: true,
+
+          backgroundColor: gradient,
+          borderColor: "#2D98DA",
+        },
+      ],
+    };
+  };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  useEffect(() => {
+    visits && filterByCountry();
+    visits && filterByCountryCode();
+  }, [visits]);
+
+  const filterByCountry = () => {
+    let countries = {};
+    for (let visit of visits) {
+      if (countries[visit?.countryName]) {
+        countries[visit?.countryName]++;
+      } else {
+        countries[visit?.countryName] = 1;
+      }
+    }
+    setVisitsByCountry(countries);
+  };
+
+  const filterByCountryCode = () => {
+    let countries = {};
+    for (let visit of visits) {
+      if (visit?.countryCode) {
+        if (countries[visit?.countryCode]) {
+          countries[visit?.countryCode]++;
+        } else {
+          countries[visit?.countryCode] = 1;
+        }
+      }
+    }
+    setVisitsByCountryCode(countries);
+    console.log({ countries });
+  };
+
+  const fetchStats = () => {
+    user &&
+      Axios({
+        method: "post",
+        url: `${process.env.REACT_APP_BASE_URL}/getStats`,
+        data: {
+          cID: user?.cID,
+        },
+      })
+        .then((result) => {
+          if (result.data.success) {
+            setTickets(result.data.stats?.tickets);
+            setBookings(result.data.stats?.bookings);
+            setContacts(result.data.stats?.contacts);
+            setVisits(result.data.stats?.visits);
+          } else {
+            //
+          }
+        })
+        .catch((e) => {
+          console.log(handleError(e));
+          setLoading(false);
+        });
   };
 
   return (
@@ -46,36 +167,36 @@ function Analytics() {
       <Sidebar active="Analytics" />
       <div className="body-area">
         {/* header */}
-        <BodyHeader />
+        <BodyHeader active="Analytics" />
 
         <div className="body-main-area">
-          <h2>Analytics</h2>
+          {/* <h2>Analytics</h2> */}
 
           <div className="top-banner-results">
             <div className="box">
-              <h4 className="heading">Current Pavelify</h4>
-              <p>Insights</p>
+              <h4 className="heading">Company Name</h4>
+              <p>{user?.companyName ? capitalize(user?.companyName) : ""}</p>
             </div>
             <div className="box d-flex-align-center">
               <img src={ChatGreen} alt="" />
 
               <div className="presentation">
                 <h4 className="heading">Chat Leads Acquired</h4>
-                <p>20</p>
+                <p>{contacts?.length}</p>
               </div>
             </div>
             <div className="box d-flex-align-center">
               <img src={CalenderPurple} alt="" />
               <div className="presentation">
                 <h4 className="heading">Total Email Tickets</h4>
-                <p>1,456</p>
+                <p>{tickets?.length}</p>
               </div>
             </div>
             <div className="box d-flex-align-center">
               <img src={MessageBlue} alt="" />
               <div className="presentation">
                 <h4 className="heading">Calendar Booking</h4>
-                <p>189</p>
+                <p>{bookings?.length}</p>
               </div>
             </div>
           </div>
@@ -96,7 +217,7 @@ function Analytics() {
               </div>
             </div>
 
-            <div className="todo-list">
+            {/* <div className="todo-list">
               <div
                 className="top d-flex-align-center"
                 style={{ marginTop: 10 }}
@@ -109,7 +230,7 @@ function Analytics() {
               >
                 <Bar data={BarData} options={BarOptions} />
               </div>
-            </div>
+            </div> */}
 
             <div className="dognut-chart">
               <div className="top d-flex-align-center">
@@ -131,7 +252,7 @@ function Analytics() {
 
               <div className="chart-container">
                 <p>
-                  2,378 <span>Visitors</span>
+                  {visits?.length} <span>Visitors</span>
                 </p>
                 <Doughnut data={data} options={options} />
               </div>
@@ -192,36 +313,29 @@ function Analytics() {
 
             <div className="Customer-Lists">
               <div className="top d-flex-align-center">
-                <h3>Customer Lists</h3>
-                <NeutralButton style={{ color: "#2998DE" }} href="#">
+                <h3>Contacts (Live Chat)</h3>
+                <NeutralButton onClick={() => history.push(`/LiveChat`)}>
                   See All
                 </NeutralButton>
               </div>
               <ul className="bottom">
-                <li className="d-flex-align-center">
-                  <img src={Person1} alt="" />
-                  <div className="presentation">
-                    <p>Jhon Smith</p>
-                    <p>jhonsmith@gmail.com</p>
-                  </div>
-                  <button>Contact</button>
-                </li>
-                <li className="d-flex-align-center">
-                  <img src={Person2} alt="" />
-                  <div className="presentation">
-                    <p>Talan Siphron</p>
-                    <p>talansiph@gmail.com</p>
-                  </div>
-                  <button>Contact</button>
-                </li>
-                <li className="d-flex-align-center">
-                  <img src={Person3} alt="" />
-                  <div className="presentation">
-                    <p>Wilson Baptista</p>
-                    <p>wilson@gmail.com</p>
-                  </div>
-                  <button>Contact</button>
-                </li>
+                {contacts &&
+                  contacts.map((contact, index) => (
+                    <li key={String(index)} className="d-flex-align-center">
+                      <img src={Person1} alt="" />
+                      <div className="presentation">
+                        <p>{contact?.name}</p>
+                        <p>{contact?.email}</p>
+                      </div>
+                      <button
+                        onClick={() =>
+                          history.push(`/LiveChat/${contact?.uuid}`)
+                        }
+                      >
+                        Contact
+                      </button>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>

@@ -38,6 +38,7 @@ function Login(props) {
             console.log(alertID);
             saveLogin({
               cID: user.cID,
+              companyName: user.companyName,
               name: user.name,
               token: user.token,
               logged: true,

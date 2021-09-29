@@ -93,7 +93,7 @@ function EmailTickets() {
         <BodyHeader active="EmailTickets" />
 
         <div className="body-main-area">
-          <h2>Email Tickets</h2>
+          {/* <h2>Email Tickets</h2> */}
 
           <ul className="navigation-bar d-flex-align-center">
             <li
@@ -282,7 +282,7 @@ function EmailTickets() {
                     <div className="right-side d-flex-align-center">
                       <div className="icon-wrapper d-flex-align-center">
                         <img src={BlueLow} alt="" />
-                        <p>Low</p>
+                        <p>Medium</p>
                       </div>
                       <div className="icon-wrapper d-flex-align-center">
                         <img src={User} alt="" />

@@ -12,6 +12,7 @@ import Home from "App/pages/Home";
 import Analytics from "App/pages/Analytics";
 import CalendarBooking from "App/pages/CalendarBooking";
 import Calendars from "App/pages/calendar/Calendars";
+import Booking from "App/pages/calendar/Booking";
 
 import Login from "App/pages/auth/login";
 import Logout from "App/pages/auth/logout";
@@ -31,7 +32,7 @@ const AuthRoutes = () => (
     <Route path="/CalendarBooking/calendars" exact>
       <Calendars />
     </Route>
-    <Route path="/CalendarBooking" exact>
+    <Route path="/CalendarBooking/:type?" exact>
       <CalendarBooking />
     </Route>
     <Route path="/settings/:channel?" exact>
@@ -56,6 +57,9 @@ const AuthRoutes = () => (
     <Route path="/LiveVisitors" exact>
       <LiveVisitors />
     </Route>
+    <Route path="/calendar/:calendar" exact>
+      <Booking />
+    </Route>
     <Route path="/snippet/:company" exact>
       <Snippet />
     </Route>
@@ -75,6 +79,12 @@ const Routes = () =>
     <Switch>
       <Route path={"/register"} component={Register} />
       <Route path={"/login"} component={Login} />
+      <Route path="/snippet/:company" exact>
+        <Snippet />
+      </Route>
+      <Route path="/embed/:company" exact>
+        <Embed />
+      </Route>
       <Redirect from="*" to="/login" />
     </Switch>
   );

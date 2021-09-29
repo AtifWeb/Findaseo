@@ -119,7 +119,7 @@ function Sidebar({ active }) {
           </Link>
         </li>
 
-        <li className={`${active === "calender" && "active"}`}>
+        <li className={`${active === "calendar" && "active"}`}>
           <Link to="/CalendarBooking">
             <svg
               width="34"
