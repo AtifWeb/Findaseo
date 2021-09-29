@@ -21,6 +21,16 @@ import Register from "App/pages/auth/register";
 import Snippet from "App/pages/embed/Snippet";
 import Embed from "App/pages/embed";
 
+// front page
+
+import { HomePage } from "App/pages/FrontPages/HomePage/HomePage";
+import { Pricing } from "App/pages/FrontPages/Plus/Pricing/Pricing";
+import { Features } from "App/pages/FrontPages/Plus/Features/Features";
+import { Careers } from "App/pages/FrontPages/Plus/Careers/Careers";
+import { PrivacyPolicy } from "App/pages/FrontPages/Plus/Privacy Policy/PrivacyPolicy";
+import { Login as Loginn } from "App/pages/FrontPages/Plus/Auth/Login/Login";
+import { Register as Registerr } from "App/pages/FrontPages/Plus/Auth/Register/Register";
+
 const AuthRoutes = () => (
   <Switch>
     <Route path="/" exact>
@@ -68,6 +78,33 @@ const AuthRoutes = () => (
     </Route>
     <Route path="/logout" exact>
       <Logout />
+    </Route>
+
+    {/* front page routing */}
+
+    <Route path="/h" exact>
+      <HomePage />
+    </Route>
+
+    <Route path="/plus/pricing" exact>
+      <Pricing />
+    </Route>
+    <Route path="/plus/features" exact>
+      <Features />
+    </Route>
+    <Route path="/plus/careers" exact>
+      <Careers />
+    </Route>
+    <Route path="/plus/PrivacyPolicy" exact>
+      <PrivacyPolicy />
+    </Route>
+
+    {/* Auth */}
+    <Route path="/plus/auth/login" exact>
+      <Loginn />
+    </Route>
+    <Route path="/plus/auth/register" exact>
+      <Registerr />
     </Route>
   </Switch>
 );
