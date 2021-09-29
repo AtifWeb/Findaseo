@@ -1,0 +1,14 @@
+.LoginWrapper {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+  position: absolute;
+  top: 80px;
+  font-size: 2rem;
+  width: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+}

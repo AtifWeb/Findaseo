@@ -1,0 +1,23 @@
+.PricingCardWrapper {
+  margin: 6rem auto;
+  padding: 6rem 0rem;
+
+  background: #f8f9f9;
+}
+.Content {
+  margin: 0rem auto !important;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: grid;
+
+  grid-gap: 1rem;
+}
+@media screen and (max-width: 1000px) {
+  .Content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 600px) {
+  .Content {
+    grid-template-columns: 1fr;
+  }
+}

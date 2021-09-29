@@ -1,0 +1,14 @@
+.PricingFaq {
+  margin-bottom: 6rem;
+}
+.mainheading {
+  margin-bottom: 2.5rem;
+  text-align: center;
+  color: #333;
+  font-size: 35px;
+}
+@media screen and (max-width: 450px) {
+  .mainheading {
+    font-size: 28px;
+  }
+}

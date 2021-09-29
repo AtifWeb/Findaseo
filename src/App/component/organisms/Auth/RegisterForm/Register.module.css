@@ -1,0 +1,54 @@
+.RegisterForm {
+  padding: 2rem 4rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 550px;
+  margin: 5rem 0rem;
+  margin-top: 10rem;
+}
+.radioheading {
+  margin-bottom: 1rem;
+}
+.radiolist {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.FeildsWrapper {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+.heading {
+  font-weight: 500;
+  font-size: 20px;
+  color: #333;
+}
+.progressWrapper {
+  text-align: center;
+}
+.progress {
+  height: 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+  display: block;
+  border: 1px solid #ddd;
+}
+.progressInner {
+  background: #ddd;
+  width: 25%;
+  height: 10px;
+  display: block;
+}
+@media screen and (max-width: 650px) {
+  .RegisterForm {
+    width: 100%;
+    margin: 5rem 0rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .RegisterForm {
+    padding: 2rem 2rem;
+  }
+}

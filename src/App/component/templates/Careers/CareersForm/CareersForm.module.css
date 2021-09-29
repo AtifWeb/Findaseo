@@ -1,0 +1,55 @@
+.CareersForm {
+  margin-top: 7rem;
+  padding: 5rem 0rem;
+  background: #13225f;
+}
+.contactFormContent {
+  color: #fff;
+}
+.heading {
+  text-align: center;
+  font-size: 2.7rem;
+}
+.Form {
+  width: 50%;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+}
+.inputWrapper {
+  margin-bottom: 1rem;
+}
+label {
+  color: #333;
+  display: block;
+}
+.input {
+  border: 1px solid #ddd;
+  width: 100%;
+  height: 45px;
+  margin-top: 5px;
+  padding: 0rem 1rem;
+  font-size: 16px;
+  outline: none;
+}
+.Button {
+  width: 100%;
+  height: 45px;
+  border-radius: 5px;
+  background: #002650;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+@media screen and (max-width: 800px) {
+  .Form {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .Form {
+    width: 100%;
+  }
+}

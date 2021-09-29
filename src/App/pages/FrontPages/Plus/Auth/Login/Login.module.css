@@ -1,0 +1,21 @@
+.LoginWrapper {
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 0.8fr 1fr;
+  align-items: center;
+  grid-gap: 6rem;
+}
+.Image {
+  width: 100%;
+}
+@media screen and (max-width: 1200px) {
+  .LoginWrapper {
+    grid-template-columns: 1fr;
+    padding: 6rem 0rem;
+  }
+  .Image {
+    width: 60%;
+    margin: 0rem auto;
+    display: none;
+  }
+}

@@ -1,0 +1,26 @@
+.button {
+  background: #13225f;
+  color: #fff;
+  font-size: 18px;
+  width: 100%;
+  border-radius: 5px;
+  height: 60px;
+  font-family: "Poppins", sans-serif;
+}
+.outline {
+  background: #fff;
+  border: 1px solid #13225f;
+  color: #13225f;
+}
+.link {
+  color: #fff;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.outline.link {
+  color: #13225f;
+}

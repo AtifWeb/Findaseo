@@ -1,0 +1,77 @@
+.HomeWebsiteService {
+  padding: 5rem 0rem;
+  background: #f8f9f9;
+  margin-top: 6rem;
+}
+.Grid {
+  display: grid;
+  margin-bottom: 6rem;
+  grid-template-columns: 1fr 0.5fr;
+  align-items: center;
+}
+.personImage {
+  width: 100%;
+}
+.MainHeading {
+  width: 80%;
+
+  color: #333;
+}
+
+.CardsWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 4rem;
+}
+
+.para {
+  width: 80%;
+
+  color: #333;
+  margin-top: 2rem;
+}
+@media screen and (max-width: 1000px) {
+  .CardsWrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .MainHeading {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 650px) {
+  .Grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .personImage {
+    width: 50%;
+  }
+  .para,
+  .MainHeading {
+    text-align: center;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .CardsWrapper {
+    grid-template-columns: 1fr;
+    width: 80%;
+    margin: 4rem auto;
+  }
+  .MainHeading {
+    font-size: 28px;
+  }
+  .MainHeading,
+  .para {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .CardsWrapper {
+    width: 90%;
+  }
+}
