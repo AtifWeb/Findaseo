@@ -8,3 +8,8 @@
 .FrontPageLayout {
   font-family: "Poppins", sans-serif;
 }
+@media screen and (max-width: 450px) {
+  .MainBody {
+    margin-top: 2rem;
+  }
+}

@@ -21,7 +21,7 @@ export const RegisterForm = () => {
         </span>
       </div>
       <h2 className={`${styles.heading} heading-steps`}>
-        Start your free Zendesk trial
+        Try Pavelify 14 days free Trial
       </h2>
       <div className={styles.FeildsWrapper}>
         {Step.map((feild) => (

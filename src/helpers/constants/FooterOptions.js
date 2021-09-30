@@ -5,7 +5,12 @@ export const FooterOptions = [
   //     type: "long text",
   //   },
   // ],
-  [],
+  [
+    {
+      text: "Logo",
+      type: "heading",
+    },
+  ],
   [
     {
       text: "Product",

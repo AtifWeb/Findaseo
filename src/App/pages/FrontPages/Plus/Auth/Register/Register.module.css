@@ -12,3 +12,8 @@
   left: 50%;
   transform: translateX(-50%);
 }
+@media screen and (max-width: 650px) {
+  .logo {
+    top: 20px;
+  }
+}

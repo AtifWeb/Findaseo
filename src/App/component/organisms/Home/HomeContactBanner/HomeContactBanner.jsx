@@ -11,7 +11,7 @@ export const HomeContactBanner = () => {
         </h1>
         <UsePavelifyLink
           text="Use Pavelify for Free"
-          style={{ width: "30%", backgroundColor: "#fff", color: "#13215E" }}
+          style={{ width: "30%", backgroundColor: "#0F295C", color: "#fff" }}
         />
       </div>
     </div>
