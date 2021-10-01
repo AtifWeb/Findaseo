@@ -1,5 +1,5 @@
 .MainBody {
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 .Auth {
   margin-top: 0px;
@@ -7,4 +7,9 @@
 
 .FrontPageLayout {
   font-family: "Poppins", sans-serif;
+}
+@media screen and (max-width: 450px) {
+  .MainBody {
+    margin-top: 2rem;
+  }
 }

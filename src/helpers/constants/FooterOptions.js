@@ -5,7 +5,32 @@ export const FooterOptions = [
   //     type: "long text",
   //   },
   // ],
-  [],
+  [
+    {
+      text: "Logo",
+      type: "heading",
+    },
+    {
+      text: "Privacy Policy,",
+      type: "listItems",
+      url: "/",
+    },
+    {
+      text: "Terms and conditions",
+      type: "listItems",
+      url: "/",
+    },
+    {
+      text: "Careers",
+      type: "listItems",
+      url: "/",
+    },
+    {
+      text: " Affiliates",
+      type: "listItems",
+      url: "/",
+    },
+  ],
   [
     {
       text: "Product",

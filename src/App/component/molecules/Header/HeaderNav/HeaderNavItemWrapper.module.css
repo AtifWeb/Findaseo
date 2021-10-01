@@ -1,5 +1,5 @@
 .HeaderNavItemWrapper > * + * {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 @media screen and (max-width: 1000px) {
@@ -12,7 +12,7 @@
     height: 100vh;
     background: #fff;
     width: 60%;
-    justify-content: center;
+    padding: 3rem 0rem;
     align-items: center;
     left: -100%;
     transition: 0.3s ease all;

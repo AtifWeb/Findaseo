@@ -25,19 +25,19 @@ export const HomeWebsiteService = () => {
 
         <div className={styles.CardsWrapper}>
           <HomeCard
-            bgcolor="#FFC961"
+            bgcolor="#fff"
             title="Business Messenger"
             desc="Allow your customers to communicate with your business real time while browsing your website, on Messenger, Instagram, or email and chat with them from one platform. No need to switch between different tabs."
             img="./images/Business Messenger.jpg"
           />
           <HomeCard
-            bgcolor="#3C89FF"
+            bgcolor="#fff"
             title="Stay Organized"
             desc="Manage your customers queries and solve their problems in real time while staying organized with Knowledge base help center. Give your team what they need to stay efficient. Automate your support workflow."
             img="./images/Stay Organized.png"
           />
           <HomeCard
-            bgcolor="#2F2959"
+            bgcolor="#fff"
             title="Convert More Business"
             desc="Allow your customers the flexibility of scheduling phone call, zoom, Google meet or Microsoft live conversations with your business. Send appointment booking links, or embed on your website."
             img="./images/convert_business.jpg"

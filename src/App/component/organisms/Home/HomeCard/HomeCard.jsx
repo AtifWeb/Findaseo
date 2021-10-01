@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./HomeCard.module.css";
 export const HomeCard = ({
-  bgcolor,
+  bgcolor = null,
   title,
   desc,
   LargeText = null,
@@ -10,7 +10,10 @@ export const HomeCard = ({
 }) => {
   return (
     <div className={styles.HomeCard}>
-      <div className={styles.Top} style={{ background: bgcolor }}>
+      <div
+        className={styles.Top}
+        style={{ background: bgcolor != null && bgcolor }}
+      >
         {LargeText !== null && <h1 className={styles.LongText}>{LargeText}</h1>}
 
         {img != null && <img src={img} alt="" className={styles.image} />}

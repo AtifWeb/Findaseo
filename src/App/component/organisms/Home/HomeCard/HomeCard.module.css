@@ -15,9 +15,7 @@
   text-align: center;
 }
 .image {
-  height: 100%;
   width: 100%;
-  object-fit: cover;
 }
 .content {
   padding: 1.5rem;
@@ -51,7 +49,7 @@
 }
 @media screen and (max-width: 450px) {
   .head {
-    font-size: 23px !important;
+    font-size: 20px !important;
   }
   .para {
     font-size: 0.9rem !important;

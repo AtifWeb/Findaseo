@@ -25,6 +25,12 @@ export const HeaderOptions = [
     type: null,
   },
   {
+    name: "Try Pavelify for Free",
+    url: "/plus/auth/register",
+    type: "button",
+    buttonType: "solid",
+  },
+  {
     name: "Login",
     url: "/plus/auth/login",
     type: "button",

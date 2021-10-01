@@ -39,13 +39,7 @@ export const Fields = [
       inputType: "text",
       inputPlaceholder: "Enter Company Name",
     },
-    {
-      object: "GridInputWrapper",
-      label: "Number of employees",
-      id: "number_emp",
-      inputType: "text",
-      inputPlaceholder: "Number of employees",
-    },
+   
     {
       object: "radio",
       type: "radio",
@@ -64,13 +58,7 @@ export const Fields = [
       inputType: "slug",
       inputPlaceholder: "Enter Subdomain Name",
     },
-    {
-      object: "InputWrapper",
-      label: "Select a language for your subdomain",
-      id: "language",
-      inputType: "text",
-      inputPlaceholder: "Enter language",
-    },
+   
     {
       object: "InputWrapper",
       label: "Create a password",
