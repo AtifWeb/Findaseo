@@ -20,6 +20,7 @@ import { Careers } from "./App/pages/FrontPages/Plus/Careers/Careers";
 import { PrivacyPolicy } from "./App/pages/FrontPages/Plus/Privacy Policy/PrivacyPolicy";
 import { Login } from "./App/pages/FrontPages/Plus/Auth/Login/Login";
 import { Register } from "./App/pages/FrontPages/Plus/Auth/Register/Register";
+import { Calender } from "./App/pages/FrontPages/Plus/Calender/Calender";
 function App() {
   return (
     <div className="App">
@@ -78,6 +79,9 @@ function App() {
           </Route>
           <Route path="/plus/auth/register" exact>
             <Register />
+          </Route>
+          <Route path="/plus/Calender" exact>
+            <Calender />
           </Route>
         </Switch>
       </Router>

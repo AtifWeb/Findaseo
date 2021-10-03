@@ -1,0 +1,21 @@
+.LiveChat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+/* .LiveChat */
+.button {
+  width: 50px;
+  height: 50px;
+  border-right: 50%;
+  background: #13215e;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  margin-top: 1rem;
+  padding-top: 5px;
+  align-self: flex-end;
+  cursor: pointer;
+}
