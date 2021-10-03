@@ -7,6 +7,7 @@ export const BookMeeting = () => {
     <div className={styles.BookMeeting}>
       <h2 className={styles.heading}>Schedule a demo</h2>
       <SenderButton
+        to="/plus/Calender"
         text="Book a meeting"
         img={<i class="fas fa-calendar-week"></i>}
       />
