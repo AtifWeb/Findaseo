@@ -26,7 +26,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          {/* <Route path="/" exact>
+          <Route path="/" exact>
             <Home />
           </Route>
           <Route path="/dashhboard/Analytics" exact>
@@ -52,13 +52,13 @@ function App() {
           </Route>
           <Route path="/dashboard/LiveVisitors" exact>
             <LiveVisitors />
-          </Route> */}
+          </Route>
 
           {/* front page routing */}
 
-          <Route path="/" exact>
+          {/* <Route path="/" exact>
             <HomePage />
-          </Route>
+          </Route> */}
 
           <Route path="/plus/pricing" exact>
             <Pricing />
