@@ -4,7 +4,7 @@ import { CalenderPure } from "./CalenderPure/CalenderPure";
 export const CalenderBookingArea = () => {
   return (
     <div className={styles.CalenderBookingArea}>
-      <h1 className={styles.heading}>Select date:</h1>
+      <h1 className={styles.heading}>Pick a date:</h1>
 
       <CalenderPure />
     </div>

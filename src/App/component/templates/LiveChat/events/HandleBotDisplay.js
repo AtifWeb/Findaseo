@@ -3,6 +3,7 @@ export const HandleBotDisplay = (e) => {
 
   if (window.innerWidth > 600) {
     if (Bot.classList.contains("active")) {
+      document.querySelector("#MessageArea").style.display = "none";
       document.querySelector(".collapse-bot").style.opacity = 0;
       document.querySelector(".collapse-bot").style.transform =
         " translateY(30px)";

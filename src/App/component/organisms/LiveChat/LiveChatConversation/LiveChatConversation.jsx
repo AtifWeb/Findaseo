@@ -4,11 +4,19 @@ import { ConversationMembers } from "../../../molecules/LiveChat/ConversationMem
 import { LiveChatMembers } from "./helper/Member";
 import styles from "./LiveChatConversation.module.css";
 export const LiveChatConversation = () => {
+  const HandleCovertingScreen = (e) => {
+    e.preventDefault();
+    document.querySelector("#collpase-area").style.display = "none";
+    document.querySelector("#MessageArea").style.display = "block";
+  };
   return (
     <div className={styles.LiveChatConversation}>
       <h2 className={styles.heading}>Your conversations</h2>
       <ConversationMembers members={LiveChatMembers} />
-      <SenderButton text="Start New Conversation" />
+      <SenderButton
+        text="Start New Conversation"
+        onClick={HandleCovertingScreen}
+      />
     </div>
   );
 };

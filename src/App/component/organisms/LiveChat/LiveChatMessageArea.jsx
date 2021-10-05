@@ -5,10 +5,19 @@ import { Message } from "./helper/Messages";
 import styles from "./LiveChatMessageArea.module.css";
 
 export const LiveChatMessageArea = () => {
+  const HandleCovertingScreen = (e) => {
+    e.preventDefault();
+    document.querySelector("#collpase-area").style.display = "block";
+    document.querySelector("#MessageArea").style.display = "none";
+  };
+
   return (
-    <div className={`${styles.LiveChatMessageArea} collapse-bot `}>
+    <div
+      className={`${styles.LiveChatMessageArea} collapse-bot `}
+      id="MessageArea"
+    >
       <div className={styles.top}>
-        <div className={styles.CloseIcon}>
+        <div className={styles.CloseIcon} onClick={HandleCovertingScreen}>
           <i class="fas fa-chevron-left"></i>
         </div>
         <div className={styles.presentation}>

@@ -6,7 +6,10 @@ import { LiveChatConversation } from "./LiveChatConversation/LiveChatConversatio
 import { LiveChatSearch } from "./LiveChatSearch/LiveChatSearch";
 export const CollapseAbleLiveChat = () => {
   return (
-    <div className={`${styles.CollapseAbleLiveChat} collapse-bot`}>
+    <div
+      className={`${styles.CollapseAbleLiveChat} collapse-bot`}
+      id="collpase-area"
+    >
       <div className={styles.top}>
         <div
           className={styles.CloseIcon}
