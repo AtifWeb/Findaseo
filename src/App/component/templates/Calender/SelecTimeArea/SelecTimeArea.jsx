@@ -10,7 +10,7 @@ export const SelecTimeArea = () => {
     });
     e.target.style.background = "#12205B";
     e.target.style.color = "#fff";
-    document.querySelector(".popup-calender").style.display = "block";
+    document.querySelector(".popup-calender").style.display = "flex";
   };
 
   return (
