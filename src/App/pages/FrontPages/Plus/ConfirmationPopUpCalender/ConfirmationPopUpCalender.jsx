@@ -1,8 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styles from "./ConfirmationPopUpCalender.module.css";
 export const ConfirmationPopUpCalender = () => {
+  const history = useHistory();
   const RemovePopUp = (e) => {
     e.preventDefault();
+    history.push("/plus/Calender");
   };
   return (
     <div
