@@ -17,6 +17,11 @@ export const ConfirmationPopUpCalender = () => {
         <p>
           <b>15 Minute Meeting</b> with <b>David Kelly</b>
         </p>
+        <div>
+          <div className={styles.Close} onClick={RemovePopUp}>
+            <i class="fas fa-arrow-left"></i>
+          </div>
+        </div>
         <ul className={styles.Ul}>
           <li className={styles.Li}>Friday, October 15th, at 9:15 am </li>
           <li className={styles.Li}> America/Los_Angeles</li>
@@ -52,12 +57,6 @@ export const ConfirmationPopUpCalender = () => {
           </div>
 
           <div className={styles.buttonWrapper}>
-            <button
-              className={`${styles.button} ${styles.outline}`}
-              onClick={RemovePopUp}
-            >
-              Cancel
-            </button>
             <button className={styles.button}>Schedule Meeting</button>
           </div>
         </form>
