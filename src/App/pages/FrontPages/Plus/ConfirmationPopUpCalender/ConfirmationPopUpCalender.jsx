@@ -3,7 +3,6 @@ import styles from "./ConfirmationPopUpCalender.module.css";
 export const ConfirmationPopUpCalender = () => {
   const RemovePopUp = (e) => {
     e.preventDefault();
-    document.querySelector(".popup-calender").style.display = "none";
   };
   return (
     <div
@@ -11,9 +10,6 @@ export const ConfirmationPopUpCalender = () => {
     >
       <div className={`${styles.ConfirmationPopUpCalender} `}>
         <h2 className={styles.heading}>Confirm booking:</h2>
-        <div className={styles.Close} onClick={RemovePopUp}>
-          <i class="fas fa-times"></i>
-        </div>
 
         <p>
           <b>15 Minute Meeting</b> with <b>David Kelly</b>
@@ -41,7 +37,7 @@ export const ConfirmationPopUpCalender = () => {
           <div className={styles.textareawrapper}>
             <label htmlFor="text_area" className={styles.label}>
               This is a test booking! Here's an example question: Have you told
-              a friend about TidyCal yet?
+              a friend about Pavelify yet?
             </label>
             <textarea
               name=""
@@ -59,7 +55,7 @@ export const ConfirmationPopUpCalender = () => {
             >
               Cancel
             </button>
-            <button className={styles.button}>Book Event</button>
+            <button className={styles.button}>Schedule Meeting</button>
           </div>
         </form>
       </div>

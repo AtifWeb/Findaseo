@@ -21,6 +21,7 @@ import { PrivacyPolicy } from "./App/pages/FrontPages/Plus/Privacy Policy/Privac
 import { Login } from "./App/pages/FrontPages/Plus/Auth/Login/Login";
 import { Register } from "./App/pages/FrontPages/Plus/Auth/Register/Register";
 import { Calender } from "./App/pages/FrontPages/Plus/Calender/Calender";
+import { ConfirmationPopUpCalender } from "./App/pages/FrontPages/Plus/ConfirmationPopUpCalender/ConfirmationPopUpCalender";
 function App() {
   return (
     <div className="App">
@@ -79,6 +80,9 @@ function App() {
           </Route>
           <Route path="/plus/auth/register" exact>
             <Register />
+          </Route>
+          <Route path="/plus/Calender/Confirm" exact>
+            <ConfirmationPopUpCalender />
           </Route>
           <Route path="/plus/Calender" exact>
             <Calender />

@@ -8,7 +8,6 @@
   position: relative;
 }
 .ConfirmationPopUpCalenderWrapper {
-  position: fixed;
   width: 100%;
   top: 0;
   left: 0;
@@ -18,7 +17,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  display: none;
 }
 .heading {
   font-weight: 200;
@@ -74,15 +72,17 @@
 }
 .button {
   padding: 0.5rem 1rem;
-  border: 1px solid #b8aa91;
-  background: #b8aa91;
+  border: 1px solid #326bff;
+  background: #326bff;
   outline: none;
   margin-right: 5px;
+  color: #fff;
   cursor: pointer;
 }
 
 .outline {
   background: transparent;
+  color: #333;
 }
 @media screen and (max-width: 750px) {
   .ConfirmationPopUpCalender {

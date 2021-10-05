@@ -18,6 +18,9 @@
   cursor: pointer;
   align-self: flex-end;
 }
+.Img {
+  pointer-events: none;
+}
 
 @media screen and (max-width: 600px) {
   .LiveChat {
