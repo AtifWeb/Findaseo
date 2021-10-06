@@ -90,11 +90,18 @@
 }
 @media screen and (max-width: 600px) {
   .top {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    top: 0;
     border-radius: 0px;
   }
+
   .form {
     width: 100%;
-    bottom: 20px;
+    bottom: 0px;
   }
   .LiveChatMessageArea {
     height: 100vh;
@@ -107,7 +114,11 @@
     transform: translateY(0px) !important;
     background: #fff;
   }
+
   .bodyContent {
-    height: 83vh;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding-top: 90px;
+    height: 100vh;
   }
 }
