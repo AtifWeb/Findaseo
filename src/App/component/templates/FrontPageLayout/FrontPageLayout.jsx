@@ -5,6 +5,7 @@ import { Footer } from "../../organisms/Footer/Footer";
 import { Header } from "../../organisms/Header/HeaderNav/Header";
 import styles from "./FrontPageLayout.module.css";
 import "../../../../Assets/styles/FrontPages/Global.css";
+import { LiveChat } from "../LiveChat/LiveChat";
 export const FrontPageLayout = ({ children, activeLink, auth = null }) => {
   return (
     <div className={styles.FrontPageLayout}>
@@ -15,6 +16,9 @@ export const FrontPageLayout = ({ children, activeLink, auth = null }) => {
       <div className={`${styles.MainBody} ${auth != null && styles.Auth}`}>
         {children}
       </div>
+
+      {/* Live Widget */}
+      <LiveChat />
 
       {/* footer */}
 

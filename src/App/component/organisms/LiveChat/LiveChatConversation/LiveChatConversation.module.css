@@ -1,0 +1,12 @@
+.LiveChatConversation {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.heading {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}

@@ -1,0 +1,22 @@
+.SeconderButton {
+  background: #13215e;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 1rem 0.8rem;
+  border: none;
+  outline: none;
+  font-family: "DM Sans", sans-serif;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.text {
+  margin-left: 1rem;
+}
+@media screen and (max-width: 400px) {
+  .SeconderButton {
+    padding: 0.6rem 0.8rem;
+  }
+}

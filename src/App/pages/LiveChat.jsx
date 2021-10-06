@@ -368,42 +368,45 @@ function LiveChat() {
                     conversation.name
                       .toLowerCase()
                       .indexOf(filter.toLowerCase()) !== -1 && (
-                      <NeutralButton
-                        type="button"
-                        className=""
+                      // <NeutralButton
+                      //   type="button"
+                      //   className=""
+
+                      // >
+                      <div
                         onClick={() =>
                           history.push(`/LiveChat/${conversation?.uuid}`)
                         }
                         key={String(conversation?.uuid)}
+                        className="user d-flex-align-center cursor-pointer"
                       >
-                        <div className="user d-flex-align-center">
-                          <img src={Person1} alt="" />
-                          <div className="presentation d-flex-align-center">
-                            <div className="left-side">
-                              <h4>{conversation?.name}</h4>
-                              <p>
-                                {conversation?.latestChat?.sender === "Operator"
-                                  ? "Op: "
-                                  : ""}
-                                {conversation?.latestChat?.message}
-                              </p>
-                            </div>
-                            <div className="right-side">
-                              <p>
-                                {format(
-                                  new Date(conversation?.latestChat?.timestamp),
-                                  "p"
-                                )}
-                              </p>
-                              {conversation?.hasNewMessage ? (
-                                <span className="badge d-flex-align-center">
-                                  1
-                                </span>
-                              ) : null}
-                            </div>
+                        <img src={Person1} alt="" />
+                        <div className="presentation d-flex-align-center">
+                          <div className="left-side">
+                            <h4>{conversation?.name}</h4>
+                            <p>
+                              {conversation?.latestChat?.sender === "Operator"
+                                ? "Op: "
+                                : ""}
+                              {conversation?.latestChat?.message}
+                            </p>
+                          </div>
+                          <div className="right-side">
+                            <p>
+                              {format(
+                                new Date(conversation?.latestChat?.timestamp),
+                                "p"
+                              )}
+                            </p>
+                            {conversation?.hasNewMessage ? (
+                              <span className="badge d-flex-align-center">
+                                1
+                              </span>
+                            ) : null}
                           </div>
                         </div>
-                      </NeutralButton>
+                      </div>
+                      // </NeutralButton>
                     )
                 )}
                 {/* <div className="user d-flex-align-center">

@@ -1,0 +1,12 @@
+.calender {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr 0.4fr;
+  grid-gap: 2rem;
+
+  margin: 6rem auto !important;
+}
+@media screen and (max-width: 1100px) {
+  .calender {
+    grid-template-columns: 1fr;
+  }
+}

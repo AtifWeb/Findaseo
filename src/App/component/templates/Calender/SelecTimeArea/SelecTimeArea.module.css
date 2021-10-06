@@ -1,0 +1,12 @@
+.days {
+  margin-top: 2rem;
+  height: 70vh;
+  overflow: auto;
+}
+.day {
+  padding: 1rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
