@@ -1,7 +1,7 @@
 import React from "react";
 import { TextMessage } from "../../Atoms/LiveChat/TextMessage";
 import { Message } from "./helper/Messages";
-import SenderImage from "../../../../Assets/img/sender.svg";
+import SenderImage from "../../../../Assets/img/sender_navy.svg";
 import styles from "./LiveChatMessageArea.module.css";
 
 export const LiveChatMessageArea = () => {
