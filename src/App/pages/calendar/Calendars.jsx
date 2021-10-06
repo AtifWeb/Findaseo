@@ -17,6 +17,7 @@ import Sidebar from "App/component/Sidebar";
 import BodyHeader from "App/component/BodyHeader";
 import copy from "clipboard-copy";
 import { MAIN_URL } from "../settings/Livechat";
+import useGetSubdomain from "App/hooks/useGetSubdomain";
 
 const Departments = (props) => {
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ const Departments = (props) => {
   const [slug, setSlug] = useState("");
   const [action, setAction] = useState("create");
   const [showModal, setShowModal] = useState(false);
+  const { domain } = useGetSubdomain();
 
   useEffect(() => {
     fetchCalendars();
@@ -393,7 +395,9 @@ const Departments = (props) => {
                       <div className="col col3 d-flex-align-center">
                         <NeutralButton
                           onClick={() =>
-                            copyLink(`${MAIN_URL}/calendar/${calendar.slug}`)
+                            copyLink(
+                              `${window.location.protocol}//appointment.${domain}/${user?.name}/${calendar.slug}`
+                            )
                           }
                         >
                           <i className="fa fa-lg fa-copy"></i>

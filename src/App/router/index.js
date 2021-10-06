@@ -8,15 +8,15 @@ import EmailTicketConversation from "App/pages/EmailTicketConversation";
 import Operators from "App/pages/Operators";
 import LiveChat from "App/pages/LiveChat";
 import LiveVisitors from "App/pages/LiveVisitors";
-import Home from "App/pages/Home";
+import Dashboard from "App/pages/Home";
 import Analytics from "App/pages/Analytics";
 import CalendarBooking from "App/pages/CalendarBooking";
 import Calendars from "App/pages/calendar/Calendars";
 import Booking from "App/pages/calendar/Booking";
 
-import Login from "App/pages/auth/login";
+// import Login from "App/pages/auth/login";
 import Logout from "App/pages/auth/logout";
-import Register from "App/pages/auth/register";
+// import Register from "App/pages/auth/register";
 
 import Snippet from "App/pages/embed/Snippet";
 import Embed from "App/pages/embed";
@@ -28,101 +28,138 @@ import { Pricing } from "App/pages/FrontPages/Plus/Pricing/Pricing";
 import { Features } from "App/pages/FrontPages/Plus/Features/Features";
 import { Careers } from "App/pages/FrontPages/Plus/Careers/Careers";
 import { PrivacyPolicy } from "App/pages/FrontPages/Plus/Privacy Policy/PrivacyPolicy";
-import { Login as Loginn } from "App/pages/FrontPages/Plus/Auth/Login/Login";
-import { Register as Registerr } from "App/pages/FrontPages/Plus/Auth/Register/Register";
+import { Login } from "App/pages/FrontPages/Plus/Auth/Login/Login";
+import { Register } from "App/pages/FrontPages/Plus/Auth/Register/Register";
+import useGetSubdomain from "App/hooks/useGetSubdomain";
 
-const AuthRoutes = () => (
-  <Switch>
-    <Route path="/" exact>
-      <Home />
-    </Route>
-    <Route path="/Analytics" exact>
-      <Analytics />
-    </Route>
-    <Route path="/CalendarBooking/calendars" exact>
-      <Calendars />
-    </Route>
-    <Route path="/CalendarBooking/:type?" exact>
-      <CalendarBooking />
-    </Route>
-    <Route path="/settings/:channel?" exact>
-      <Settings />
-    </Route>
-    <Route path="/contact/:channel?" exact>
-      <Contact />
-    </Route>
-    <Route path="/EmailTickets/conversation/:id?" exact>
-      <EmailTicketConversation />
-    </Route>
+const AuthRoutes = () => {
+  const { subdomain, domain } = useGetSubdomain();
 
-    <Route path="/EmailTickets/:type?" exact>
-      <EmailTickets />
-    </Route>
-    <Route path="/operators" exact>
-      <Operators />
-    </Route>
-    <Route path="/LiveChat/:user?" exact>
-      <LiveChat />
-    </Route>
-    <Route path="/LiveVisitors" exact>
-      <LiveVisitors />
-    </Route>
-    <Route path="/calendar/:calendar" exact>
-      <Booking />
-    </Route>
-    <Route path="/snippet/:company" exact>
-      <Snippet />
-    </Route>
-    <Route path="/embed/:company" exact>
-      <Embed />
-    </Route>
-    <Route path="/logout" exact>
-      <Logout />
-    </Route>
+  switch (subdomain) {
+    case "":
+      return (
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+          <Route path="/snippet/:company" exact>
+            <Snippet />
+          </Route>
+          <Route path="/pricing" exact>
+            <Pricing />
+          </Route>
+          <Route path="/features" exact>
+            <Features />
+          </Route>
+          <Route path="/careers" exact>
+            <Careers />
+          </Route>
+          <Route path="/PrivacyPolicy" exact>
+            <PrivacyPolicy />
+          </Route>
 
-    {/* front page routing */}
+          {/* Authentications */}
+          <Route
+            path="/auth/login"
+            component={() => {
+              window.location.replace(
+                `${window.location.protocol}//app.${domain}`
+              );
+              return null;
+            }}
+          />
+          {/* <Login />
+          </Route> */}
+          <Route
+            path="/auth/register"
+            component={() => {
+              window.location.replace(
+                `${window.location.protocol}//app.${domain}/auth/register`
+              );
+              return null;
+            }}
+          />
+        </Switch>
+      );
+      break;
 
-    <Route path="/h" exact>
-      <HomePage />
-    </Route>
+    case "livechat":
+      return (
+        <Switch>
+          <Route path="/:company" exact>
+            <Embed />
+          </Route>
+        </Switch>
+      );
 
-    <Route path="/plus/pricing" exact>
-      <Pricing />
-    </Route>
-    <Route path="/plus/features" exact>
-      <Features />
-    </Route>
-    <Route path="/plus/careers" exact>
-      <Careers />
-    </Route>
-    <Route path="/plus/PrivacyPolicy" exact>
-      <PrivacyPolicy />
-    </Route>
+    case "appointment":
+      return (
+        <Switch>
+          <Route path="/:companyName/:calendar" exact>
+            <Booking />
+          </Route>
+        </Switch>
+      );
 
-    {/* Auth */}
-    <Route path="/plus/auth/login" exact>
-      <Loginn />
-    </Route>
-    <Route path="/plus/auth/register" exact>
-      <Registerr />
-    </Route>
-  </Switch>
-);
+    case "app":
+      return isLogin() ? (
+        <Switch>
+          <Route path="/" exact>
+            <Dashboard />
+          </Route>
+          <Route path="/Analytics" exact>
+            <Analytics />
+          </Route>
+          <Route path="/CalendarBooking/calendars" exact>
+            <Calendars />
+          </Route>
+          <Route path="/CalendarBooking/:type?" exact>
+            <CalendarBooking />
+          </Route>
+          <Route path="/settings/:channel?" exact>
+            <Settings />
+          </Route>
+          <Route path="/contact/:channel?" exact>
+            <Contact />
+          </Route>
+          <Route path="/EmailTickets/conversation/:id?" exact>
+            <EmailTicketConversation />
+          </Route>
 
-const Routes = () =>
-  isLogin() ? (
-    <AuthRoutes />
-  ) : (
-    <Switch>
-      <Route path={"/register"} component={Register} />
-      <Route path={"/login"} component={Login} />
-      <Route path="/snippet/:company" exact>
-        <Snippet />
-      </Route>
-      <Route path="/embed/:company" exact>
-        <Embed />
-      </Route>
-      <Redirect from="*" to="/login" />
-    </Switch>
-  );
+          <Route path="/EmailTickets/:type?" exact>
+            <EmailTickets />
+          </Route>
+          <Route path="/operators" exact>
+            <Operators />
+          </Route>
+          <Route path="/LiveChat/:user?" exact>
+            <LiveChat />
+          </Route>
+          <Route path="/LiveVisitors" exact>
+            <LiveVisitors />
+          </Route>
+          <Route path="/logout" exact>
+            <Logout />
+          </Route>
+        </Switch>
+      ) : (
+        <Switch>
+          <Route path="/" exact>
+            <Login />
+          </Route>
+          <Route path="/auth/register" exact>
+            <Register />
+          </Route>
+          <Redirect from="*" to="/" />
+        </Switch>
+      );
+
+    default:
+      return <Login />;
+      break;
+  }
+};
+
+const Routes = () => <AuthRoutes />;
+
 export default Routes;

@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { getUser } from "App/helpers/auth";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
+import useGetSubdomain from "App/hooks/useGetSubdomain";
 
 export const MAIN_URL = window.location.protocol + "//" + window.location.host;
 
@@ -16,6 +17,7 @@ const LiveChatSettings = () => {
   const [appearance, setAppearance] = useState({});
   const [loading, setLoading] = useState(false);
   const [user] = useState(getUser());
+  const { domain } = useGetSubdomain();
 
   useEffect(() => {
     getConfiguration();
@@ -99,6 +101,56 @@ const LiveChatSettings = () => {
       <StatusAlert />
       <h2>Live Chats</h2>
       <ul>
+        <li>
+          <div className="head d-flex-align-center">
+            <p>Instalations</p>
+            <svg
+              width="20"
+              height="12"
+              viewBox="0 0 20 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 1.5L10 10.5L1 1.5"
+                stroke="#282D4A"
+                strokeWidth="2"
+              />
+            </svg>
+          </div>
+          <div action="" className="body">
+            <div className="container text-center">
+              <h3>Paste this in the body of your website:</h3>
+              <div className="form-group mb-3">
+                <textarea
+                  readOnly
+                  name=""
+                  id=""
+                  cols="50"
+                  rows="10"
+                  value={`<script>
+! function(e, t) {
+	e.chatID = "${user.cID}";
+	var a = t.createElement("script");
+	a.type = "text/javascript", a.async = !0, a.src = "${window.location.protocol}//${domain}/embed.js";
+	var c = t.getElementsByTagName("script")[0];
+	c.parentNode.insertBefore(a, c)
+}(window, document);
+</script>`}
+                ></textarea>
+              </div>
+              <h3>You can also use the direct link:</h3>
+              <textarea
+                readOnly
+                name=""
+                id=""
+                cols="50"
+                rows="10"
+                value={`${window.location.protocol}//livechat.${domain}/${user.cID}`}
+              ></textarea>
+            </div>
+          </div>
+        </li>
         <li>
           <div className="head d-flex-align-center">
             <p>Pre Chat Survey</p>
@@ -745,57 +797,6 @@ const LiveChatSettings = () => {
             </svg>
           </div>
           <form action="" className="body"></form>
-        </li>
-
-        <li>
-          <div className="head d-flex-align-center">
-            <p>Instalations</p>
-            <svg
-              width="20"
-              height="12"
-              viewBox="0 0 20 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M19 1.5L10 10.5L1 1.5"
-                stroke="#282D4A"
-                strokeWidth="2"
-              />
-            </svg>
-          </div>
-          <div action="" className="body">
-            <div className="container text-center">
-              <h3>Paste this in the body of your website:</h3>
-              <div className="form-group mb-3">
-                <textarea
-                  readOnly
-                  name=""
-                  id=""
-                  cols="50"
-                  rows="10"
-                  value={`<script>
-! function(e, t) {
-	e.chatID = "${user.cID}";
-	var a = t.createElement("script");
-	a.type = "text/javascript", a.async = !0, a.src = "${MAIN_URL}/embed.js";
-	var c = t.getElementsByTagName("script")[0];
-	c.parentNode.insertBefore(a, c)
-}(window, document);
-</script>`}
-                ></textarea>
-              </div>
-              <h3>You can also use the direct link:</h3>
-              <textarea
-                readOnly
-                name=""
-                id=""
-                cols="50"
-                rows="10"
-                value={`${MAIN_URL}/embed/${user.cID}`}
-              ></textarea>
-            </div>
-          </div>
         </li>
       </ul>
     </div>

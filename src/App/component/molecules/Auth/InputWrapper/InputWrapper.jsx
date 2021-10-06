@@ -9,6 +9,8 @@ export const InputWrapper = ({
   InputWidth,
   style,
   inputStyle = null,
+  value,
+  onChange,
 }) => {
   return (
     <div className={styles.InputWrapper} style={style}>
@@ -20,6 +22,8 @@ export const InputWrapper = ({
         type={inputType}
         placeholder={inputPlaceholder}
         width={InputWidth}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

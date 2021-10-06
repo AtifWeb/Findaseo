@@ -8,6 +8,7 @@ export const Button = ({
   style,
   onClick = null,
   ext_class = null,
+  loading = false,
 }) => {
   return onClick == null ? (
     <button
@@ -25,6 +26,7 @@ export const Button = ({
     </button>
   ) : (
     <button
+      disabled={loading}
       className={`${styles.button} ${outline == true && styles.outline}
       
       ${ext_class !== null && "next_button"}
@@ -38,7 +40,7 @@ export const Button = ({
           {text}
         </Link>
       ) : (
-        <p>{text}</p>
+        <p>{loading ? <i className="fas fa-spin fa-spinner"></i> : text}</p>
       )}
     </button>
   );

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 function Logout(props) {
   useEffect(() => {
     clearUser();
-    window.location = "/login";
+    window.location = "/";
   });
   return <section className="container"></section>;
 }

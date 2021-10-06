@@ -4,10 +4,17 @@ import { parse } from "tldjs";
 const useGetSubdomain = () => {
   const [protocol] = useState(window.location.protocol);
   const [host] = useState(window.location.host);
-  const [subdomain, setSubdomain] = useState("");
+  const [subdomain, setSubdomain] = useState({});
 
   useEffect(() => {
-    setSubdomain(parse(`${protocol}//${host}`).subdomain.replace("www.", ""));
+    let data = parse(`${protocol}//${host}`);
+    console.log({ data });
+    setSubdomain({
+      ...data,
+      subdomain: data?.subdomain.replace("www.", ""),
+      domain:
+        data?.domain + (window.location.port ? ":" + window.location.port : ""),
+    });
     return () => {};
   }, [protocol, host]);
   return subdomain;

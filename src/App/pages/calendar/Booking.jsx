@@ -8,7 +8,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import useGetSubdomain from "App/hooks/useGetSubdomain";
 import daysOfTheWeek from "App/helpers/days";
 import NeutralButton from "App/component/NeutralButton";
 import { useParams } from "react-router";
@@ -123,8 +122,8 @@ const Booking = (props) => {
   const [which, setWhich] = useState("15 mins");
   const [loading, setLoading] = useState(false);
   const [calendar, setCalendar] = useState({});
-  const companyName = useGetSubdomain();
   const params = useParams();
+  const companyName = params?.companyName;
   const slug = params?.calendar;
   const [times, setTimes] = useState([]);
   const [step, setStep] = useState("first");
@@ -180,7 +179,7 @@ const Booking = (props) => {
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/calendar-bookings/get`,
       data: {
-        companyName,
+        companyName: companyName?.toLowerCase(),
         slug,
       },
     })

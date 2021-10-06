@@ -6,6 +6,8 @@ import { HandleNextStep } from "./events/HandleStep";
 import styles from "./Register.module.css";
 export const RegisterForm = () => {
   const [Step, setStep] = useState([]);
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setStep(Fields[0]);
   }, []);
@@ -34,6 +36,10 @@ export const RegisterForm = () => {
                 inputPlaceholder={feild.inputPlaceholder}
                 InputWidth="100%"
                 style={{ gridColumn: "span 2", marginTop: 0 }}
+                value={data[feild.id]}
+                onChange={(e) =>
+                  setData((prev) => ({ ...prev, [feild.id]: e.target.value }))
+                }
               />
             )}
             {feild.object == "GridInputWrapper" && (
@@ -44,6 +50,10 @@ export const RegisterForm = () => {
                 inputPlaceholder={feild.inputPlaceholder}
                 InputWidth="100%"
                 style={{ marginTop: 0 }}
+                value={data[feild.id]}
+                onChange={(e) =>
+                  setData((prev) => ({ ...prev, [feild.id]: e.target.value }))
+                }
               />
             )}
 
@@ -57,6 +67,13 @@ export const RegisterForm = () => {
                         type="radio"
                         style={{ marginRight: 10 }}
                         name="solving"
+                        value={data[feild.id]}
+                        onChange={(e) =>
+                          setData((prev) => ({
+                            ...prev,
+                            [feild.id]: e.target.value,
+                          }))
+                        }
                       />
                       <label htmlFor="">{EachCheckbox}</label>
                     </li>
