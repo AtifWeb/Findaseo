@@ -1,7 +1,7 @@
 import React from "react";
 import { TextMessage } from "../../Atoms/LiveChat/TextMessage";
 import { Message } from "./helper/Messages";
-
+import SenderImage from "../../../../Assets/img/sender.svg";
 import styles from "./LiveChatMessageArea.module.css";
 
 export const LiveChatMessageArea = () => {
@@ -45,6 +45,17 @@ export const LiveChatMessageArea = () => {
             <div className={styles.IconWrapper}>
               <i class="fas fa-paperclip"></i>
             </div>
+
+            <label htmlFor="send" className={styles.LabelWrapper}>
+              <img src={SenderImage} alt="" />
+            </label>
+
+            <input
+              type="submit"
+              value=""
+              id="send"
+              style={{ display: "none" }}
+            />
           </div>
         </form>
       </div>
