@@ -22,14 +22,18 @@ import { Login } from "./App/pages/FrontPages/Plus/Auth/Login/Login";
 import { Register } from "./App/pages/FrontPages/Plus/Auth/Register/Register";
 import { Calender } from "./App/pages/FrontPages/Plus/Calender/Calender";
 import { ConfirmationPopUpCalender } from "./App/pages/FrontPages/Plus/ConfirmationPopUpCalender/ConfirmationPopUpCalender";
+import Home_Desk from "./App/pages/Home_Desk";
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          {/* <Route path="/" exact>
+          <Route path="/" exact>
             <Home />
-          </Route> */}
+          </Route>
+          <Route path="/dashhboard/help_desk" exact>
+            <Home_Desk />
+          </Route>
           <Route path="/dashhboard/Analytics" exact>
             <Analytics />
           </Route>
@@ -57,9 +61,9 @@ function App() {
 
           {/* front page routing */}
 
-          <Route path="/" exact>
+          {/* <Route path="/" exact>
             <HomePage />
-          </Route>
+          </Route> */}
 
           <Route path="/plus/pricing" exact>
             <Pricing />
