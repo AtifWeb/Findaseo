@@ -2200,6 +2200,10 @@
     grid-template-columns: 1fr;
     grid-gap: 1rem;
   }
+
+  .messages-box-area .middle-side .message-container .message > p {
+    border-radius: 10px;
+  }
 }
 @media screen and (max-width: 600px) {
   .grid-box-area .visitors-in-site .top-area {
