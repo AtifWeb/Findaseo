@@ -24,6 +24,8 @@ import { generateRoomID } from "App/helpers/generateRoomID";
 import { format } from "date-fns";
 import styled from "styled-components";
 import randomColor from "App/helpers/randomColor";
+import SpainFlag from "../../Assets/img/flag-spain.png";
+
 window.currentDate = "";
 window.currentWho = "";
 
@@ -187,6 +189,7 @@ function LiveChat() {
                   : "queue"
               }`}
             >
+              <img src={Person1} className="person_img_user" alt="" />
               <p>{chat.message}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{visitor.name}</p>
@@ -210,6 +213,7 @@ function LiveChat() {
                   : "queue"
               }`}
             >
+              <img src={Person1} className="person_img_user" alt="" />
               <p>{chat.message}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{visitor.name}</p>
@@ -245,6 +249,7 @@ function LiveChat() {
                   : "queue"
               }`}
             >
+              <img src={Person1} className="person_img_user" alt="" />
               <p>{chat?.message}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">Jhon</p>
@@ -267,6 +272,7 @@ function LiveChat() {
                   : "queue"
               }`}
             >
+              <img src={Person1} className="person_img_user" alt="" />
               <p>{chat?.message}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">Jhon</p>
@@ -318,8 +324,10 @@ function LiveChat() {
         {/* header */}
         <BodyHeader active="LiveChat" />
 
-        <div className="body-main-area">
-          {/* <h2>Live Chats</h2> */}
+        <div
+          className="body-main-area"
+          style={{ paddingTop: 0, paddingBottom: 0 }}
+        >
           <div className="messages-box-area">
             {/* left side */}
             <div className="left-side">
@@ -381,11 +389,15 @@ function LiveChat() {
                         key={String(conversation?.uuid)}
                         className="user d-flex-align-center cursor-pointer"
                       >
-                        <div
-                          className="livechat-tag"
-                          style={{ background: randomColor() }}
-                        >
-                          {conversation?.name?.slice(0, 1) || 0}
+                        <div className="images_wrapper">
+                          {/* <img src={Person1} alt="" /> */}
+                          <div
+                            className="livechat-tag"
+                            style={{ background: randomColor() }}
+                          >
+                            {conversation?.name?.slice(0, 1) || 0}
+                          </div>
+                          <img src={SpainFlag} alt="" className="flag" />
                         </div>
                         <div className="presentation d-flex-align-center">
                           <div className="left-side">
@@ -428,7 +440,11 @@ function LiveChat() {
                   </div>
                 </div>
                 <div className="user d-flex-align-center">
-                  <img src={Person3} alt="" />
+                  <div className="images_wrapper">
+                    <img src={Person3} alt="" />
+                    <img src={SpainFlag} alt="" className="flag" />
+                  </div>
+
                   <div className="presentation d-flex-align-center">
                     <div className="left-side">
                       <h4>Chance Gouse</h4>

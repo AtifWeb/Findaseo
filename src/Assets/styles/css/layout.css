@@ -78,6 +78,13 @@
 .Sidebar nav li.active a svg path {
   fill: #2d96d7;
 }
+.Sidebar nav li a i {
+  font-size: 30px;
+  color: #6a7097;
+}
+.Sidebar nav li.active a i {
+  color: #2d96d7;
+}
 .Sidebar nav li.active a::after {
   position: absolute;
   right: 0;

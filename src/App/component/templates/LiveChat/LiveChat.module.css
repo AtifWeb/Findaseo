@@ -21,10 +21,3 @@
 .Img {
   pointer-events: none;
 }
-
-@media screen and (max-width: 600px) {
-  .LiveChat {
-    /* bottom: 0px; */
-    /* right: 0px; */
-  }
-}
