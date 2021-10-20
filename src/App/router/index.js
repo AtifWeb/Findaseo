@@ -13,6 +13,7 @@ import Analytics from "App/pages/Analytics";
 import CalendarBooking from "App/pages/CalendarBooking";
 import Calendars from "App/pages/calendar/Calendars";
 import Booking from "App/pages/calendar/Booking";
+import Home_Desk from "App/pages/Home_Desk";
 
 // import Login from "App/pages/auth/login";
 import Logout from "App/pages/auth/logout";
@@ -125,6 +126,9 @@ const AuthRoutes = () => {
           </Route>
           <Route path="/Analytics" exact>
             <Analytics />
+          </Route>
+           <Route path="/knowledgebase" exact>
+            <Home_Desk />
           </Route>
           <Route path="/CalendarBooking/calendars" exact>
             <Calendars />
