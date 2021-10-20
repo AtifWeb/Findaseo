@@ -35,6 +35,7 @@ export const LoginForm = () => {
             saveLogin({
               cID: user.cID,
               companyName: user.companyName,
+              companyFullName: user.companyFullName,
               name: user.name,
               token: user.token,
               logged: true,

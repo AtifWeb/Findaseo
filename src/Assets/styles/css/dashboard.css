@@ -974,6 +974,7 @@
 /* table area */
 .body-area .body-main-area .table-wrapper {
   /* overflow: auto; */
+  overflow-x: scroll;
 }
 .body-area .body-main-area .table {
   margin-top: 1rem;
@@ -1848,7 +1849,8 @@
   display: flex;
   align-items: center;
 }
-.grid-box-area .visitors-in-site .table-body .row li:nth-child(2) .tag {
+.grid-box-area .visitors-in-site .table-body .row li:nth-child(2) .tag,
+.livechat-tag {
   min-width: 40px;
   height: 40px;
   color: #fff;
@@ -2960,4 +2962,21 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.col-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+.col-4 {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+}
+
+@media (min-width: 576px) {
+  .col-sm-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
 }

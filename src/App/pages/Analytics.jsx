@@ -34,6 +34,13 @@ import { useEffect } from "react";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import { capitalize } from "@material-ui/core";
+import {
+  filterOptions,
+  last7Days,
+  thisMonth,
+  thisWeek,
+} from "./analytics/filters";
+import { format } from "date-fns";
 function Analytics() {
   const history = useHistory();
   const [user] = useState(getUser());
@@ -44,6 +51,12 @@ function Analytics() {
   const [visitsByCountry, setVisitsByCountry] = useState({});
   const [visitsByCountryCode, setVisitsByCountryCode] = useState({});
   const [loading, setLoading] = useState(false);
+  const [filterOption, setFilterOption] = useState(filterOptions[0]);
+  const [lineData, setLineData] = useState({
+    labels: [],
+    data: [],
+  });
+
   const mapData = {
     ...visitsByCountryCode,
   };
@@ -71,26 +84,11 @@ function Analytics() {
     gradient.addColorStop(1, "#ECF6FC");
 
     return {
-      labels: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ],
+      labels: [...lineData.labels],
       datasets: [
         {
           label: "Unique Visits",
-          data: [
-            3000, 3000, 9000, 7000, 6000, 6500, 8000, 9500, 300, 400, 333, 7000,
-          ],
+          data: [...lineData.data],
           fill: true,
 
           backgroundColor: gradient,
@@ -109,6 +107,10 @@ function Analytics() {
     visits && filterByCountryCode();
   }, [visits]);
 
+  useEffect(() => {
+    visits && filterByDate();
+  }, [filterOption]);
+
   const filterByCountry = () => {
     let countries = {};
     for (let visit of visits) {
@@ -119,6 +121,42 @@ function Analytics() {
       }
     }
     setVisitsByCountry(countries);
+  };
+
+  const filterByDate = () => {
+    let labels = [],
+      datas = [],
+      dates = [];
+
+    switch (filterOption) {
+      case "This Week":
+        dates = thisWeek();
+        break;
+      case "This Month":
+        dates = thisMonth();
+        break;
+      default:
+        dates = last7Days();
+        break;
+    }
+
+    for (let date of dates) {
+      labels.push(date);
+      let d = 0;
+      if (filterOption === "This Week") {
+        d = 2;
+      } else if (filterOption === "This Month") {
+        d = 7;
+      }
+      for (let visit of visits) {
+        if (format(new Date(visit.createdAt), "PP") === date) {
+          d++;
+        }
+      }
+      datas.push(d);
+    }
+    console.log({ labels, data: datas });
+    setLineData({ labels, data: datas });
   };
 
   const filterByCountryCode = () => {
@@ -151,6 +189,7 @@ function Analytics() {
             setBookings(result.data.stats?.bookings);
             setContacts(result.data.stats?.contacts);
             setVisits(result.data.stats?.visits);
+            console.log({ visits: result.data.stats?.visits });
           } else {
             //
           }
@@ -175,7 +214,11 @@ function Analytics() {
           <div className="top-banner-results">
             <div className="box">
               <h4 className="heading">Company Name</h4>
-              <p>{user?.companyName ? capitalize(user?.companyName) : ""}</p>
+              <p>
+                {user?.companyFullName || user?.companyName
+                  ? capitalize(user?.companyFullName || user?.companyName)
+                  : ""}
+              </p>
             </div>
             <div className="box d-flex-align-center">
               <img src={ChatGreen} alt="" />
@@ -205,8 +248,17 @@ function Analytics() {
             <div className="chart-line-wrapper">
               <div className="top d-flex-align-center">
                 <h3>Analytics</h3>
-                <select name="" id="">
-                  <option value="Last 30 days">Last 30 days</option>
+                <select
+                  value={filterOption}
+                  onChange={(e) => setFilterOption(e.target.value)}
+                  name=""
+                  id=""
+                >
+                  {filterOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div

@@ -1,42 +1,61 @@
-!(function () {
-  const e = "weasl-iframe-element",
-    t = `${"http://lekxel.vcap.me:3000"}/snippet/${window.chatID}`,
-    i = () => {
-      if (!document.getElementById(e)) {
-        const i = document.createElement("iframe");
-        (i.onload = () => {
-          this.iframe.contentWindow.postMessage({}, "*");
-        }),
-          (i.src = t),
-          (i.id = e),
-          (i.crossorigin = "anonymous"),
-          (this.iframe = i);
+(function () {
+  const WEASL_WRAPPER_ID = "weasl-container";
+  const IFRAME_ID = "weasl-iframe-element";
+  const IFRAME_URL = `${"http://vcap.me:3000"}/snippet/${window.chatID}`;
+  const TAKEOVER_CLASSNAME = "weasl-iframe-takeover";
+  const init = () => {
+    initializeIframe();
+    mountIframe();
+    // Create new link Element
+    var link = document.createElement("link");
+
+    // set the attributes for link element
+    link.rel = "stylesheet";
+
+    link.type = "text/css";
+
+    link.href = `${"http://vcap.me:3000"}/embed.css`;
+
+    // Get HTML head element to append
+    // link element to it
+    document.getElementsByTagName("HEAD")[0].appendChild(link);
+  };
+
+  const initializeIframe = () => {
+    if (!document.getElementById(IFRAME_ID)) {
+      const iframe = document.createElement("iframe");
+      iframe.onload = () => {
+        this.iframe.contentWindow.postMessage({}, "*");
+      };
+      iframe.src = IFRAME_URL;
+      iframe.id = IFRAME_ID;
+      iframe.crossorigin = "anonymous";
+      this.iframe = iframe;
+    }
+  };
+
+  const mountIframe = () => {
+    if (!document.getElementById(IFRAME_ID)) {
+      window.addEventListener("message", receiveMessage, false);
+      const wrapper = document.createElement("div");
+      wrapper.id = WEASL_WRAPPER_ID;
+      wrapper.style = `z-index: ${Number.MAX_SAFE_INTEGER}; width: 0; height: 0; position: relative;`;
+      wrapper.appendChild(this.iframe);
+      document.body.appendChild(wrapper);
+      this.iframe.classList.add(TAKEOVER_CLASSNAME);
+    } else {
+    }
+  };
+  const receiveMessage = (event) => {
+    // this is where we handle when our widget sends us a message
+    if (!!event && !!event.data && !!event.data.type) {
+      switch (event.data.type) {
+        case "IFRAME_LOAD_DONE":
+          this.handleWidgetLoaded();
+          break;
       }
-    },
-    n = () => {
-      if (!document.getElementById(e)) {
-        window.addEventListener("message", o, !1);
-        const e = document.createElement("div");
-        (e.id = "weasl-container"),
-          (e.style = `z-index: ${Number.MAX_SAFE_INTEGER}; width: 0; height: 0; position: relative;`),
-          e.appendChild(this.iframe),
-          document.body.appendChild(e),
-          this.iframe.classList.add("weasl-iframe-takeover");
-      }
-    },
-    o = (e) => {
-      if (e && e.data && e.data.type)
-        switch (e.data.type) {
-          case "IFRAME_LOAD_DONE":
-            this.handleWidgetLoaded();
-        }
-    };
-  (() => {
-    i(), n();
-    var e = document.createElement("link");
-    (e.rel = "stylesheet"),
-      (e.type = "text/css"),
-      (e.href = `${"http://lekxel.vcap.me:3000"}/embed.css`),
-      document.getElementsByTagName("HEAD")[0].appendChild(e);
-  })();
+    }
+  };
+
+  init();
 })();

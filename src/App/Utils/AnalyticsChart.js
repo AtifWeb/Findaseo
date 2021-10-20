@@ -62,6 +62,7 @@ export const Lineoptions = {
       },
     },
     y: {
+      beginAtZero: true,
       grid: {
         borderDash: [8, 4],
         drawBorder: false,

@@ -98,7 +98,6 @@ const AuthRoutes = () => {
           />
         </Switch>
       );
-      break;
 
     case "livechat":
       return (
@@ -109,7 +108,7 @@ const AuthRoutes = () => {
         </Switch>
       );
 
-    case "appointment":
+    case "meeting":
       return (
         <Switch>
           <Route path="/:companyName/:calendar" exact>
@@ -158,6 +157,7 @@ const AuthRoutes = () => {
           <Route path="/logout" exact>
             <Logout />
           </Route>
+          <Redirect from="/auth/register" to="/" />
         </Switch>
       ) : (
         <Switch>
@@ -173,7 +173,6 @@ const AuthRoutes = () => {
 
     default:
       return <Login />;
-      break;
   }
 };
 

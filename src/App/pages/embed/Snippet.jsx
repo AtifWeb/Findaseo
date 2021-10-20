@@ -14,6 +14,24 @@ import { useParams } from "react-router";
 import "Assets/styles/css/widget.css";
 import Person1 from "Assets/img/Frame 1.png";
 import NeutralButton from "App/component/NeutralButton";
+import {
+  HandleBotDisplay,
+  HandleCovertingScreen,
+  HandleCovertingScreenReverse,
+  ShowMessageContainer,
+  ToggleBurgerBtn,
+} from "./toggleShow";
+import styles from "./snippet.module.css";
+import { BookMeeting } from "App/component/organisms/LiveChat/BookMeeting/BookMeeting";
+import { LiveChatConversation } from "App/component/organisms/LiveChat/LiveChatConversation/LiveChatConversation";
+import { LiveChatSearch } from "App/component/organisms/LiveChat/LiveChatSearch/LiveChatSearch";
+
+import { TextMessage } from "App/component/Atoms/LiveChat/TextMessage";
+import { Message } from "App/component/organisms/LiveChat/helper/Messages";
+import SenderIcon from "../../../Assets/img/sender.svg";
+import styles2 from "./LiveChatMessageArea.module.css";
+import capitalize from "helpers/capitalize";
+import { useLayoutEffect } from "react";
 
 const Snippet = () => {
   const params = useParams();
@@ -39,6 +57,7 @@ const Snippet = () => {
   const [appearance, setAppearance] = useState();
   const [sidebar, setSidebar] = useState();
   const [menus, setMenus] = useState(false);
+  const [companyName, setCompanyName] = useState("");
 
   const URL = window.location.protocol + "//" + window.location.host;
   //hostname
@@ -51,9 +70,38 @@ const Snippet = () => {
     );
   };
 
+  const handlePreviousConversation = (convs) => {
+    if (!prevLoaded && !chats.length) {
+      setPrevLoaded(true);
+      convs.chats && addConversations(convs.chats);
+    }
+  };
+
+  const handleOnMessage = (message) => {
+    addConversations([message]);
+  };
+
+  const handleOperatorJoined = (data) => {
+    setWeOnline(false);
+    setOperator(data);
+  };
+
+  const handleAcceptance = (data) => {
+    saveGlobalUser(data);
+
+    socket.emit("joinRoom", generateRoomID(params.company, data.uuid));
+    //Start the conversationn
+    setStartConversation(true);
+    setAskName(false);
+    ShowMessageContainer();
+    greetTheUser();
+    !prevLoaded && loadPreviousConversation();
+  };
+
   useEffect(() => {
+    window.addEventListener("resize", ToggleBurgerBtn);
     getConfigurations();
-    // document.body.style.background = "transparent";
+    return () => window.removeEventListener("resize", ToggleBurgerBtn);
   }, []);
 
   useEffect(() => {
@@ -65,33 +113,19 @@ const Snippet = () => {
       askForName();
     }
 
-    socket.on("operatorJoined", (data) => {
-      setWeOnline(false);
-      setOperator(data);
-    });
+    socket.on("operatorJoined", handleOperatorJoined);
 
-    socket.on("acceptance", (data) => {
-      saveGlobalUser(data);
+    socket.on("acceptance", handleAcceptance);
 
-      socket.emit("joinRoom", generateRoomID(params.company, data.uuid));
-      //Start the conversation
-      setStartConversation(true);
-      setAskName(false);
-      greetTheUser();
-      !prevLoaded && loadPreviousConversation();
-    });
+    socket.on("previousConversation", handlePreviousConversation);
 
-    socket.on("previousConversation", (convs) => {
-      if (!prevLoaded) {
-        setPrevLoaded(true);
-        convs.chats && addConversations(convs.chats);
-      }
-    });
-
-    socket.on("message", (message) => {
-      addConversations([message]);
-      console.log(message);
-    });
+    socket.on("message", handleOnMessage);
+    return () => {
+      socket.off("operatorJoined", handleOperatorJoined);
+      socket.off("previousConversation", handlePreviousConversation);
+      socket.off("message", handleOnMessage);
+      socket.on("acceptance", handleAcceptance);
+    };
   }, [socket]);
 
   useEffect(() => {
@@ -141,11 +175,6 @@ const Snippet = () => {
     if (preChat?.surveyFields?.email?.enabled && !email?.trim()) return;
     if (preChat?.surveyFields?.phoneNumber?.enabled && !phoneNumber?.trim())
       return;
-    // if (user) {
-    //   saveGlobalUser({ name, email, phoneNumber });
-    // } else {
-    //   saveGlobalUser({ name, email, phoneNumber });
-    // }
     sendNewAcceptance({ name, email, phoneNumber });
   };
 
@@ -205,22 +234,25 @@ const Snippet = () => {
           setSidebar(
             JSON.parse(result.data.configuration?.chatConfiguration?.sidebar)
           );
+
+          setCompanyName(result.data?.companyName);
+
           setLoading(false);
-          console.log({
-            prechat: JSON.parse(
-              result.data.configuration?.chatConfiguration?.preChat
-            ),
-          });
-          console.log({
-            appearance: JSON.parse(
-              result.data.configuration?.chatConfiguration?.appearance
-            ),
-          });
-          console.log({
-            sidebar: JSON.parse(
-              result.data.configuration?.chatConfiguration?.sidebar
-            ),
-          });
+          // console.log({
+          //   prechat: JSON.parse(
+          //     result.data.configuration?.chatConfiguration?.preChat
+          //   ),
+          // });
+          // console.log({
+          //   appearance: JSON.parse(
+          //     result.data.configuration?.chatConfiguration?.appearance
+          //   ),
+          // });
+          // console.log({
+          //   sidebar: JSON.parse(
+          //     result.data.configuration?.chatConfiguration?.sidebar
+          //   ),
+          // });
         } else {
           //
         }
@@ -230,65 +262,104 @@ const Snippet = () => {
         setLoading(false);
       });
   };
-  let otherStyle = {
-    background: "white",
-    borderBottomRightRadius: "14px",
-    borderBottomLeftRadius: "14px",
-    height: "580px",
-    width: "380px",
-  };
+
   return (
     !!sidebar && (
       <div
-        className={`text-white ${open ? "boxChat" : ""}`}
-        style={
-          open
-            ? {
-                ...{
-                  position: "absolute",
-                  bottom: "30px",
-                  [appearance?.widgetPosition]: "30px",
-                  display: "flex",
-                  width: "380px",
-                },
-                ...otherStyle,
-              }
-            : {
-                position: "absolute",
-                bottom: "30px",
-                [appearance?.widgetPosition]: "30px",
-                display: "flex",
-                background: "transparent",
-              }
-        }
+        style={{
+          position: "absolute",
+          bottom: "15px",
+          [appearance?.widgetPosition]: "20px",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
-        {open ? (
-          askName ? (
-            <PrechatSurvey
-              close={() => setOpen((prev) => !prev)}
-              preChat={preChat}
-              appearance={appearance}
-              name={name}
-              setName={setName}
-              email={email}
-              setEmail={setEmail}
-              phoneNumber={phoneNumber}
-              setPhoneNumber={setPhoneNumber}
-              sendName={sendName}
-            />
+        <div
+          className={`text-white ${styles.CollapseAbleLiveChat} collapse-bot `}
+          id="collpase-area"
+          style={{ background: appearance?.backgroundColor }}
+        >
+          {askName ? (
+            <>
+              <div
+                id="introductionWidget"
+                className={styles.introductionWidget}
+              >
+                <div className={styles.top}>
+                  <div
+                    className={styles.CloseIcon}
+                    onClick={HandleBotDisplay}
+                    onTouchStart={HandleBotDisplay}
+                  >
+                    <i className="fas fa-times"></i>
+                  </div>
+                  <h1 className={styles.heading}>
+                    Hello from {capitalize(companyName)} 👋🏻
+                  </h1>
+                  <p className={styles.para}>
+                    {/* Our mission is to help and inspire 1 Billion people 🚀 How
+                    can we help you today? */}
+                    {appearance?.gettingStartedMessage}
+                  </p>
+                </div>
+                <LiveChatConversation
+                  text={
+                    user?.name
+                      ? "Continue Conversation"
+                      : "Start New Conversation"
+                  }
+                  companyName={companyName}
+                  HandleCovertingScreen={
+                    user?.name
+                      ? () => setAskName((pr) => !pr)
+                      : HandleCovertingScreen
+                  }
+                />
+                {/* <LiveChatSearch /> */}
+                <BookMeeting
+                  company={params.company}
+                  companyName={companyName}
+                />
+              </div>
+              <PrechatSurvey
+                close={() => setOpen((prev) => !prev)}
+                preChat={preChat}
+                appearance={appearance}
+                name={name}
+                setName={setName}
+                email={email}
+                setEmail={setEmail}
+                phoneNumber={phoneNumber}
+                setPhoneNumber={setPhoneNumber}
+                sendName={sendName}
+              />
+            </>
           ) : (
-            <div className="w-100 boxChat">
-              <div>
+            <>
+              <div
+                className={`${styles2.LiveChatMessageArea} `}
+                id="MessageArea"
+              >
                 <div
-                  style={{
-                    borderTopRightRadius: "14px",
-                    borderTopLeftRadius: "14px",
-                    backgroundColor: appearance?.backgroundColor,
-                  }}
-                  className="bg-gradient py-4 px-2 d-flex justify-content-between align-items-center text-light"
+                  className={styles2.top}
+                  style={{ background: appearance?.backgroundColor }}
                 >
+                  <div
+                    className={styles2.CloseIcon}
+                    onClick={() => setAskName((prev) => !prev)}
+                  >
+                    <i className="fas fa-chevron-left"></i>
+                  </div>
                   {operator?.name ? (
-                    <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        marginLeft: "1rem",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <img
                         style={{ width: "30px", height: "30px" }}
                         alt="Support"
@@ -302,8 +373,20 @@ const Snippet = () => {
                   ) : (
                     <div></div>
                   )}
-                  <h4>{appearance?.gettingStartedStatus}</h4>
-                  <div className="d-flex justify-content-center">
+                  <div className={styles2.presentation}>
+                    <h3 className={styles2.heading_top}>
+                      {" "}
+                      {capitalize(companyName)}
+                    </h3>
+                    <p className={styles2.para_top}>
+                      {/* Our mission is to help and i... */}
+                      {appearance?.gettingStartedStatus}
+                    </p>
+                  </div>
+                  <div
+                    className=""
+                    style={{ position: "absolute", right: ".5rem" }}
+                  >
                     <NeutralButton
                       className="d-flex"
                       type="button"
@@ -313,12 +396,6 @@ const Snippet = () => {
                       onClick={() => setMenus((prev) => !prev)}
                     >
                       <i className="text-white fa fa-ellipsis-v"></i>
-                    </NeutralButton>
-                    <NeutralButton
-                      onClick={() => setOpen((prev) => !prev)}
-                      className="d-flex text-white"
-                    >
-                      <i className="text-light fa fa-chevron-down"></i>
                     </NeutralButton>
                   </div>
                   {menus && (
@@ -349,186 +426,355 @@ const Snippet = () => {
                   )}
                 </div>
 
-                <div className="bg-sub-info py-2 text-white px-3 boxChat">
-                  <span>
-                    <i
-                      style={{ fontSize: "5px" }}
-                      className="fa fa-circle text-success me-3 align-middle"
-                    ></i>
-                  </span>
-                  <span className="">{appearance?.onlineStatus}</span>
-                </div>
-
-                <div
-                  style={{ height: "350px" }}
-                  className=" messages px-2 my-2"
-                >
-                  {chats &&
-                    chats.map((chat, index) => (
-                      <p
-                        style={
-                          chat.sender === "Operator"
-                            ? {
-                                backgroundColor: appearance?.backgroundColor,
-                                color: "white",
-                              }
-                            : null
-                        }
+                <div className={styles2.body}>
+                  <div className={styles2.bodyContent}>
+                    {chats.map((Message, index) => (
+                      <TextMessage
+                        primaryColor={appearance?.backgroundColor}
                         key={String(index)}
-                        className={`mb-1 ${
-                          chat.sender === "Visitor" ? "right" : "left"
-                        }`}
-                      >
-                        {chat.message.trim()}
-                      </p>
+                        text={Message?.message?.trim()}
+                        my_message={Message.sender === "Visitor"}
+                      />
                     ))}
-                  <div ref={messagesEndRef} />
-                </div>
-                <div className="border-top">
-                  <div className="d-flex justify-content-center">
-                    <div
-                      style={{
-                        width: "90%",
-                        height: "0.05rem",
-                        background: "lightgrey",
-                      }}
-                    >
+                    <div ref={messagesEndRef} />
+                  </div>
+                  <div style={{ background: "white", textAlign: "center" }}>
+                    <small className="text-muted py-auto">
                       {" "}
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-center">
-                    <input
-                      className="form-control border-0 py-3 px-4 "
-                      style={{ border: "none", width: "96%" }}
-                      placeholder="Type your message to respond..."
-                      type="text"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      onKeyUp={(e) => {
-                        e.stopPropagation();
-                        var event = e || window.event;
-                        var charCode = event.which || event.keyCode;
-
-                        if (charCode == "13") {
-                          // Enter pressed
-                          messageSender();
-                        }
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    borderBottomRightRadius: "14px",
-                    borderBottomLeftRadius: "14px",
-                  }}
-                  className="px-2 position-relative bg-white pt-3"
-                >
-                  <button
-                    title="Attach file"
-                    type="button"
-                    className=" text-muted me-4 ms-3"
-                    style={{
-                      display: "inline",
-                      border: "none",
-                      background: "white",
-                      fontSize: "17px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <i className="fa fa-paperclip"></i>
-                  </button>
-                  <button
-                    type="button"
-                    className=" text-muted "
-                    style={{
-                      display: "inline",
-                      border: "none",
-                      background: "white",
-                      fontSize: "17px",
-                      cursor: "pointer",
-                    }}
-                    title="Insert Emoji"
-                  >
-                    <i className="fa fa-smile"></i>
-                  </button>
-
-                  <small className="text-muted py-auto ms-5">
-                    {" "}
-                    Powered by{" "}
-                    <i
-                      style={{ color: appearance?.backgroundColor }}
-                      className="fa fa-bolt "
-                    ></i>{" "}
-                    <b>Pavelify</b>
-                  </small>
-
-                  <div
-                    className="text-end d-inline-block position-absolute "
-                    style={{ left: "92%", bottom: "0px" }}
-                  >
-                    <button
-                      onClick={() => messageSender()}
-                      disabled={!message?.trim()}
-                      title="Send"
-                      className={` text-white text-center  ${
-                        !message?.trim() ? "disabled" : ""
-                      }`}
-                      style={{
-                        width: "57px",
-                        height: "57px",
-                        backgroundColor: appearance?.backgroundColor,
-                        borderRadius: "50%",
-                        border: "none",
-                        cursor: "pointer",
-                        boxShadow: `grey 0px 22px 70px 4px`,
-                      }}
-                    >
+                      Powered by{" "}
                       <i
-                        style={{ fontSize: "20px" }}
-                        className="fa fa-arrow-right"
-                      ></i>
-                    </button>
+                        style={{ color: appearance?.backgroundColor }}
+                        className="fa fa-bolt "
+                      ></i>{" "}
+                      <b>Pavelify</b>
+                    </small>
+                  </div>
+                  <div className={styles2.form}>
+                    <div className={styles2.inputWrapper}>
+                      <input
+                        type="text"
+                        placeholder="Send a message"
+                        className={styles2.input}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyUp={(e) => {
+                          e.stopPropagation();
+                          var event = e || window.event;
+                          var charCode = event.which || event.keyCode;
+
+                          if (charCode == "13") {
+                            // Enter pressed
+                            messageSender();
+                          }
+                        }}
+                      />
+
+                      <div
+                        title="Insert an Emoji"
+                        className={`${styles2.IconWrapper} ${styles2.Smile}`}
+                      >
+                        <i className="far fa-smile-wink"></i>
+                      </div>
+                      <div
+                        title="Attach a file"
+                        className={styles2.IconWrapper}
+                      >
+                        <i className="fas fa-paperclip"></i>
+                      </div>
+                      {message?.trim() ? (
+                        <div className="me-3">
+                          <button
+                            onClick={() => messageSender()}
+                            disabled={!message?.trim()}
+                            title="Send"
+                            className={` text-white text-center  ${styles2.sendBtn}`}
+                            style={{
+                              width: "32px",
+                              height: "32px",
+                              borderRadius: "50%",
+                              border: "none",
+                              cursor: "pointer",
+                              boxShadow: `grey 0px 22px 70px 4px`,
+                            }}
+                          >
+                            <img src={SenderIcon} />
+                            {/* <i
+                              style={{ fontSize: "13px" }}
+                              className="fa fa-arrow-right"
+                            ></i> */}
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )
-        ) : (
-          <>
-            {appearance?.widgetPosition === "right" && (
-              <ButtonLabel
-                show={appearance?.showButtonLabel}
-                buttonLabelText={appearance?.buttonLabelText}
-              />
-            )}
-            <button
-              onClick={() => setOpen((prev) => !prev)}
-              className="boxs"
-              style={{
-                backgroundColor: appearance?.backgroundColor,
-                color: "white",
-                borderRadius: "50%",
-                border: "none",
-                cursor: "pointer",
-                width: "62px",
-                height: "62px",
-                boxShadow: `${appearance?.backgroundColor} 0px 22px 70px 4px`,
-                zIndex: `${Number.MAX_SAFE_INTEGER}`,
-              }}
-              id="open-chat"
-            >
-              <i className="fa fa-comment-alt fa-lg"></i>
-            </button>
-            {appearance?.widgetPosition === "left" && (
-              <ButtonLabel
-                show={appearance?.showButtonLabel}
-                buttonLabelText={appearance?.buttonLabelText}
-              />
-            )}
-          </>
-        )}
+            </>
+            // <div className="w-100 boxChat">
+            //   {/* <LiveChatMessageArea /> */}
+            //   <div>
+            //     <div
+            //       style={{
+            //         borderTopRightRadius: "14px",
+            //         borderTopLeftRadius: "14px",
+            //         backgroundColor: appearance?.backgroundColor,
+            //       }}
+            //       className="bg-gradient py-4 px-2 d-flex justify-content-between align-items-center text-light"
+            //     >
+            //       {operator?.name ? (
+            //         <div>
+            //           <img
+            //             style={{ width: "30px", height: "30px" }}
+            //             alt="Support"
+            //             src={Person1}
+            //             className="rounded-circle float-start me-2 "
+            //           />
+            //           <span className="d-inline-block pt-1">
+            //             {operator?.name}
+            //           </span>
+            //         </div>
+            //       ) : (
+            //         <div></div>
+            //       )}
+            //       <h4>{appearance?.gettingStartedStatus}</h4>
+            //       <div className="d-flex justify-content-center">
+            //         <NeutralButton
+            //           className="d-flex"
+            //           type="button"
+            //           id="optionsDropdown"
+            //           data-bs-toggle="dropdown"
+            //           aria-expanded="false"
+            //           onClick={() => setMenus((prev) => !prev)}
+            //         >
+            //           <i className="text-white fa fa-ellipsis-v"></i>
+            //         </NeutralButton>
+            //         <NeutralButton
+            //           onClick={() => setOpen((prev) => !prev)}
+            //           className="d-flex text-white"
+            //         >
+            //           <i className="text-light fa fa-chevron-down"></i>
+            //         </NeutralButton>
+            //       </div>
+            //       {menus && (
+            //         <ul
+            //           className="dropdown-menu boxChat"
+            //           aria-labelledby="optionsDropdown"
+            //           style={{
+            //             position: "absolute",
+            //             background: "white",
+            //             right: "20px",
+            //             top: "60px",
+            //             borderRadius: "12px",
+            //             padding: "20px 12px",
+            //             boxShadow: "2px 2px 2px lightgrey",
+            //           }}
+            //         >
+            //           <li className="mb-2">
+            //             <a className="dropdown-item" href="#">
+            //               Turn off notifications
+            //             </a>
+            //           </li>
+            //           <li>
+            //             <a className="dropdown-item" href="#">
+            //               Turn on sound
+            //             </a>
+            //           </li>
+            //         </ul>
+            //       )}
+            //     </div>
+
+            //     <div className="bg-sub-info py-2 text-white px-3 boxChat">
+            //       <span>
+            //         <i
+            //           style={{ fontSize: "5px" }}
+            //           className="fa fa-circle text-success me-3 align-middle"
+            //         ></i>
+            //       </span>
+            //       <span className="">{appearance?.onlineStatus}</span>
+            //     </div>
+
+            //     <div
+            //       style={{ height: "350px" }}
+            //       className=" messages px-2 my-2"
+            //     >
+            //       {chats &&
+            //         chats.map((chat, index) => (
+            //           <p
+            //             style={
+            //               chat.sender === "Operator"
+            //                 ? {
+            //                     backgroundColor: appearance?.backgroundColor,
+            //                     color: "white",
+            //                   }
+            //                 : null
+            //             }
+            //             key={String(index)}
+            //             className={`mb-1 ${
+            //               chat.sender === "Visitor" ? "right" : "left"
+            //             }`}
+            //           >
+            //             {chat.message.trim()}
+            //           </p>
+            //         ))}
+            //       <div ref={messagesEndRef} />
+            //     </div>
+            //     <div className="border-top">
+            //       <div className="d-flex justify-content-center">
+            //         <div
+            //           style={{
+            //             width: "90%",
+            //             height: "0.05rem",
+            //             background: "lightgrey",
+            //           }}
+            //         >
+            //           {" "}
+            //         </div>
+            //       </div>
+            //       <div className="d-flex justify-content-center">
+            //         <input
+            //           className="form-control border-0 py-3 px-4 "
+            //           style={{ border: "none", width: "96%" }}
+            //           placeholder="Type your message to respond..."
+            //           type="text"
+            //           value={message}
+            //           onChange={(e) => setMessage(e.target.value)}
+            //           onKeyUp={(e) => {
+            //             e.stopPropagation();
+            //             var event = e || window.event;
+            //             var charCode = event.which || event.keyCode;
+
+            //             if (charCode == "13") {
+            //               // Enter pressed
+            //               messageSender();
+            //             }
+            //           }}
+            //         />
+            //       </div>
+            //     </div>
+
+            //     <div
+            //       style={{
+            //         borderBottomRightRadius: "14px",
+            //         borderBottomLeftRadius: "14px",
+            //       }}
+            //       className="px-2 position-relative bg-white pt-3"
+            //     >
+            //       <button
+            //         title="Attach file"
+            //         type="button"
+            //         className=" text-muted me-4 ms-3"
+            //         style={{
+            //           display: "inline",
+            //           border: "none",
+            //           background: "white",
+            //           fontSize: "17px",
+            //           cursor: "pointer",
+            //         }}
+            //       >
+            //         <i className="fa fa-paperclip"></i>
+            //       </button>
+            //       <button
+            //         type="button"
+            //         className=" text-muted "
+            //         style={{
+            //           display: "inline",
+            //           border: "none",
+            //           background: "white",
+            //           fontSize: "17px",
+            //           cursor: "pointer",
+            //         }}
+            //         title="Insert Emoji"
+            //       >
+            //         <i className="fa fa-smile"></i>
+            //       </button>
+
+            //       <small className="text-muted py-auto ms-5">
+            //         {" "}
+            //         Powered by{" "}
+            //         <i
+            //           style={{ color: appearance?.backgroundColor }}
+            //           className="fa fa-bolt "
+            //         ></i>{" "}
+            //         <b>Pavelify</b>
+            //       </small>
+
+            //       <div
+            //         className="text-end d-inline-block position-absolute "
+            //         style={{ left: "92%", bottom: "0px" }}
+            //       >
+            //         <button
+            //           onClick={() => messageSender()}
+            //           disabled={!message?.trim()}
+            //           title="Send"
+            //           className={` text-white text-center  ${
+            //             !message?.trim() ? "disabled" : ""
+            //           }`}
+            //           style={{
+            //             width: "57px",
+            //             height: "57px",
+            //             backgroundColor: appearance?.backgroundColor,
+            //             borderRadius: "50%",
+            //             border: "none",
+            //             cursor: "pointer",
+            //             boxShadow: `grey 0px 22px 70px 4px`,
+            //           }}
+            //         >
+            //           <i
+            //             style={{ fontSize: "20px" }}
+            //             className="fa fa-arrow-right"
+            //           ></i>
+            //         </button>
+            //       </div>
+            //     </div>
+            //   </div>
+            // </div>
+          )}
+        </div>
+        <div
+          style={{
+            // alignSelf:
+            //   appearance?.widgetPosition === "right"
+            //     ? "flex-end"
+            //     : "flex-start",
+            marginTop: "10px",
+            display: "flex",
+            alignSelf: "flex-end",
+          }}
+        >
+          {appearance?.widgetPosition === "right" && (
+            <ButtonLabel
+              show={appearance?.showButtonLabel}
+              buttonLabelText={appearance?.buttonLabelText}
+            />
+          )}
+          <button
+            onClick={HandleBotDisplay}
+            // onTouchStart={HandleBotDisplay}
+            id="burgerButton"
+            // onClick={() => setOpen((prev) => !prev)}
+            className="boxs"
+            style={{
+              backgroundColor: appearance?.backgroundColor,
+              color: "white",
+              borderRadius: "50%",
+              border: "none",
+              cursor: "pointer",
+              width: "50px",
+              height: "50px",
+              boxShadow: `${appearance?.backgroundColor} 0px 22px 70px 4px`,
+              zIndex: `${Number.MAX_SAFE_INTEGER}`,
+            }}
+            // id="open-chat"
+          >
+            <i id="closeIconButton" className="fa  fa-comment-alt  fa-lg"></i>
+          </button>
+          {/* {appearance?.widgetPosition === "left" && (
+            <ButtonLabel
+              show={appearance?.showButtonLabel}
+              buttonLabelText={appearance?.buttonLabelText}
+            />
+          )} */}
+        </div>
       </div>
     )
   );
@@ -547,22 +793,27 @@ const PrechatSurvey = ({
   sendName,
 }) => {
   return (
-    <div className="d-flex  bg-white justify-content-center align-items-center w-100">
-      <button
-        onClick={close}
-        className="position-absolute btn top-0 "
-        style={{ right: "5px" }}
+    <div
+      id="prechat"
+      className="bg-white justify-content-center align-items-center w-100"
+      style={{ display: "none", padding: "1.5rem" }}
+    >
+      <div
+        className={styles.CloseIcon}
+        onClick={HandleCovertingScreenReverse}
+        onTouchStart={HandleCovertingScreenReverse}
       >
-        <i className="fa fa-times"></i>
-      </button>
+        <i className="fas fa-times"></i>
+      </div>
+
       <div id="name-entry" className={``}>
-        <h3 className="mb-4">{preChat.introductionMessage}</h3>
+        <h3 className="mb-5 mt-3 ">{preChat.introductionMessage}</h3>
         {preChat?.surveyFields?.name?.enabled && (
           <input
             id="user-name"
             type="text"
             placeholder={preChat?.surveyFields?.name?.placeholder}
-            className="form-control mb-2"
+            className="form-control mb-4"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -592,7 +843,7 @@ const PrechatSurvey = ({
             id="submit-name"
             type="submit"
             className="btn btn-primary btn-block"
-            style={{ background: appearance?.backgroundColor }}
+            // style={{ background: appearance?.backgroundColor }}
             onClick={sendName}
           >
             Continue

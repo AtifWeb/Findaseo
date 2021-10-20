@@ -131,7 +131,9 @@ function LiveVisitors() {
                       <div className="row" key={String(index)}>
                         <li>{index + 1}.</li>
                         <li>
-                          <div className="tag">A</div>
+                          <div className="tag">
+                            {visitor.name?.slice(0, 1) || 0}
+                          </div>
                           <div className="presentation">
                             <h5>
                               {visitor.name}
@@ -188,6 +190,12 @@ function LiveVisitors() {
                         </li>
                       </div>
                     ))}
+
+                  {!onlineVisitors?.length ? (
+                    <p className="text-center my-3">
+                      No one is currently browsing your website.
+                    </p>
+                  ) : null}
                 </ul>
               </div>
             </div>

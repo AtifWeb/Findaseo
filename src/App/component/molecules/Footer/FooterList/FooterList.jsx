@@ -5,17 +5,23 @@ export const FooterList = ({ EachList }) => {
     <ul className={styles.FooterList}>
       {EachList.map((EachItem) => (
         <>
-          {EachItem.type != "form" && (
-            <li
-              className={`${
-                EachItem.type == "heading"
-                  ? styles.specialtext
-                  : styles.normalText
-              }`}
-            >
-              {EachItem.text}
-            </li>
-          )}
+          {EachItem.type != "form" &&
+            (EachItem.type === "image" ? (
+              <img
+                style={{ width: "140px", marginTop: "-60px" }}
+                src={`images/${EachItem.text}`}
+              />
+            ) : (
+              <li
+                className={`${
+                  EachItem.type == "heading"
+                    ? styles.specialtext
+                    : styles.normalText
+                }`}
+              >
+                {EachItem.text}
+              </li>
+            ))}
           {EachItem.type == "form" && (
             <form className={styles.form}>
               <input

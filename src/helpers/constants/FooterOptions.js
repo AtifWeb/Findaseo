@@ -7,11 +7,11 @@ export const FooterOptions = [
   // ],
   [
     {
-      text: "Logo",
-      type: "heading",
+      text: "logo.png",
+      type: "image",
     },
     {
-      text: "Privacy Policy,",
+      text: "Privacy Policy",
       type: "listItems",
       url: "/",
     },

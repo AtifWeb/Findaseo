@@ -9,12 +9,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    maxHeight: "100%",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     borderRadius: "4px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+
+    maxHeight: "100%",
   },
 }));
 const Modal = ({ children, open, setOpen, close = false }) => {
@@ -45,7 +48,9 @@ const Modal = ({ children, open, setOpen, close = false }) => {
             </div>
           ) : null}
 
-          {children}
+          <div style={{ overflow: "scroll", maxHeight: "90vh" }}>
+            {children}
+          </div>
         </div>
       </Fade>
     </M>

@@ -36,7 +36,7 @@ const CalendarTypes = ({ type, bookings, past, upcoming }) => {
               <h5>Contact</h5>
             </div>
             <div className="col col3">
-              <h5>Topic</h5>
+              <h5>Event</h5>
             </div>
             <div className="col col3">
               <h5>Location</h5>

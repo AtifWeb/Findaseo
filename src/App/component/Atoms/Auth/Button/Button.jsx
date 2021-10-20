@@ -17,7 +17,10 @@ export const Button = ({
       style={style}
     >
       {type !== null ? (
-        <Link className={`${styles.link} ${outline == true && styles.outline}`}>
+        <Link
+          to=""
+          className={`${styles.link} ${outline == true && styles.outline}`}
+        >
           {text}
         </Link>
       ) : (

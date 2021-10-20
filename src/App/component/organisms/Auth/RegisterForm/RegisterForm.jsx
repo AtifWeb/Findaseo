@@ -1,4 +1,7 @@
+import handleError from "App/helpers/handleError";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import StatusAlert, { StatusAlertService } from "react-status-alert";
 import { Fields } from "../../../../../helpers/constants/RegisterFormFeilds";
 import { Button } from "../../../Atoms/Auth/Button/Button";
 import { InputWrapper } from "../../../molecules/Auth/InputWrapper/InputWrapper";
@@ -6,14 +9,107 @@ import { HandleNextStep } from "./events/HandleStep";
 import styles from "./Register.module.css";
 export const RegisterForm = () => {
   const [Step, setStep] = useState([]);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    cname: "",
+    email: "",
+    fname: "",
+    lname: "",
+    password: "",
+    phone_number: "",
+    radio: "",
+    subdomain: "",
+  });
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setStep(Fields[0]);
   }, []);
 
+  useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      subdomain: prev.cname
+        .replace(/[^-a-zA-Z0-9 ]+/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase(),
+    }));
+  }, [data?.cname]);
+
+  useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      subdomain: prev.subdomain
+        .replace(/[^-a-zA-Z0-9 ]+/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase(),
+    }));
+  }, [data?.subdomain]);
+
+  const gotoNext = () => {
+    let errorCount = 0;
+    for (let step of Step) {
+      if (!data[step.id]) {
+        console.log(step.id);
+        errorCount++;
+        // @todo match pattern
+        document.querySelector(`#${step.id}`).style.borderColor = "red";
+        document.querySelector(`#${step.id}-error`).style.display =
+          "inline-block";
+      } else {
+        document.querySelector(`#${step.id}`).style.borderColor = "#ddd";
+        document.querySelector(`#${step.id}-error`).style.display = "none";
+      }
+    }
+
+    if (!errorCount) {
+      if (Step[0] && Step[0].id === "cname") {
+        reg();
+      } else {
+        HandleNextStep(setStep, Fields);
+      }
+    }
+  };
+
+  const reg = () => {
+    //  if (!email || !password || !companyName) return;
+    // return console.log(data);
+    setLoading(true);
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/auth/register`,
+      data: {
+        email: data.email,
+        password: data.password,
+        companyName: data.subdomain,
+        companyFullName: data.cname,
+        name: data.fname + " " + data.lname,
+      },
+    })
+      .then((result) => {
+        setLoading(false);
+        if (result.data.success) {
+          const alertID = StatusAlertService.showSuccess(
+            "Registration successful"
+          );
+          console.log(alertID);
+          window.location = "/";
+        } else {
+          //
+        }
+      })
+      .catch((e) => {
+        console.log(handleError(e));
+        const alertID = StatusAlertService.showError(
+          handleError(e) || "An error came up, please try again"
+        );
+        console.log(alertID);
+        setLoading(false);
+      });
+  };
+
   return (
     <div className={styles.RegisterForm}>
+      <StatusAlert />
       <div className={styles.progressWrapper}>
         <p>
           Step <span className="step2">1</span> of 3
@@ -23,7 +119,7 @@ export const RegisterForm = () => {
         </span>
       </div>
       <h2 className={`${styles.heading} heading-steps`}>
-        Try Pavelify 14 days free Trial
+        {/* Try Pavelify 14 days free Trial */}
       </h2>
       <div className={styles.FeildsWrapper}>
         {Step.map((feild) => (
@@ -60,40 +156,51 @@ export const RegisterForm = () => {
             {feild.object == "radio" && (
               <div style={{ gridColumn: "span 2" }}>
                 <h4 className={styles.radioheading}>{feild.heading}</h4>
-                <ul>
+
+                <ul id="radio">
                   {feild["checkboxes"].map((EachCheckbox) => (
                     <li className={styles.radiolist}>
-                      <input
-                        type="radio"
-                        style={{ marginRight: 10 }}
-                        name="solving"
-                        value={data[feild.id]}
-                        onChange={(e) =>
-                          setData((prev) => ({
-                            ...prev,
-                            [feild.id]: e.target.value,
-                          }))
-                        }
-                      />
-                      <label htmlFor="">{EachCheckbox}</label>
+                      <label htmlFor={EachCheckbox}>
+                        <input
+                          type="radio"
+                          id={EachCheckbox}
+                          style={{ marginRight: 10 }}
+                          name="solving"
+                          value={data[feild.id]}
+                          onChange={(e) =>
+                            setData((prev) => ({
+                              ...prev,
+                              [feild.id]: EachCheckbox,
+                            }))
+                          }
+                        />
+                        {EachCheckbox}
+                      </label>
                     </li>
                   ))}
                 </ul>
+                <small
+                  id={`${feild.id}-error`}
+                  style={{ color: "red", display: "none" }}
+                >
+                  Please select one option
+                </small>
               </div>
             )}
 
-            {feild.object == "button" && (
+            {/* {feild.object == "button" && (
               <Button text={feild.text} style={{ gridColumn: "span 2" }} />
-            )}
+            )} */}
           </>
         ))}
       </div>
 
       <Button
+        loading={loading}
         ext_class="next_button"
-        text="Next"
+        text={Step[0] && Step[0].id === "cname" ? "Complete" : "Next"}
         style={{ marginTop: 20 }}
-        onClick={(e) => HandleNextStep(setStep, Fields)}
+        onClick={gotoNext}
       />
     </div>
   );

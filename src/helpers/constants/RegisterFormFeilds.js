@@ -39,7 +39,7 @@ export const Fields = [
       inputType: "text",
       inputPlaceholder: "Enter Company Name",
     },
-   
+
     {
       object: "radio",
       type: "radio",
@@ -58,7 +58,7 @@ export const Fields = [
       inputType: "slug",
       inputPlaceholder: "Enter Subdomain Name",
     },
-   
+
     {
       object: "InputWrapper",
       label: "Create a password",
@@ -66,9 +66,9 @@ export const Fields = [
       inputType: "password",
       inputPlaceholder: "Enter Password",
     },
-    {
-      object: "button",
-      text: "Complete",
-    },
+    // {
+    //   object: "button",
+    //   text: "Complete",
+    // },
   ],
 ];

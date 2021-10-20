@@ -23,6 +23,7 @@ import { SocketContext } from "App/context/socket";
 import { generateRoomID } from "App/helpers/generateRoomID";
 import { format } from "date-fns";
 import styled from "styled-components";
+import randomColor from "App/helpers/randomColor";
 window.currentDate = "";
 window.currentWho = "";
 
@@ -380,7 +381,12 @@ function LiveChat() {
                         key={String(conversation?.uuid)}
                         className="user d-flex-align-center cursor-pointer"
                       >
-                        <img src={Person1} alt="" />
+                        <div
+                          className="livechat-tag"
+                          style={{ background: randomColor() }}
+                        >
+                          {conversation?.name?.slice(0, 1) || 0}
+                        </div>
                         <div className="presentation d-flex-align-center">
                           <div className="left-side">
                             <h4>{conversation?.name}</h4>
@@ -569,7 +575,17 @@ function LiveChat() {
                 </div>
                 <div className="profile-area">
                   <div style={{ position: "relative" }}>
-                    <img src={PersonBig} alt="" />
+                    {/* <img src={PersonBig} alt="" /> */}
+                    <div
+                      className="livechat-tag"
+                      style={{
+                        background: randomColor(),
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    >
+                      {visitor?.name?.slice(0, 1) || 0}
+                    </div>
                     <Status online={visitor?.online}></Status>
                   </div>
                   <p className="name">{visitor?.name}</p>

@@ -15,4 +15,28 @@ export const Message = [
     text: "So what going on",
     message: null,
   },
+  {
+    text: "So what going on",
+    message: null,
+  },
+  {
+    text: "So what going on",
+    message: null,
+  },
+  {
+    text: "So what going on",
+    message: null,
+  },
+  {
+    text: "So what going on",
+    message: "me",
+  },
+  {
+    text: "So what going on",
+    message: null,
+  },
+  {
+    text: "So what going on",
+    message: null,
+  },
 ];

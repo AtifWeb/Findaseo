@@ -22,17 +22,19 @@ import useGetSubdomain from "App/hooks/useGetSubdomain";
 const Departments = (props) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("Google Meet");
+  const [location, setLocation] = useState("Zoom");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [days, setDays] = useState([]);
   const [calendars, setCalendars] = useState([]);
-  const [calendar, setCalendar] = useState();
+  const [calendar, setCalendar] = useState(null);
   const [user] = useState(getUser());
   const [slug, setSlug] = useState("");
+  const [duration, setDuration] = useState("15 mins");
   const [action, setAction] = useState("create");
   const [showModal, setShowModal] = useState(false);
   const { domain } = useGetSubdomain();
+  const [livechatVisibility, setLivechatVisibility] = useState("No");
 
   useEffect(() => {
     fetchCalendars();
@@ -48,7 +50,6 @@ const Departments = (props) => {
       })
         .then((result) => {
           if (result.data.success) {
-            console.log(result.data);
             setLoading(false);
             setCalendars(result.data.calendars);
           } else {
@@ -71,16 +72,20 @@ const Departments = (props) => {
         availableDays: days,
         availableTime: { from, to },
         location,
+        duration,
         createdDate: new Date(),
         slug: name?.replaceAll(" ", "-").toLowerCase(),
+        livechatVisibility,
       };
     } else {
       cal = {
         ...calendar,
         name,
+        duration,
         availableDays: days,
         availableTime: { from, to },
         location,
+        livechatVisibility,
       };
       if (action === "edit") {
         cal.slug = slug;
@@ -121,6 +126,8 @@ const Departments = (props) => {
     setFrom(calend?.availableTime?.from);
     setTo(calend.availableTime?.to);
     setShowModal(true);
+    setDuration(calend.duration);
+    setLivechatVisibility(calend.livechatVisibility);
   };
 
   const editCalendar = (index) => {
@@ -133,6 +140,8 @@ const Departments = (props) => {
     setFrom(calend?.availableTime?.from);
     setTo(calend.availableTime?.to);
     setSlug(calend?.slug);
+    setDuration(calend.duration);
+    setLivechatVisibility(calend.livechatVisibility);
     setShowModal(true);
   };
 
@@ -143,10 +152,12 @@ const Departments = (props) => {
     setName("");
     setDays([]);
     // setLocation("");
+    setLivechatVisibility("No");
     setFrom(null);
     setTo(null);
     setSlug("");
     setShowModal(true);
+    setDuration("15 mins");
   };
 
   const toggleDays = (day, checked) => {
@@ -164,7 +175,6 @@ const Departments = (props) => {
 
   return (
     <div className="EmailTickets CalendarBooking main-wrapper d-flex">
-      {/* sidebar */}
       <Sidebar active="calender" />
       <div className="body-area">
         {/* header */}
@@ -178,9 +188,9 @@ const Departments = (props) => {
                   {action === "create"
                     ? " Create New"
                     : action === "edit"
-                    ? "Edit Topic"
+                    ? "Edit"
                     : "Delete"}{" "}
-                  Topic
+                  Meeting Event
                 </h4>
                 <button
                   type="button"
@@ -252,17 +262,41 @@ const Departments = (props) => {
 
                     <div className="mt-4">
                       <label htmlFor="" className="text-center">
+                        Duration
+                      </label>
+
+                      <div className="">
+                        <select
+                          placeholder="Duration"
+                          className="form-control"
+                          value={duration}
+                          onChange={(e) => setDuration(e.target.value)}
+                        >
+                          <option>15 mins</option>
+                          <option>30 mins</option>
+                          <option>1 hour</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="mt-4">
+                      <label htmlFor="" className="text-center">
                         Available Days
                       </label>
                       <div className=" mt-2">
-                        <div className="row">
+                        <div
+                          className="text-center justify-content-center d-flex"
+                          style={{
+                            flexWrap: "wrap",
+                          }}
+                        >
                           {daysOfTheWeek.map((day, index) => (
                             <div
                               key={String(index)}
-                              className="col-6 col-sm-3 my-2"
+                              className="col-4 col-md-3 my-2"
                             >
                               <input
-                                className="fodrm-control"
+                                className="fodrm-control d-inline"
                                 id={day}
                                 checked={days.indexOf(day) >= 0}
                                 type="checkbox"
@@ -271,7 +305,9 @@ const Departments = (props) => {
                                   toggleDays(e.target.value, e.target.checked)
                                 }
                               />{" "}
-                              <label htmlFor={day}>{day}</label>
+                              <label className="d-inline ms-1" htmlFor={day}>
+                                {day}
+                              </label>
                             </div>
                           ))}
                         </div>
@@ -300,13 +336,13 @@ const Departments = (props) => {
                             id="zoom"
                             checked={location === "Zoom"}
                             onChange={(e) => setLocation(e.target.value)}
-                            disabled
                           />
                         </div>
                         <div className="col form-group">
                           <label htmlFor="googlem">Google Meet</label>
                           <input
                             type="radio"
+                            disabled
                             className="dform-control ms-1"
                             name="location"
                             value="Google Meet"
@@ -315,14 +351,70 @@ const Departments = (props) => {
                             onChange={(e) => setLocation(e.target.value)}
                           />
                         </div>
+                        <div className="col form-group">
+                          <label htmlFor="googlem">Phone Call</label>
+                          <input
+                            type="radio"
+                            className="dform-control ms-1"
+                            name="location"
+                            value="Phone Call"
+                            id="phone-call"
+                            checked={location === "Phone Call"}
+                            onChange={(e) => setLocation(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-5 mb-1">
+                      <label htmlFor="" className="text-center">
+                        Visible on Livechat Widget?
+                      </label>
+                      <div
+                        className="row mt-2"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div className="col form-group">
+                          <label htmlFor="c-Yes">Yes</label>
+                          <input
+                            type="radio"
+                            className="dform-control ms-1"
+                            name="livechatVisibility"
+                            value="Yes"
+                            id="c-Yes"
+                            checked={livechatVisibility === "Yes"}
+                            onChange={(e) =>
+                              setLivechatVisibility(e.target.value)
+                            }
+                          />
+                        </div>
+
+                        <div className="col form-group">
+                          <label htmlFor="c-No">No</label>
+                          <input
+                            type="radio"
+                            className="dform-control ms-1"
+                            name="livechatVisibility"
+                            value="No"
+                            id="c-No"
+                            checked={livechatVisibility === "No"}
+                            onChange={(e) =>
+                              setLivechatVisibility(e.target.value)
+                            }
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <p>Are you sure you want to delete this topic event?</p>
+                  <p>Are you sure you want to delete this event?</p>
                 )}
               </div>
-              <div className="modal-footer mt-4">
+              <div className="modal-footer mt-4 text-center">
                 <button
                   type="button"
                   className="btn btn-light"
@@ -347,12 +439,12 @@ const Departments = (props) => {
             </div>
           </Modal>
           <div className="top-area d-flex-align-center">
-            <h3>Topics</h3>
+            <h3>Events</h3>
 
             <div className="slider-area  d-flex-align-center">
               <div className="top-area d-flex-align-center">
                 <button type="button" onClick={addCalendar}>
-                  Add New Topic
+                  Add New Event
                 </button>
               </div>
             </div>
@@ -371,6 +463,9 @@ const Departments = (props) => {
                 </div>
                 <div className="col col3">
                   <h5>Time</h5>
+                </div>
+                <div className="col col3">
+                  <h5>Duration</h5>
                 </div>
                 <div className="col col3">
                   <h5>Available Days</h5>
@@ -396,7 +491,7 @@ const Departments = (props) => {
                         <NeutralButton
                           onClick={() =>
                             copyLink(
-                              `${window.location.protocol}//appointment.${domain}/${user?.name}/${calendar.slug}`
+                              `${window.location.protocol}//meeting.${domain}/${user?.companyName}/${calendar.slug}`
                             )
                           }
                         >
@@ -408,6 +503,9 @@ const Departments = (props) => {
                           {calendar.availableTime?.from} -{" "}
                           {calendar.availableTime?.to}
                         </span>
+                      </div>
+                      <div className="col col3 d-flex-align-center">
+                        <span>{calendar.duration}</span>
                       </div>
                       <div className="col col3 d-flex-align-center">
                         <span>

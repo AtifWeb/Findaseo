@@ -5,7 +5,7 @@ export const FooterWrapperNav = ({ FooterOptions }) => {
   return (
     <div className={`${styles.FooterWrapperNav} w-1200`}>
       {FooterOptions.map((EachList) => (
-        <FooterList EachList={EachList} />
+        <FooterList key={EachList.text} EachList={EachList} />
       ))}
     </div>
   );

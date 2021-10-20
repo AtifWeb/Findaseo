@@ -13,14 +13,10 @@ import NeutralButton from "App/component/NeutralButton";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import SideBarLogo from "../../../Assets/img/Pavelify.png";
-import Calender from "./Calender/Calender";
-import ConfirmationPopUpCalender from "./ConfirmationPopUpCalender/ConfirmationPopUpCalender";
-import useGetSubdomain from "App/hooks/useGetSubdomain";
 
 const Container = styled.div`
   display: flex;
   height: 100vh;
-  background-color: white;
   @media screen and (max-width: 600px) {
     flex-direction: column;
   }
@@ -135,7 +131,6 @@ const Booking = (props) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [unavailableTimes, setUnavailableTimes] = useState([]);
-  const { subdomain, domain } = useGetSubdomain();
 
   useEffect(() => {
     companyName && slug && getCalendar();
@@ -150,18 +145,16 @@ const Booking = (props) => {
     let [hourTo, minutesTo] = to.split(":");
     unavailableTimes.indexOf(`${hourFrom}:${minutesFrom}`) === -1 &&
       timeArray.push(`${hourFrom}:${minutesFrom}`);
-    let minStr = "";
+
     while (
-      Number(String(hourFrom) + String(minutesFrom)) <
-      Number(String(hourTo) + String(minutesTo))
+      Number(String(hourTo) + String(minutesTo)) >
+      Number(String(hourFrom) + String(minutesFrom))
     ) {
       minutesFrom = Number(minutesFrom) + interval;
-      if (minutesFrom >= 60) {
+      if (minutesFrom > 60) {
         hourFrom++;
         minutesFrom = minutesFrom % 60;
       }
-      minutesFrom =
-        String(minutesFrom).length < 2 ? minutesFrom + String(0) : minutesFrom;
       unavailableTimes.indexOf(`${hourFrom}:${minutesFrom}`) === -1 &&
         timeArray.push(`${hourFrom}:${minutesFrom}`);
     }
@@ -196,10 +189,8 @@ const Booking = (props) => {
             window.location = "/";
           }
           setLoading(false);
-          console.log(result.data);
+          console.log(result.data.calendar);
           setCalendar(result.data.calendar);
-          result.data.calendar?.duration &&
-            setWhich(result.data.calendar?.duration);
           setUnavailableTimes(result.data.unavailableTimes);
         } else {
           window.location = "/";
@@ -233,7 +224,6 @@ const Booking = (props) => {
     } else {
       let [h, m] = time?.split(":");
       date.setHours(h, m, 0);
-
       axios({
         method: "post",
         url: `${process.env.REACT_APP_BASE_URL}/calendar-bookings/book`,
@@ -242,7 +232,7 @@ const Booking = (props) => {
           email,
           phone,
           time: date,
-          companyName: companyName?.toLowerCase(),
+          companyName,
           slug,
           which,
         },
@@ -270,75 +260,171 @@ const Booking = (props) => {
 
   return (
     <Container>
-      <StatusAlert />
-      {step === "first" && (
-        <Calender
-          data={{
-            which,
-            companyName: calendar.companyFullName || companyName,
-            calendar,
-            times,
-            time,
-            date,
-            setDate,
-            setTime,
-            continue: time && date ? () => setStep("second") : null,
-          }}
-        />
-      )}
-      {step === "second" && (
-        <ConfirmationPopUpCalender
-          data={{
-            which,
-            companyName: calendar.companyFullName || companyName,
-            calendar,
-            times,
-            setTime,
-            back: () => setStep("first"),
-            name,
-            setName,
-            email,
-            setEmail,
-            phone,
-            setPhone,
-            time,
-            date,
-            continue: name && email && phone ? submitForm : null,
-          }}
-        />
-      )}
-
-      {step === "third" && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            width: "100%",
-          }}
-        >
-          <h3 className="text-center">
-            The meeting has been scheduled successfully!
-          </h3>
-          <h4 className="mt-5 text-secondary text-center">
-            You will receive an email shortly containing information about the
-            meeting.
-          </h4>
-          <div className="text-center mt-5">
-            <NeutralButton
-              className="actionBtn"
-              onClick={() =>
-                window.location.replace(
-                  `${window.location.protocol}//${domain}`
-                )
-              }
-            >
-              Continue
-            </NeutralButton>
-          </div>
+      <Greeting>
+        <div>
+          <img src={SideBarLogo} alt="" />
+          <a href="/">Go Back</a>
         </div>
-      )}
+        <div>
+          <h1>Book a Meeting _</h1>
+          <p>
+            with{" "}
+            <span> {calendar?.companyFullName || calendar?.companyName}</span>
+          </p>
+        </div>
+      </Greeting>
+
+      <Main style={{ width: "100%" }}>
+        <StatusAlert />
+        <span className="subtitle">Event:</span>
+        {calendar?.name && <h2>{calendar?.name}</h2>}
+        {step === "first" && (
+          <div className="row">
+            <div className="col">
+              <div className="">
+                <Label>Select a Date</Label>
+                <Calendar
+                  className="bg-primary w-100"
+                  onChange={(value, event) => setDate(value)}
+                  value={date}
+                  defaultView="month"
+                  tileClassName={({ activeStartDate, date, view }) =>
+                    new Date(activeStartDate).getMonth() !==
+                    new Date(date).getMonth()
+                      ? "text-secondary"
+                      : "text-white"
+                  }
+                  tileContent=""
+                  tileDisabled={({ activeStartDate, date, view }) =>
+                    calendar?.availableDays?.indexOf(
+                      daysOfTheWeek[date.getDay()]
+                    ) < 0
+                  }
+                  defaultValue={new Date()}
+                />
+              </div>
+            </div>
+            <div className="col">
+              <Label>How long do you need?</Label>
+              <div className="btn-group" role="group" aria-label="Time needed">
+                <button
+                  onClick={() => setWhich("15 mins")}
+                  type="button"
+                  className={`btn ${
+                    which === "15 mins" ? "btn-primary" : "btn-light"
+                  } px-3`}
+                >
+                  15 mins
+                </button>
+                <button
+                  onClick={() => setWhich("30 mins")}
+                  type="button"
+                  className={`btn ${
+                    which === "30 mins" ? "btn-primary" : "btn-light"
+                  } px-3`}
+                >
+                  30 mins
+                </button>
+                <button
+                  onClick={() => setWhich("1 hour")}
+                  type="button"
+                  className={`btn ${
+                    which === "1 hour" ? "btn-primary" : "btn-light"
+                  } px-3`}
+                >
+                  1 hour
+                </button>
+              </div>
+
+              <div className="mt-4">
+                <Label>What time work best?</Label>
+                <Dropdown
+                  options={times}
+                  onChange={(t) => setTime(t.value)}
+                  value={time}
+                  placeholder="Select an option"
+                  menuClassName="text-center"
+                  className="text-center"
+                  placeholderClassName="text-primary"
+                  controlClassName=""
+                />
+              </div>
+              <div className="text-center mt-3">
+                <NeutralButton className="actionBtn" onClick={() => nextStep()}>
+                  Continue
+                </NeutralButton>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === "second" && (
+          <div>
+            <h4 className="text-center">Lets get to know you,</h4>
+            <div className=" text-center mt-5">
+              <div className="mb-3">
+                <label htmlFor=""> Name:</label>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  className="form-control"
+                />
+              </div>
+
+              <div className=" mb-3">
+                <label htmlFor="">Email:</label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="">Phone Number:</label>
+                <input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="tel"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="text-center mt-5">
+                <NeutralButton
+                  className="actionBtn"
+                  onClick={() => submitForm()}
+                >
+                  Finish
+                </NeutralButton>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === "third" && (
+          <div>
+            <h3 className="text-center">
+              The meeting has been scheduled successfully!
+            </h3>
+            <h4 className="mt-5 text-secondary text-center">
+              You will receive an email shortly containing information about the
+              meeting.
+            </h4>
+
+            <div className="text-center mt-5">
+              <NeutralButton
+                className="actionBtn"
+                onClick={() => (window.location = "/")}
+              >
+                Continue
+              </NeutralButton>
+            </div>
+          </div>
+        )}
+      </Main>
     </Container>
   );
 };

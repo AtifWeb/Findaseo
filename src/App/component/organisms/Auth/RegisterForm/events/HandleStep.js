@@ -13,7 +13,7 @@ export const HandleNextStep = (setStep, Fields) => {
     document.querySelector(".heading-steps").textContent = "Last Step";
     document.querySelector("#progress_inner").style.width = "100%";
     document.querySelector(".step2").textContent = "3";
-    document.querySelector(".next_button").style.display = "none";
+    // document.querySelector(".next_button").style.display = "none";
   }
   return CurrentStep;
 };

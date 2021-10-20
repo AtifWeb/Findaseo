@@ -19,13 +19,28 @@ import GreenMessage from "../../Assets/img/green-message.png";
 import LiveChat from "../../Assets/img/live-chat.png";
 import { Doughnut, Line } from "react-chartjs-2";
 import { VectorMap } from "react-jvectormap";
-import { data, options, Lineoptions, Linedata } from "../Utils/DashboardChart";
+import {
+  // data,
+  options,
+  Lineoptions,
+  // Linedata,
+  BarData,
+  BarOptions,
+} from "../Utils/AnalyticsChart";
 import NeutralButton from "App/component/NeutralButton";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import { getUser } from "App/helpers/auth";
 import { useHistory } from "react-router";
 import { capitalize } from "@material-ui/core";
+import {
+  filterOptions,
+  last7Days,
+  thisMonth,
+  thisWeek,
+} from "./analytics/filters";
+import { format } from "date-fns";
+
 function Home() {
   const history = useHistory();
   const [user] = useState(getUser());
@@ -34,87 +49,135 @@ function Home() {
   const [bookings, setBookings] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [todolist, setTodolist] = useState({});
+  const [visits, setVisits] = useState([]);
+  const [visitsByCountry, setVisitsByCountry] = useState({});
   const [loading, setLoading] = useState(false);
-  const mapData = {
-    CN: 100000,
-    IN: 9900,
-    SA: 86,
-    EG: 70,
-    SE: 0,
-    FI: 0,
-    FR: 0,
-    US: 20,
-    pk: 20,
+  const [filterOption, setFilterOption] = useState(filterOptions[0]);
+  const [lineData, setLineData] = useState({
+    labels: [],
+    data: [],
+  });
+
+  let data = {
+    labels: Object.keys(visitsByCountry),
+    datasets: [
+      {
+        label: "# of Visits",
+        data: Object.values(visitsByCountry),
+        backgroundColor: ["#9953B7", "#18AB8F", "#2D96D6", "#EEF0F6"],
+        hoverOffset: 5,
+        borderColor: ["#9953B7", "#18AB8F", "#2D96D6", "#EEF0F6"],
+        borderWidth: 1,
+        cutout: 80,
+      },
+    ],
   };
 
+  let Linedata = (canvas) => {
+    let CTX = document.querySelector(".chart-line canvas").getContext("2d");
+    var gradient = CTX.createLinearGradient(0, 140, 0, 220);
+    gradient.addColorStop(0, "#D1E9F7");
+
+    gradient.addColorStop(1, "#ECF6FC");
+
+    return {
+      labels: [...lineData.labels],
+      datasets: [
+        {
+          label: "Unique Visits",
+          data: [...lineData.data],
+          fill: true,
+
+          backgroundColor: gradient,
+          borderColor: "#2D98DA",
+        },
+      ],
+    };
+  };
+
+  // useEffect(() => {
+  //   getContacts();
+  //   fetchBookings();
+  //   fetchTickets();
+  //   fetchTodolist();
+  // }, []);
   useEffect(() => {
-    getContacts();
-    fetchBookings();
-    fetchTickets();
+    fetchStats();
     fetchTodolist();
   }, []);
 
-  const getContacts = () => {
-    if (!user) return;
-    Axios({
-      method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/contacts/LiveChat`,
-      data: {
-        cID: user?.cID,
-      },
-    })
-      .then((result) => {
-        if (result.data.success) {
-          setContacts(result.data.contacts);
-          setLoading(false);
-        } else {
-          //
+  useEffect(() => {
+    visits && filterByCountry();
+  }, [visits]);
+
+  useEffect(() => {
+    visits && filterByDate();
+  }, [filterOption]);
+
+  const filterByCountry = () => {
+    let countries = {};
+    for (let visit of visits) {
+      if (countries[visit?.countryName]) {
+        countries[visit?.countryName]++;
+      } else {
+        countries[visit?.countryName] = 1;
+      }
+    }
+    setVisitsByCountry(countries);
+  };
+
+  const filterByDate = () => {
+    let labels = [],
+      datas = [],
+      dates = [];
+
+    switch (filterOption) {
+      case "This Week":
+        dates = thisWeek();
+        break;
+      case "This Month":
+        dates = thisMonth();
+        break;
+      default:
+        dates = last7Days();
+        break;
+    }
+
+    for (let date of dates) {
+      labels.push(date);
+      let d = 0;
+      if (filterOption === "This Week") {
+        d = 2;
+      } else if (filterOption === "This Month") {
+        d = 7;
+      }
+      for (let visit of visits) {
+        if (format(new Date(visit.createdAt), "PP") === date) {
+          d++;
         }
-      })
-      .catch((e) => {
-        console.log(handleError(e));
-        setLoading(false);
-      });
+      }
+      datas.push(d);
+    }
+    console.log({ labels, data: datas });
+    setLineData({ labels, data: datas });
   };
 
-  const fetchBookings = () => {
+  const fetchStats = () => {
     user &&
       Axios({
         method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/calendar-bookings`,
+        url: `${process.env.REACT_APP_BASE_URL}/getStats`,
         data: {
           cID: user?.cID,
         },
       })
         .then((result) => {
           if (result.data.success) {
-            setBookings(result.data.bookings);
-            setLoading(false);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
-
-  const fetchTickets = (department = false) => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/email-ticket/fetch`,
-        data: {
-          cID: user?.cID,
-          type: "all",
-          department,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setTickets(result.data.tickets);
-            setLoading(false);
+            setTickets(result.data.stats?.tickets);
+            setBookings(result.data.stats?.bookings);
+            setContacts(result.data.stats?.contacts);
+            setVisits(result.data.stats?.visits);
+            console.log({ visits: result.data.stats?.visits });
           } else {
             //
           }
@@ -136,7 +199,6 @@ function Home() {
     })
       .then((result) => {
         if (result.data.success) {
-          console.log(result.data);
           setTodolist(result.data.todolist);
         } else {
           //
@@ -162,7 +224,11 @@ function Home() {
           <div className="top-banner-results">
             <div className="box">
               <h4 className="heading">Company Name</h4>
-              <p>{user?.companyName ? capitalize(user?.companyName) : ""}</p>
+              <p>
+                {user?.companyFullName || user?.companyName
+                  ? capitalize(user?.companyFullName || user?.companyName)
+                  : ""}
+              </p>
             </div>
             <div className="box d-flex-align-center">
               <img src={ChatGreen} alt="" />
@@ -192,8 +258,17 @@ function Home() {
             <div className="chart-line-wrapper">
               <div className="top d-flex-align-center">
                 <h3>Analytics</h3>
-                <select name="" id="">
-                  <option value="Last 30 days">Last 30 days</option>
+                <select
+                  value={filterOption}
+                  onChange={(e) => setFilterOption(e.target.value)}
+                  name=""
+                  id=""
+                >
+                  {filterOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div
@@ -335,13 +410,13 @@ function Home() {
 
               <div className="chart-container">
                 <p>
-                  2,378 <span>Visitors</span>
+                  {visits?.length} <span>Visitors</span>
                 </p>
                 <Doughnut data={data} options={options} />
               </div>
             </div>
 
-            <div className="visitor-vector-map">
+            {/* <div className="visitor-vector-map">
               <div className="top d-flex-align-center">
                 <h3>Visitors</h3>
                 <div className="dots">
@@ -392,7 +467,7 @@ function Home() {
                   containerClassName="map"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="Customer-Lists">
               <div className="top d-flex-align-center">

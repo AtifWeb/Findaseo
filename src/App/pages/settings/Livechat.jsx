@@ -630,7 +630,7 @@ const LiveChatSettings = () => {
           </div>
         </li>
 
-        <li>
+        {/* <li>
           <div className="head d-flex-align-center">
             <p>Side Bar</p>
             <svg
@@ -777,7 +777,7 @@ const LiveChatSettings = () => {
               Save Settings
             </button>
           </div>
-        </li>
+        </li> */}
 
         <li>
           <div className="head d-flex-align-center">

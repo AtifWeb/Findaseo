@@ -143,7 +143,7 @@ function CalendarBooking() {
                 type="button"
                 onClick={() => history.push("/CalendarBooking/calendars")}
               >
-                Manage Topics ({totalCalendars})
+                Manage Events ({totalCalendars})
               </button>
             </li>
           </ul>

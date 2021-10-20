@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { CalenderJs } from "./event/calender";
 
-export const CalenderPure = () => {
+export const CalenderPure = ({ setDate, date }) => {
   useEffect(() => {
-    CalenderJs();
-  });
+    CalenderJs(date, setDate);
+  }, []);
   return (
     <div class="box calender stagger">
       <div class="calender-top">

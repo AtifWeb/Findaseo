@@ -10,3 +10,8 @@
   margin-bottom: 1rem;
   cursor: pointer;
 }
+
+.day.active {
+  background-color: #12225d;
+  color: white;
+}

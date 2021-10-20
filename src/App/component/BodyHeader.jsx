@@ -7,6 +7,7 @@ import styled from "styled-components";
 import NeutralButton from "./NeutralButton";
 import { useHistory } from "react-router";
 import { capitalize } from "@material-ui/core";
+import { getUser } from "App/helpers/auth";
 
 export const Dropdown = styled.div`
   background-color: white;
@@ -27,6 +28,7 @@ export const Dropdown = styled.div`
 function BodyHeader({ active }) {
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
+  const [user] = useState(getUser());
 
   return (
     <div className="BodyHeader d-flex-align-center">
@@ -174,7 +176,7 @@ function BodyHeader({ active }) {
           <NeutralButton onClick={() => setShowModal((prev) => !prev)}>
             <div className="profile-name-area d-flex-align-center">
               <img src={Photo} alt="" />
-              <p>Salung Prastyo</p>
+              <p>{user?.name}</p>
               <div className="icon-wrapper">
                 <svg
                   width="7"
