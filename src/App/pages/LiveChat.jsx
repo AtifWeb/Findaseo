@@ -289,12 +289,7 @@ function LiveChat() {
                     className="message_sender_list"
                     style={{ marginBottom: 0 }}
                   >
-                    <li>Reply</li>
-                    <li>Edit</li>
-                    <li>Note</li>
-                    <li>Reminder</li>
-                    <li>Shortcuts</li>
-                    <li>Helpdesk</li>
+                    <li>Quick Response</li>
                   </ul>
                   <div className="input-wrapper d-flex-align-center">
                     <input type="text" placeholder="Write a message" />
@@ -306,7 +301,7 @@ function LiveChat() {
                       className="icon-wrapper"
                       id="message_sender_label"
                     >
-                      Reply
+                      Quick Response
                     </label>
                   </div>
                 </form>
@@ -335,7 +330,6 @@ function LiveChat() {
               </ul>
               <div className="info-area">
                 <div className="personal-info">
-                  <p>Some Info</p>
                   <div className="info-box d-flex-align-center">
                     <svg
                       width="24"

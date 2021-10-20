@@ -1284,7 +1284,7 @@
 .message_sender_list li {
   font-size: 12px;
   cursor: pointer;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 0rem;
 }
 #message_sender_label {
   padding: 0.5rem 1rem;
@@ -1377,7 +1377,8 @@
 }
 .messages-box-area > .right-side .profile-area {
   text-align: center;
-  margin: 3rem 0rem;
+
+  margin-top: 3rem;
   padding-left: 2rem !important;
   padding-right: 2rem !important;
 }
@@ -1398,6 +1399,7 @@
   font-weight: 400;
 
   text-align: center;
+  margin-bottom: 0 !important;
 }
 
 .messages-box-area > .right-side .options-area {
@@ -1440,11 +1442,11 @@
 .messages-box-area > .right-side .info-area {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
-  margin-top: 1.3rem;
+
   width: 100%;
 }
 .messages-box-area > .right-side .info-area .personal-info .info-box {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .messages-box-area
   > .right-side
@@ -1489,6 +1491,7 @@
   text-transform: uppercase;
 
   color: #282d4a;
+  margin-bottom: 0px !important;
 }
 .messages-box-area > .right-side .info-area .tags-area textarea {
   background: #eef0f6;
@@ -1887,7 +1890,7 @@
 }
 .body_sidebar {
   height: 100vh;
-  width: 20vw;
+  width: 15vw;
   padding: 1rem 0.8rem;
   background: #172166;
 }

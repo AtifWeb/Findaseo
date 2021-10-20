@@ -148,12 +148,6 @@ function Sidebar({ active }) {
 
         <li className={`${active == "help_desk" && "active"}`}>
           <Link to="/dashhboard/help_desk">
-            <i class="fas fa-address-book"></i>
-          </Link>
-        </li>
-
-        <li>
-          <Link>
             <svg
               width="34"
               height="34"
@@ -184,6 +178,7 @@ function Sidebar({ active }) {
             </svg>
           </Link>
         </li>
+
         <li className={`${active == "Analytics" && "active"}`}>
           <Link to="/dashhboard/Analytics">
             <svg
