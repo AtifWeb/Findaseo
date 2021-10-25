@@ -1292,6 +1292,9 @@
   border-radius: 0px 7px 7px 0px;
 }
 
+.messages-box-area .left-side {
+  max-height: 90vh;
+}
 .messages-box-area .left-side .top-area {
   justify-content: space-between;
 }
@@ -1413,11 +1416,12 @@
 .messages-box-area .middle-side .messages-container-wrapper .message-container {
   display: flex;
   flex-direction: column;
-  height: 750px;
+  min-height: 85vh;
   overflow: auto;
   padding: 2rem 3rem;
   background: #eff3f6;
   padding-bottom: 6rem;
+  position: relative;
 }
 .messages-box-area
   .middle-side
@@ -1589,6 +1593,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 90vh;
 }
 
 .messages-box-area > .right-side .top-area {
@@ -1615,13 +1620,12 @@
 }
 .messages-box-area > .right-side .profile-area {
   text-align: center;
-  margin: 3rem 0rem;
+  margin: 1rem 0rem;
   padding-left: 2rem !important;
   padding-right: 2rem !important;
 }
 .messages-box-area > .right-side .profile-area .name {
   font-size: 24px;
-
   font-weight: 700;
   color: #282d4a;
   margin-top: 7px;
@@ -1678,11 +1682,11 @@
 .messages-box-area > .right-side .info-area {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
-  margin-top: 1.3rem;
+  margin-top: 0.5rem;
   width: 100%;
 }
 .messages-box-area > .right-side .info-area .personal-info .info-box {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 .messages-box-area
   > .right-side

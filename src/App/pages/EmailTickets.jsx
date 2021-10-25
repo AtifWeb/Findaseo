@@ -44,7 +44,7 @@ function EmailTickets() {
         },
       })
         .then((result) => {
-          console.log(result.data);
+          // console.log(result.data);
           if (result.data.success) {
             setTickets(result.data.tickets);
             setCounts(result.data.counts);
@@ -61,7 +61,7 @@ function EmailTickets() {
   };
 
   const filterByDepartment = (department) => {
-    console.log(department);
+    // console.log(department);
     fetchTickets(department);
   };
 

@@ -31,7 +31,7 @@ export const LoginForm = () => {
             const alertID = StatusAlertService.showSuccess(
               "Signed in successfully"
             );
-            console.log(alertID);
+            // console.log(alertID);
             saveLogin({
               cID: user.cID,
               companyName: user.companyName,
@@ -51,7 +51,7 @@ export const LoginForm = () => {
         const alertID = StatusAlertService.showError(
           handleError(e) || "An error came up, please try again"
         );
-        console.log(alertID);
+        // console.log(alertID);
         setLoading(false);
       });
   };

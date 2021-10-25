@@ -91,7 +91,7 @@ export const RegisterForm = () => {
           const alertID = StatusAlertService.showSuccess(
             "Registration successful"
           );
-          console.log(alertID);
+          // console.log(alertID);
           window.location = "/";
         } else {
           //
@@ -102,7 +102,7 @@ export const RegisterForm = () => {
         const alertID = StatusAlertService.showError(
           handleError(e) || "An error came up, please try again"
         );
-        console.log(alertID);
+        // console.log(alertID);
         setLoading(false);
       });
   };

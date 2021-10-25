@@ -70,6 +70,13 @@ export const BookMeeting = ({ company, companyName }) => {
             <div>
               {calendars?.map((calendar, index) => (
                 <NeutralButton
+                  style={{
+                    borderBottom: "1px solid lightgrey",
+                    marginBottom: "10px",
+                    padding: "20px 5px",
+                    boxShadow: "2px 2px 2px 2px lightgrey",
+                    borderRadius: "8px",
+                  }}
                   onClick={() =>
                     window.open(
                       `${

@@ -38,7 +38,7 @@ function CalendarBooking() {
         .then((result) => {
           if (result.data.success) {
             setBookings(result.data.bookings);
-            console.log(result.data);
+            // console.log(result.data);
             let ev = [];
             result.data.bookings?.forEach((boo) => {
               let month = String(

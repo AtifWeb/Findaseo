@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../component/Sidebar";
 import SpainFlag from "../../Assets/img/flag-spain.png";
 import { Badge, Table } from "react-bootstrap";

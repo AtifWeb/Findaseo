@@ -163,7 +163,7 @@ function LiveVisitors() {
                             <img
                               src={
                                 visitor.info.countryCode?.toLowerCase()
-                                  ? `https://www.countryflags.io/${visitor.info.countryCode?.toLowerCase()}/flat/24.png`
+                                  ? `https://flagcdn.com/w20/${visitor.info.countryCode?.toLowerCase()}.png`
                                   : GermanyFlag
                               }
                               alt=""
@@ -210,7 +210,16 @@ function LiveVisitors() {
                 </ul>
                 <ul className="table-body">
                   {visitsByCountry.map((c, index) => (
-                    <ul key={String(index)} className="row grid-col-3">
+                    <ul
+                      style={{
+                        padding: "0px",
+                        paddingBottom: "3px",
+                        marginBottom: "10px",
+                        marginTop: "0px",
+                      }}
+                      key={String(index)}
+                      className="row grid-col-3"
+                    >
                       <li>{c.country}</li>
                       <li>{c.visits}</li>
                       {/* <li>$3,900</li> */}

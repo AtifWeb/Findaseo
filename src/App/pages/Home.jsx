@@ -158,7 +158,7 @@ function Home() {
       }
       datas.push(d);
     }
-    console.log({ labels, data: datas });
+    // console.log({ labels, data: datas });
     setLineData({ labels, data: datas });
   };
 
@@ -177,7 +177,7 @@ function Home() {
             setBookings(result.data.stats?.bookings);
             setContacts(result.data.stats?.contacts);
             setVisits(result.data.stats?.visits);
-            console.log({ visits: result.data.stats?.visits });
+            // console.log({ visits: result.data.stats?.visits });
           } else {
             //
           }
@@ -282,7 +282,10 @@ function Home() {
             <div className="todo-list">
               <div className="top d-flex-align-center">
                 <h3>Todo Lists</h3>
-                <NeutralButton style={{ color: "#2998DE" }}>
+                <NeutralButton
+                  onClick={() => history.push(`/Todolist`)}
+                  style={{ color: "#2998DE" }}
+                >
                   See All
                 </NeutralButton>
               </div>

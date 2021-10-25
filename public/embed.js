@@ -1,7 +1,8 @@
+const url = "http://vcap.me:3000";
 (function () {
   const WEASL_WRAPPER_ID = "weasl-container";
   const IFRAME_ID = "weasl-iframe-element";
-  const IFRAME_URL = `${"http://vcap.me:3000"}/snippet/${window.chatID}`;
+  const IFRAME_URL = `${url}/snippet/${window.chatID}`;
   const TAKEOVER_CLASSNAME = "weasl-iframe-takeover";
   const init = () => {
     initializeIframe();
@@ -14,7 +15,7 @@
 
     link.type = "text/css";
 
-    link.href = `${"http://vcap.me:3000"}/embed.css`;
+    link.href = `${url}/embed.css`;
 
     // Get HTML head element to append
     // link element to it

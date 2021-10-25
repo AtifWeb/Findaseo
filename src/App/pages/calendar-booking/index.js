@@ -67,8 +67,12 @@ const CalendarBookingIndex = ({ bookings, events }) => {
             {bookings?.map((booking, index) => (
               <li key={String(index)}>
                 <u>
-                  {format(new Date(booking?.time), "PP")} &nbsp;
-                  {format(new Date(booking?.locationData?.startTime), "p")}:
+                  {format(new Date(booking?.time || null), "PP")} &nbsp;
+                  {format(
+                    new Date(booking?.locationData?.startTime || null),
+                    "p"
+                  )}
+                  :
                 </u>
                 &nbsp;
                 {booking?.duration} Meeting with {booking?.name} @

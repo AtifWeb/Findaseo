@@ -14,10 +14,8 @@ import CalendarBooking from "App/pages/CalendarBooking";
 import Calendars from "App/pages/calendar/Calendars";
 import Booking from "App/pages/calendar/Booking";
 import Home_Desk from "App/pages/Home_Desk";
-
-// import Login from "App/pages/auth/login";
+import Todolist from "App/pages/home/Todolist";
 import Logout from "App/pages/auth/logout";
-// import Register from "App/pages/auth/register";
 
 import Snippet from "App/pages/embed/Snippet";
 import Embed from "App/pages/embed";
@@ -127,7 +125,7 @@ const AuthRoutes = () => {
           <Route path="/Analytics" exact>
             <Analytics />
           </Route>
-           <Route path="/knowledgebase" exact>
+          <Route path="/knowledgebase" exact>
             <Home_Desk />
           </Route>
           <Route path="/CalendarBooking/calendars" exact>
@@ -157,6 +155,9 @@ const AuthRoutes = () => {
           </Route>
           <Route path="/LiveVisitors" exact>
             <LiveVisitors />
+          </Route>
+          <Route path="/Todolist" exact>
+            <Todolist />
           </Route>
           <Route path="/logout" exact>
             <Logout />

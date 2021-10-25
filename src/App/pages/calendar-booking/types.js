@@ -69,9 +69,12 @@ const CalendarTypes = ({ type, bookings, past, upcoming }) => {
                     <p>Tel: {meeting?.phone}</p>
                   </div>
                   <div className="col col3	 d-flex-align-center">
-                    {meeting?.locationData?.topic}
+                    {meeting?.locationData?.topic || meeting?.name}
                   </div>
-                  <div className="col col3 d-flex-align-center">
+                  <div
+                    style={{ width: "100%" }}
+                    className="col col3 d-flex-align-center"
+                  >
                     <b>{meeting?.location}</b>
                   </div>
 
@@ -85,17 +88,21 @@ const CalendarTypes = ({ type, bookings, past, upcoming }) => {
 
                   <div className="col col5">
                     <div className="images-wrapper d-flex-align-center">
-                      <NeutralButton
-                        className="calendarBookingStart"
-                        onClick={() =>
-                          window
-                            .open(meeting?.locationData?.startUrl, "_blank")
-                            ?.focus()
-                        }
-                        target={"_blank"}
-                      >
-                        Start Meeting
-                      </NeutralButton>
+                      {meeting?.location !== "Phone Call" ? (
+                        <NeutralButton
+                          className="calendarBookingStart"
+                          onClick={() =>
+                            window
+                              .open(meeting?.locationData?.startUrl, "_blank")
+                              ?.focus()
+                          }
+                          target={"_blank"}
+                        >
+                          Start Meeting
+                        </NeutralButton>
+                      ) : (
+                        <div style={{ width: "100%" }}></div>
+                      )}
 
                       <NeutralButton>
                         <img src={Trash} alt="" />

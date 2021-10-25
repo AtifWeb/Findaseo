@@ -39,6 +39,9 @@ import {
   last7Days,
   thisMonth,
   thisWeek,
+  last3Months,
+  thisYear,
+  last6Months,
 } from "./analytics/filters";
 import { format } from "date-fns";
 function Analytics() {
@@ -124,6 +127,8 @@ function Analytics() {
   };
 
   const filterByDate = () => {
+    let type = "day";
+
     let labels = [],
       datas = [],
       dates = [];
@@ -135,6 +140,22 @@ function Analytics() {
       case "This Month":
         dates = thisMonth();
         break;
+
+      case "Last 3 Months":
+        dates = last3Months();
+        type = "month";
+        break;
+
+      case "Last 6 Months":
+        dates = last6Months();
+        type = "month";
+        break;
+
+      case "This Year":
+        dates = thisYear();
+        type = "month";
+        break;
+
       default:
         dates = last7Days();
         break;
@@ -143,19 +164,27 @@ function Analytics() {
     for (let date of dates) {
       labels.push(date);
       let d = 0;
-      if (filterOption === "This Week") {
-        d = 2;
-      } else if (filterOption === "This Month") {
-        d = 7;
-      }
-      for (let visit of visits) {
-        if (format(new Date(visit.createdAt), "PP") === date) {
-          d++;
+
+      if (type === "day") {
+        for (let visit of visits) {
+          if (format(new Date(visit.createdAt), "PP") === date) {
+            d++;
+          }
+        }
+      } else {
+        for (let visit of visits) {
+          if (
+            `${format(new Date(visit.createdAt), "MMMM")}-${new Date(
+              visit.createdAt
+            ).getFullYear()}` === `${date}-${new Date().getFullYear()}`
+          ) {
+            d++;
+          }
         }
       }
       datas.push(d);
     }
-    console.log({ labels, data: datas });
+    // console.log({ labels, data: datas });
     setLineData({ labels, data: datas });
   };
 
@@ -171,7 +200,7 @@ function Analytics() {
       }
     }
     setVisitsByCountryCode(countries);
-    console.log({ countries });
+    // console.log({ countries });
   };
 
   const fetchStats = () => {
@@ -189,7 +218,7 @@ function Analytics() {
             setBookings(result.data.stats?.bookings);
             setContacts(result.data.stats?.contacts);
             setVisits(result.data.stats?.visits);
-            console.log({ visits: result.data.stats?.visits });
+            // console.log({ visits: result.data.stats?.visits });
           } else {
             //
           }

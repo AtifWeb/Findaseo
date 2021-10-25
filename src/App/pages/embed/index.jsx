@@ -35,7 +35,7 @@ function Embed() {
 
   useEffect(() => {
     if (user) {
-      console.log({ user });
+      // console.log({ user });
       greetTheUser();
       socket.emit("existingClient", { ...user, cID: params.company });
       updateInfo();
@@ -68,7 +68,7 @@ function Embed() {
 
     socket.on("message", (message) => {
       addConversations([message]);
-      console.log(message);
+      // console.log(message);
     });
   }, [socket]);
 
