@@ -551,7 +551,35 @@ function LiveChat() {
                     <div ref={messagesEndRef} />
                   </div>
 
+                  {/* <form action="" className="message-sender-form">
+                    <ul
+                      className="message_sender_list"
+                      style={{ marginBottom: 0 }}
+                    >
+                      <li>Quick Response</li>
+                    </ul>
+                    <div className="input-wrapper d-flex-align-center">
+                      <input type="text" placeholder="Write a message" />
+                      <input type="submit" value="" id="message-submit" />
+                      <i class="fas fa-paperclip"></i>
+                      <i class="far fa-smile-beam"></i>
+                      <label
+                        htmlFor="message-submit"
+                        className="icon-wrapper"
+                        id="message_sender_label"
+                      >
+                        Quick Response
+                      </label>
+                    </div>
+                  </form> */}
+
                   <div className="message-sender-form">
+                    <ul
+                      className="message_sender_list"
+                      style={{ marginBottom: 0 }}
+                    >
+                      <li>Quick Response</li>
+                    </ul>
                     <div className="input-wrapper d-flex-align-center">
                       <input
                         value={message}
@@ -591,6 +619,8 @@ function LiveChat() {
                           />
                         </svg>
                       </label>
+                      <i class="fas fa-paperclip"></i>
+                      <i class="far fa-smile-beam"></i>
                     </div>
                   </div>
                 </div>

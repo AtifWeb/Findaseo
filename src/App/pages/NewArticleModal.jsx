@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 
 export const NewArticleModal = ({
   NewArticleshow,
+  onShowDiffer,
   handleNewArticleshowClose,
 }) => {
   return (
@@ -42,6 +43,7 @@ export const NewArticleModal = ({
                 variant="primary"
                 style={{ marginLeft: "10px" }}
                 type="submit"
+                onClick={onShowDiffer}
               >
                 Create Article
               </Button>

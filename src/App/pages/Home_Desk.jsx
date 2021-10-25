@@ -20,10 +20,17 @@ function Home_Desk() {
   const handlePublishArticleClose = () => setPublishArticleModalShow(false);
   const handlePublishArticleShow = () => setPublishArticleModalShow(true);
 
+  const handlePublishArticleShowWithClick = (e) => {
+    e.preventDefault();
+    setNewArticleshow(false);
+    setPublishArticleModalShow(true);
+  };
+
   return (
     <div className="Home main-wrapper d-flex Home_Desk">
       <NewArticleModal
         NewArticleshow={NewArticleshow}
+        onShowDiffer={handlePublishArticleShowWithClick}
         handleNewArticleshowClose={handleNewArticleshowClose}
       />
       <PublishArticleModal
@@ -137,6 +144,7 @@ function Home_Desk() {
             </form>
 
             <div className="buttons-wrapper">
+              <button>Page Setup</button>
               <button>Documentation</button>
               <button onClick={handleNewArticleshowShow}>New Article</button>
             </div>
