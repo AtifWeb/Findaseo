@@ -1,4 +1,4 @@
-export const HandleBotDisplay = (e) => {
+export const HandleBotDisplay = (e, innerSize) => {
   const Bot = document.querySelector(".collapse-bot");
   const BurgerBtn = document.querySelector("#burgerButton");
 
@@ -15,7 +15,10 @@ export const HandleBotDisplay = (e) => {
     document.querySelector(".collapse-bot").classList.remove("active");
     document.querySelector("#closeIconButton").classList.add("fa-comment-alt");
     document.querySelector("#closeIconButton").classList.remove("fa-times");
+
+    window.parent.postMessage(JSON.stringify({ type: "CLOSE_IFRAME" }), "*");
   } else {
+    window.parent.postMessage(JSON.stringify({ type: "OPEN_IFRAME" }), "*");
     document.querySelector(".collapse-bot").style.display = "block";
     document
       .querySelector("#closeIconButton")
@@ -30,15 +33,15 @@ export const HandleBotDisplay = (e) => {
     // }
     document.querySelector(".collapse-bot").classList.add("active");
   }
-  ToggleBurgerBtn();
+  ToggleBurgerBtn(innerSize);
 };
 
-export const ToggleBurgerBtn = () => {
+export const ToggleBurgerBtn = (innerSize) => {
   const Bot = document.querySelector(".collapse-bot");
   const BurgerBtn = document.querySelector("#burgerButton");
 
   if (Bot && BurgerBtn) {
-    if (window.innerWidth <= 600) {
+    if (innerSize.width <= 600) {
       if (Bot.classList.contains("active")) {
         BurgerBtn.style.display = "none";
       } else {

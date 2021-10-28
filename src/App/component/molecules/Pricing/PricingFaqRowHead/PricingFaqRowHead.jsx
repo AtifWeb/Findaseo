@@ -5,7 +5,7 @@ export const PricingFaqRowHead = ({ question }) => {
     <div className={styles.head}>
       <h3 className={styles.question}>{question}</h3>
       <div className={styles.dropdown}>
-        <i class="fas fa-caret-down"></i>
+        <i className="fas fa-caret-down"></i>
       </div>
     </div>
   );

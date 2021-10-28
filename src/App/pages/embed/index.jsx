@@ -337,7 +337,7 @@ function Embed() {
               var event = e || window.event;
               var charCode = event.which || event.keyCode;
 
-              if (charCode == "13") {
+              if (charCode === "13") {
                 // Enter pressed
                 messageSender();
               }

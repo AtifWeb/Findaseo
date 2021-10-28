@@ -23,9 +23,9 @@ export const HomeCard = ({
         <p className={styles.para}>{desc}</p>
         {list !== null && (
           <ul className={styles.cardUL}>
-            {list.map((Each) => (
-              <li className={styles.list}>
-                <i class="fas fa-check"></i>
+            {list.map((Each, index) => (
+              <li key={String(index)} className={styles.list}>
+                <i className="fas fa-check"></i>
                 <p className={styles.list_para}>{Each}</p>
               </li>
             ))}

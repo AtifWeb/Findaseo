@@ -50,9 +50,9 @@ export const CalenderJs = (date, setDate) => {
 
   // Helping function to get total daus
   const GetTotalDays = (Month) => {
-    if (Month == 3 || Month == 5 || Month == 8 || Month == 10) {
+    if (Month === 3 || Month === 5 || Month === 8 || Month === 10) {
       Month = 30;
-    } else if (Month == 1) {
+    } else if (Month === 1) {
       Month = 28;
     } else {
       Month = 31;
@@ -70,7 +70,7 @@ export const CalenderJs = (date, setDate) => {
   // Event Function
 
   const NavigateBack = (e) => {
-    if (CurrentMonth == 0) {
+    if (CurrentMonth === 0) {
       CurrentMonth = 11;
     } else {
       CurrentMonth--;
@@ -82,7 +82,7 @@ export const CalenderJs = (date, setDate) => {
   };
 
   const NavigateFront = (e) => {
-    if (CurrentMonth == 11) {
+    if (CurrentMonth === 11) {
       CurrentMonth = 0;
     } else {
       CurrentMonth++;

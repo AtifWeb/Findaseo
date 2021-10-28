@@ -14,7 +14,7 @@ export const PricingCard = ({
   return (
     <div className={styles.PricingCard}>
       <h1 className={styles.mainheading}>{title}</h1>
-      {type == null && (
+      {type === null && (
         <>
           {" "}
           <p className={styles.price}>{price}</p>

@@ -21,7 +21,7 @@ const ConfirmationPopUpCalender = ({ data }) => {
         </p>
         <div>
           <div className={styles.Close} onClick={data.back}>
-            <i class="fas fa-arrow-left"></i>
+            <i className="fas fa-arrow-left"></i>
           </div>
         </div>
         <ul className={styles.Ul}>

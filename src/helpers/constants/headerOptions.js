@@ -1,10 +1,5 @@
 export const HeaderOptions = [
   {
-    name: "home",
-    url: "/",
-    type: null,
-  },
-  {
     name: "Pricing",
     url: "/pricing",
     type: null,
@@ -14,16 +9,7 @@ export const HeaderOptions = [
     url: "/features",
     type: null,
   },
-  {
-    name: "Careers",
-    url: "/careers",
-    type: null,
-  },
-  {
-    name: "Privacy Policy",
-    url: "/PrivacyPolicy",
-    type: null,
-  },
+
   {
     name: "Try Pavelify for Free",
     url: "/auth/register",
@@ -34,7 +20,7 @@ export const HeaderOptions = [
     name: "Login",
     url: "/auth/login",
     type: "button",
-    buttonType: "solid",
+    buttonType: "outline",
   },
   {
     name: "Register",

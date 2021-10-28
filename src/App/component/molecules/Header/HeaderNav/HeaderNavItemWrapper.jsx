@@ -7,8 +7,8 @@ export const HeaderNavItemWrapper = ({ headerOptions, activeLink }) => {
   return (
     <div className={`${styles.HeaderNavItemWrapper} headerNav`}>
       {headerOptions.map((EachOption, index) =>
-        EachOption.type == null ? (
-          EachOption.name == activeLink ? (
+        EachOption.type === null ? (
+          EachOption.name === activeLink ? (
             <HeaderItem
               key={String(index)}
               text={EachOption.name}

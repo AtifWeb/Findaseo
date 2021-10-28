@@ -9,6 +9,7 @@ import LiveChatSettings from "./settings/Livechat";
 import EmailTicketSettings from "./settings/EmailTicket";
 import OperatingHoursSettings from "./settings/OperatingHours";
 import QuickReponseSettings from "./settings/QuickResponse";
+import Notifications from "./settings/Notifications";
 
 function Settings() {
   const params = useParams();
@@ -89,8 +90,14 @@ function Settings() {
                 <li>
                   <Link>Account</Link>
                 </li>
-                <li>
-                  <Link>Notifications</Link>
+                <li
+                  className={
+                    params?.channel === "Notifications" ? "active" : ""
+                  }
+                >
+                  <Link onClick={() => history.push("/settings/Notifications")}>
+                    Notifications
+                  </Link>
                 </li>
                 <li
                   className={
@@ -120,6 +127,8 @@ function Settings() {
             {params?.channel === "QuickResponse" ? (
               <QuickReponseSettings />
             ) : null}
+
+            {params?.channel === "Notifications" ? <Notifications /> : null}
 
             {params?.channel === "Departments" ? <Departments /> : null}
           </div>

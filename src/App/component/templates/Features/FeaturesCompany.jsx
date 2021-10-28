@@ -12,6 +12,7 @@ export const FeaturesCompany = () => {
         <div className={styles.featuresWrapper}>
           {Features.map((Each) => (
             <HomeCard
+              key={Each.LargeText}
               img={Each.img}
               LargeText={Each.LargeText}
               bgcolor={Each.bgColor}

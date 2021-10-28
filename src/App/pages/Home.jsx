@@ -319,7 +319,7 @@ function Home() {
                 </li>
                 <li
                   style={{ cursor: "pointer" }}
-                  onClick={() => history.push(`/settings/CalendarBooking`)}
+                  onClick={() => history.push(`/CalendarBooking`)}
                   className="d-flex-align-center"
                 >
                   <div className="icon-wrapper orange">

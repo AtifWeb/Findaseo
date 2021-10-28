@@ -8,8 +8,8 @@ export const PolicyList = ({ EachPolicy }) => {
         <>
           <li className={styles.list}>{list}</li>
           {EachPolicy["extra"] !== null &&
-            EachPolicy["extra"].map((list) => (
-              <ul className={styles.subList}>
+            EachPolicy["extra"].map((list, index) => (
+              <ul className={styles.subList} key={String(index)}>
                 <li className={styles.Subhead}>{list.heading}</li>
                 <li className={styles.list}>{list.value}</li>
               </ul>

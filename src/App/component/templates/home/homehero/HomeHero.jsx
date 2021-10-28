@@ -20,8 +20,8 @@ export const HomeHero = () => {
         </small>
 
         <UsePavelifyLink
-          text="Use Pavelify for Free"
-          style={{ width: "50%" }}
+          text="Try Pavelify for Free"
+          style={{ width: "35%" }}
         />
 
         {/* <HomeEmaiSender widthInput="70%" /> */}

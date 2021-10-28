@@ -185,7 +185,7 @@ function Home_Desk() {
                 </td>
                 <td>
                   <Button variant="primary">
-                    <i class="fas fa-cog"></i>
+                    <i className="fas fa-cog"></i>
                   </Button>
                 </td>
               </tr>

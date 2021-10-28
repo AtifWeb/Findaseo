@@ -19,8 +19,8 @@ export const PrivacyPolicyNotes = () => {
           to the Terms of Use.
         </p>
         <div className={styles.policyListWrapper}>
-          {PolicyListOptions.map((EachPolicy) => (
-            <PolicyList EachPolicy={EachPolicy} />
+          {PolicyListOptions.map((EachPolicy, index) => (
+            <PolicyList key={String(index)} EachPolicy={EachPolicy} />
           ))}
         </div>
       </div>

@@ -66,7 +66,7 @@ const Departments = (props) => {
     if (!name) return;
     setLoading(true);
     let cal;
-    if (action == "create") {
+    if (action === "create") {
       cal = {
         name,
         availableDays: days,

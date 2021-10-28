@@ -286,10 +286,19 @@ function EmailTickets() {
                       </div>
                       <div className="icon-wrapper d-flex-align-center">
                         <img src={User} alt="" />
-                        <p>{ticket?.department}</p>
+                        <p>{capitalize(ticket?.department)}</p>
                       </div>
 
-                      <button className="open-btn">{ticket?.status}</button>
+                      <button
+                        className="open-btn"
+                        style={
+                          ticket?.status !== "Resolved"
+                            ? { backgroundColor: "#efe4fc", color: "#7822e6" }
+                            : null
+                        }
+                      >
+                        {ticket?.status}
+                      </button>
                     </div>
                   </div>
                 ))}

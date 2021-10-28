@@ -10,16 +10,16 @@ export const Button = ({
   ext_class = null,
   loading = false,
 }) => {
-  return onClick == null ? (
+  return onClick === null ? (
     <button
-      className={`${styles.button} ${outline == true && styles.outline} 
+      className={`${styles.button} ${outline === true && styles.outline} 
       }`}
       style={style}
     >
       {type !== null ? (
         <Link
           to=""
-          className={`${styles.link} ${outline == true && styles.outline}`}
+          className={`${styles.link} ${outline === true && styles.outline}`}
         >
           {text}
         </Link>
@@ -30,7 +30,7 @@ export const Button = ({
   ) : (
     <button
       disabled={loading}
-      className={`${styles.button} ${outline == true && styles.outline}
+      className={`${styles.button} ${outline === true && styles.outline}
       
       ${ext_class !== null && "next_button"}
       
@@ -39,7 +39,9 @@ export const Button = ({
       onClick={onClick}
     >
       {type !== null ? (
-        <Link className={`${styles.link} ${outline == true && styles.outline}`}>
+        <Link
+          className={`${styles.link} ${outline === true && styles.outline}`}
+        >
           {text}
         </Link>
       ) : (

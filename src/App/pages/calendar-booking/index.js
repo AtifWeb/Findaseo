@@ -7,11 +7,11 @@ const CalendarBookingIndex = ({ bookings, events }) => {
   return (
     <>
       <div style={{ background: "#fff" }}>
-        <div class="box calender stagger">
-          <div class="calender-top">
+        <div className="box calender stagger">
+          <div className="calender-top">
             <label
               htmlFor="calender-prev-button"
-              class="icon-wrapper"
+              className="icon-wrapper"
               id="calender-back-icon-wrapper"
             >
               <svg
@@ -28,10 +28,10 @@ const CalendarBookingIndex = ({ bookings, events }) => {
                 />
               </svg>
             </label>
-            <strong class="Calender-DateTime">Dec, 2021</strong>
+            <strong className="Calender-DateTime">Dec, 2021</strong>
             <label
               htmlFor="calender-next-button"
-              class="icon-wrapper"
+              className="icon-wrapper"
               id="calender-towards-icon-wrapper"
             >
               <svg
@@ -49,7 +49,7 @@ const CalendarBookingIndex = ({ bookings, events }) => {
               </svg>
             </label>
           </div>
-          <div class="calender-days-name">
+          <div className="calender-days-name">
             <span>M</span>
             <span>T</span>
             <span>W</span>
@@ -58,7 +58,7 @@ const CalendarBookingIndex = ({ bookings, events }) => {
             <span>S</span>
             <span>S</span>
           </div>
-          <div class="calender-days"></div>
+          <div className="calender-days"></div>
         </div>
 
         <div className="bottom-after-calender">

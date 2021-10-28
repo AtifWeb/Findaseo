@@ -22,7 +22,7 @@ export const HandleBotDisplay = (e) => {
       document.querySelector(".collapse-bot").classList.add("active");
     }
   } else {
-    if (e.target.id == "burgerButton") {
+    if (e.target.id === "burgerButton") {
       document.querySelector(".collapse-bot").style.display = "block";
     } else {
       document.querySelector(".collapse-bot").style.display = "none";

@@ -57,6 +57,8 @@ function LiveChat() {
   const [message, setMessage] = useState("");
   const [filter, setFilter] = useState("");
   const { unreadChats } = useSelector((store) => store);
+  const [showQuick, setShowQuick] = useState(false);
+  const [quickResponses, setQuickResponses] = useState([]);
 
   useEffect(() => {
     if (window.innerWidth < 1201) {
@@ -80,7 +82,31 @@ function LiveChat() {
         });
       });
     }
+    fetchQuckResponse();
   }, []);
+
+  const fetchQuckResponse = () => {
+    user &&
+      Axios({
+        method: "post",
+        url: `${process.env.REACT_APP_BASE_URL}/settings`,
+        data: {
+          cID: user?.cID,
+        },
+      })
+        .then((result) => {
+          if (result.data.success) {
+            setLoading(false);
+            setQuickResponses(result.data.configuration.quickResponse);
+          } else {
+            //
+          }
+        })
+        .catch((e) => {
+          console.log(handleError(e));
+          setLoading(false);
+        });
+  };
 
   useEffect(() => {
     setPrevLoaded(false);
@@ -544,43 +570,63 @@ function LiveChat() {
                 </div>
               </div> */}
 
-                <div className="messages-container-wrapper">
+                <div className="messages-container-wrapper  position-relative">
                   <div className="message-container">
                     {chats &&
                       chats.map((chat, index) => loadMessages(chat, index))}
                     <div ref={messagesEndRef} />
                   </div>
 
-                  {/* <form action="" className="message-sender-form">
-                    <ul
-                      className="message_sender_list"
-                      style={{ marginBottom: 0 }}
-                    >
-                      <li>Quick Response</li>
-                    </ul>
-                    <div className="input-wrapper d-flex-align-center">
-                      <input type="text" placeholder="Write a message" />
-                      <input type="submit" value="" id="message-submit" />
-                      <i class="fas fa-paperclip"></i>
-                      <i class="far fa-smile-beam"></i>
-                      <label
-                        htmlFor="message-submit"
-                        className="icon-wrapper"
-                        id="message_sender_label"
-                      >
-                        Quick Response
-                      </label>
-                    </div>
-                  </form> */}
-
                   <div className="message-sender-form">
+                    {showQuick ? (
+                      <div
+                        style={{
+                          position: "absolute",
+                          boxShadow: "2px 3px 3px lightgrey",
+                          background: "white",
+                          width: "90%",
+                          height: "200px",
+                          bottom: "100px",
+                          // left: "20%",
+                          borderRadius: "4px",
+                        }}
+                        className="py-2"
+                      >
+                        <ul
+                          className="px-2"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                          }}
+                        >
+                          {quickResponses?.map((q) => (
+                            <li
+                              key={q}
+                              className="py-2 px-3 mb-2"
+                              style={{
+                                boxShadow: "1px 1px 1px 1px lightgrey",
+                                width: "100%",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => setMessage(q)}
+                            >
+                              {q}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
                     <ul
-                      className="message_sender_list"
+                      className="message_sender_list px-3"
                       style={{ marginBottom: 0 }}
                     >
-                      <li>Quick Response</li>
+                      <li onClick={() => setShowQuick((p) => !p)}>
+                        Quick Response
+                      </li>
                     </ul>
-                    <div className="input-wrapper d-flex-align-center">
+                    <div className="input-wrapper d-flex-align-center py-2">
                       <input
                         value={message}
                         type="text"
@@ -591,7 +637,7 @@ function LiveChat() {
                           var event = e || window.event;
                           var charCode = event.which || event.keyCode;
 
-                          if (charCode == "13") {
+                          if (charCode === "13") {
                             // Enter pressed
                             messageSender();
                           }
@@ -603,8 +649,15 @@ function LiveChat() {
                         onClick={() => messageSender()}
                         id="message-submit"
                         disabled={!message?.trim()}
-                      />
-                      <label htmlFor="message-submit" className="icon-wrapper">
+                      ></button>
+
+                      <i className="fas fa-paperclip"></i>
+                      <i className="far fa-smile-beam"></i>
+                      <label
+                        disabled={!message?.trim()}
+                        htmlFor="message-submit"
+                        className="icon-wrapper"
+                      >
                         <svg
                           width="31"
                           height="31"
@@ -612,15 +665,18 @@ function LiveChat() {
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <rect width="31" height="31" rx="4" fill="#2D96D6" />
+                          <rect
+                            width="31"
+                            height="31"
+                            rx="4"
+                            fill={!message?.trim() ? "lightgrey" : "#2D96D6"}
+                          />
                           <path
                             d="M18.4151 10.7267L13.1476 12.4767C9.60674 13.6609 9.60674 15.5917 13.1476 16.77L14.7109 17.2892L15.2301 18.8525C16.4084 22.3934 18.3451 22.3934 19.5234 18.8525L21.2792 13.5909C22.0609 11.2284 20.7776 9.93919 18.4151 10.7267ZM18.6017 13.865L16.3851 16.0934C16.2976 16.1809 16.1867 16.2217 16.0759 16.2217C15.9651 16.2217 15.8542 16.1809 15.7667 16.0934C15.5976 15.9242 15.5976 15.6442 15.7667 15.475L17.9834 13.2467C18.1526 13.0775 18.4326 13.0775 18.6017 13.2467C18.7709 13.4159 18.7709 13.6959 18.6017 13.865Z"
                             fill="white"
                           />
                         </svg>
                       </label>
-                      <i class="fas fa-paperclip"></i>
-                      <i class="far fa-smile-beam"></i>
                     </div>
                   </div>
                 </div>

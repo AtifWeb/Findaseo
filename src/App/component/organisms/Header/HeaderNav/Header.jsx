@@ -9,7 +9,7 @@ export const Header = ({ headerOptions, activeLink }) => {
       <div className={`${styles.HeaderContent} w-1200`}>
         <h1>
           <Link to="/">
-            <img style={{ width: "100px" }} src={"/images/logo.png"} />
+            <img style={{ width: "175px" }} src={"/images/logo.png"} />
           </Link>
         </h1>
         <HeaderNavItemWrapper

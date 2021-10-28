@@ -7,8 +7,9 @@ export const PricingCardWrapper = () => {
   return (
     <div className={`${styles.PricingCardWrapper}`}>
       <div className={`${styles.Content} w-1200`}>
-        {PricingCardcontent.map((EachCard) => (
+        {PricingCardcontent.map((EachCard, index) => (
           <PricingCard
+            key={String(index)}
             title={EachCard.title}
             price={EachCard.price}
             type={EachCard.type != null ? EachCard.type : null}

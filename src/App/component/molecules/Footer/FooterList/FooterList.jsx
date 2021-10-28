@@ -3,8 +3,8 @@ import styles from "./FooterList.module.css";
 export const FooterList = ({ EachList }) => {
   return (
     <ul className={styles.FooterList}>
-      {EachList.map((EachItem) => (
-        <>
+      {EachList.map((EachItem, index) => (
+        <div key={String(index)}>
           {EachItem.type != "form" &&
             (EachItem.type === "image" ? (
               <img
@@ -14,7 +14,7 @@ export const FooterList = ({ EachList }) => {
             ) : (
               <li
                 className={`${
-                  EachItem.type == "heading"
+                  EachItem.type === "heading"
                     ? styles.specialtext
                     : styles.normalText
                 }`}
@@ -22,7 +22,7 @@ export const FooterList = ({ EachList }) => {
                 {EachItem.text}
               </li>
             ))}
-          {EachItem.type == "form" && (
+          {EachItem.type === "form" && (
             <form className={styles.form}>
               <input
                 type="text"
@@ -32,7 +32,7 @@ export const FooterList = ({ EachList }) => {
               <button className={styles.button}>{EachItem.buttontext}</button>
             </form>
           )}
-        </>
+        </div>
       ))}
     </ul>
   );

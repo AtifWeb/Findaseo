@@ -1,13 +1,22 @@
-#weasl-container > iframe.weasl-iframe-takeover {
-  width: 100vw;
-  height: 100vh;
-  display: initial;
-  top: 0;
-  left: 0;
-  /* background-color: red; */
+#pavelify-container > iframe.pavelify-iframe-takeover {
+  width: 100px;
+  height: 70px;
+  display: block;
+  bottom: 0;
+  right: 0;
 }
 
-#weasl-container > iframe.weasl-iframe-info-msg {
+#pavelify-container > iframe.mobile {
+  width: 100vw;
+  height: 100vh;
+}
+
+#pavelify-container > iframe.desktop {
+  width: 400px;
+  height: 580px;
+}
+
+#pavelify-container > iframe.pavelify-iframe-info-msg {
   width: initial;
   height: 70px;
   display: initial;
@@ -15,7 +24,7 @@
   left: 20px;
 }
 
-#weasl-container > iframe {
+#pavelify-container > iframe {
   position: fixed;
   width: 0;
   height: 0;

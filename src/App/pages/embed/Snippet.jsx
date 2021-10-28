@@ -33,6 +33,8 @@ import styles2 from "./LiveChatMessageArea.module.css";
 import capitalize from "helpers/capitalize";
 import { useLayoutEffect } from "react";
 
+let checkDesktop = null;
+
 const Snippet = () => {
   const params = useParams();
   const [open, setOpen] = useState(false);
@@ -58,6 +60,10 @@ const Snippet = () => {
   const [sidebar, setSidebar] = useState();
   const [menus, setMenus] = useState(false);
   const [companyName, setCompanyName] = useState("");
+  const [innerSize, setInnerSize] = useState({
+    width: 1000,
+    height: 1000,
+  });
 
   const URL = window.location.protocol + "//" + window.location.host;
   //hostname
@@ -98,10 +104,22 @@ const Snippet = () => {
     !prevLoaded && loadPreviousConversation();
   };
 
+  const handleIframeMessages = (message) => {
+    const data = JSON.parse(message.data);
+    if (data?.type === "SCREEN_SIZE") {
+      setInnerSize(data?.value);
+      ToggleBurgerBtn(data?.value);
+    }
+  };
+
   useEffect(() => {
-    window.addEventListener("resize", ToggleBurgerBtn);
+    window.addEventListener("message", handleIframeMessages, false);
+    // window.addEventListener("resize", ToggleBurgerBtn);
     getConfigurations();
-    return () => window.removeEventListener("resize", ToggleBurgerBtn);
+    return () => {
+      // window.removeEventListener("resize", ToggleBurgerBtn);
+      window.removeEventListener("message", handleIframeMessages, false);
+    };
   }, []);
 
   useEffect(() => {
@@ -275,7 +293,11 @@ const Snippet = () => {
         }}
       >
         <div
-          className={`text-white ${styles.CollapseAbleLiveChat} collapse-bot `}
+          className={`text-white ${styles.CollapseAbleLiveChat} ${
+            innerSize?.width <= 600 ? styles.CollapseAbleLiveChat_600 : ""
+          } ${
+            innerSize?.width <= 400 ? styles.CollapseAbleLiveChat_400 : ""
+          } collapse-bot `}
           id="collpase-area"
           style={{ background: appearance?.backgroundColor }}
         >
@@ -288,12 +310,16 @@ const Snippet = () => {
                 <div className={styles.top}>
                   <div
                     className={styles.CloseIcon}
-                    onClick={HandleBotDisplay}
-                    onTouchStart={HandleBotDisplay}
+                    onClick={(e) => HandleBotDisplay(e, innerSize)}
+                    onTouchStart={(e) => HandleBotDisplay(e, innerSize)}
                   >
                     <i className="fas fa-times"></i>
                   </div>
-                  <h1 className={styles.heading}>
+                  <h1
+                    className={`${styles.heading} ${
+                      innerSize?.width <= 400 ? styles.heading_400 : ""
+                    }`}
+                  >
                     Hello from {capitalize(companyName)} 👋🏻
                   </h1>
                   <p className={styles.para}>
@@ -337,11 +363,15 @@ const Snippet = () => {
           ) : (
             <>
               <div
-                className={`${styles2.LiveChatMessageArea} `}
+                className={`${styles2.LiveChatMessageArea} ${
+                  innerSize?.width <= 600 ? styles2.LiveChatMessageArea_600 : ""
+                }`}
                 id="MessageArea"
               >
                 <div
-                  className={styles2.top}
+                  className={`${styles2.top} ${
+                    innerSize?.width <= 600 ? styles2.top_600 : ""
+                  }`}
                   style={{ background: appearance?.backgroundColor }}
                 >
                   <div
@@ -427,7 +457,11 @@ const Snippet = () => {
                 </div>
 
                 <div className={styles2.body}>
-                  <div className={styles2.bodyContent}>
+                  <div
+                    className={`${styles2.bodyContent} ${
+                      innerSize?.width <= 600 ? styles2.bodyContent_600 : ""
+                    }`}
+                  >
                     {chats.map((Message, index) => (
                       <TextMessage
                         primaryColor={appearance?.backgroundColor}
@@ -462,7 +496,7 @@ const Snippet = () => {
                           var event = e || window.event;
                           var charCode = event.which || event.keyCode;
 
-                          if (charCode == "13") {
+                          if (charCode === "13") {
                             // Enter pressed
                             messageSender();
                           }
@@ -643,7 +677,7 @@ const Snippet = () => {
             //             var event = e || window.event;
             //             var charCode = event.which || event.keyCode;
 
-            //             if (charCode == "13") {
+            //             if (charCode === "13") {
             //               // Enter pressed
             //               messageSender();
             //             }
@@ -748,7 +782,7 @@ const Snippet = () => {
             />
           )}
           <button
-            onClick={HandleBotDisplay}
+            onClick={(e) => HandleBotDisplay(e, innerSize)}
             // onTouchStart={HandleBotDisplay}
             id="burgerButton"
             // onClick={() => setOpen((prev) => !prev)}

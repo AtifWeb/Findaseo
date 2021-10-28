@@ -11,8 +11,8 @@ export const HomeContactBanner = () => {
         </h1>
         <p>14 days free trial, No credit card required.</p>
         <UsePavelifyLink
-          text="Use Pavelify for Free"
-          style={{ width: "30%", backgroundColor: "#0F295C", color: "#fff" }}
+          text="Try Pavelify for Free"
+          style={{ width: "20%", backgroundColor: "#0F295C", color: "#fff" }}
         />
       </div>
     </div>

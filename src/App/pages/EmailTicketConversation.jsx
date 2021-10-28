@@ -114,6 +114,32 @@ function EmailTicketConversation() {
         });
   };
 
+  const resolve = () => {
+    user &&
+      Axios({
+        method: "post",
+        url: `${process.env.REACT_APP_BASE_URL}/email-ticket/updateStatus`,
+        data: {
+          cID: user?.cID,
+          ticketID: params?.id,
+          status: "Resolved",
+        },
+      })
+        .then((result) => {
+          if (result.data.success) {
+            setTicket(result.data.ticket);
+
+            setLoading(false);
+          } else {
+            //
+          }
+        })
+        .catch((e) => {
+          console.log(handleError(e));
+          setLoading(false);
+        });
+  };
+
   const messageSender = () => {
     user &&
       message &&
@@ -251,7 +277,10 @@ function EmailTicketConversation() {
             {/* <div className="left-side"></div> */}
             {/* middile side */}
             {ticket ? (
-              <div className="middle-side email">
+              <div
+                className="middle-side email"
+                style={{ maxHeight: "85vh", padding: "0px" }}
+              >
                 {/* <div className="contact-area">
                 <div className="top-area d-flex-align-center">
                   <h3>Your Contacts</h3>
@@ -320,7 +349,10 @@ function EmailTicketConversation() {
               </div> */}
 
                 <div className="messages-container-wrapper">
-                  <div className="message-container">
+                  <div
+                    className="message-container "
+                    style={{ maxHeight: "85vh" }}
+                  >
                     {ticket && renderMessage(ticket)}
                     {ticket && ticket?.replies?.length
                       ? ticket.replies.map((reply) =>
@@ -330,65 +362,91 @@ function EmailTicketConversation() {
                     <div ref={messagesEndRef} />
                   </div>
 
-                  <div className="message-sender-form">
-                    <div className="input-wrapper d-flex-align-center">
-                      <input
-                        value={message}
-                        type="text"
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Write a message"
-                        onKeyUp={(e) => {
-                          e.stopPropagation();
-                          var event = e || window.event;
-                          var charCode = event.which || event.keyCode;
+                  {ticket?.status === "Resolved" ? (
+                    <h3 className="text-center mb-3 py-2">Resolved</h3>
+                  ) : (
+                    <div className="message-sender-form mb-1">
+                      <div className="input-wrapper d-flex-align-center py-2">
+                        <input
+                          value={message}
+                          type="text"
+                          onChange={(e) => setMessage(e.target.value)}
+                          placeholder="Write a message"
+                          onKeyUp={(e) => {
+                            e.stopPropagation();
+                            var event = e || window.event;
+                            var charCode = event.which || event.keyCode;
 
-                          if (charCode == "13") {
-                            // Enter pressed
-                            messageSender();
-                          }
-                        }}
-                      />
-                      <button
-                        type="button"
-                        value=""
-                        onClick={() => messageSender()}
-                        id="message-submit"
-                        disabled={!message?.trim()}
-                      />
-                      <label htmlFor="message-submit" className="icon-wrapper">
-                        <svg
-                          width="31"
-                          height="31"
-                          viewBox="0 0 31 31"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                            if (charCode === "13") {
+                              // Enter pressed
+                              messageSender();
+                            }
+                          }}
+                        />
+                        <button
+                          type="button"
+                          value=""
+                          onClick={() => messageSender()}
+                          id="message-submit"
+                          disabled={!message?.trim()}
+                        />
+                        <label
+                          htmlFor="message-submit"
+                          className="icon-wrapper"
                         >
-                          <rect width="31" height="31" rx="4" fill="#2D96D6" />
-                          <path
-                            d="M18.4151 10.7267L13.1476 12.4767C9.60674 13.6609 9.60674 15.5917 13.1476 16.77L14.7109 17.2892L15.2301 18.8525C16.4084 22.3934 18.3451 22.3934 19.5234 18.8525L21.2792 13.5909C22.0609 11.2284 20.7776 9.93919 18.4151 10.7267ZM18.6017 13.865L16.3851 16.0934C16.2976 16.1809 16.1867 16.2217 16.0759 16.2217C15.9651 16.2217 15.8542 16.1809 15.7667 16.0934C15.5976 15.9242 15.5976 15.6442 15.7667 15.475L17.9834 13.2467C18.1526 13.0775 18.4326 13.0775 18.6017 13.2467C18.7709 13.4159 18.7709 13.6959 18.6017 13.865Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </label>
+                          <svg
+                            width="31"
+                            height="31"
+                            viewBox="0 0 31 31"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              width="31"
+                              height="31"
+                              rx="4"
+                              fill="#2D96D6"
+                            />
+                            <path
+                              d="M18.4151 10.7267L13.1476 12.4767C9.60674 13.6609 9.60674 15.5917 13.1476 16.77L14.7109 17.2892L15.2301 18.8525C16.4084 22.3934 18.3451 22.3934 19.5234 18.8525L21.2792 13.5909C22.0609 11.2284 20.7776 9.93919 18.4151 10.7267ZM18.6017 13.865L16.3851 16.0934C16.2976 16.1809 16.1867 16.2217 16.0759 16.2217C15.9651 16.2217 15.8542 16.1809 15.7667 16.0934C15.5976 15.9242 15.5976 15.6442 15.7667 15.475L17.9834 13.2467C18.1526 13.0775 18.4326 13.0775 18.6017 13.2467C18.7709 13.4159 18.7709 13.6959 18.6017 13.865Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </label>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             ) : null}
 
             {/* right side */}
             {ticket ? (
-              <div className="right-side">
+              <div className="right-side" style={{ maxHeight: "85vh" }}>
                 <div className="top-area d-flex-align-center">
-                  <NeutralButton className="open-btn">
-                    Mark as Resolved
-                  </NeutralButton>
+                  {ticket?.status === "Resolved" ? null : (
+                    <NeutralButton
+                      onClick={() => resolve()}
+                      className="open-btn"
+                    >
+                      Mark as Resolved
+                    </NeutralButton>
+                  )}
                   {/* <button>Forward Chat</button> */}
                 </div>
                 <div className="profile-area">
                   <div style={{ position: "relative" }}>
-                    <img src={PersonBig} alt="" />
-                    <Status></Status>
+                    <div
+                      className="livechat-tag"
+                      style={{
+                        background: visitor?.color || "red",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    >
+                      {ticket?.emailData?.from?.value[0]?.name?.slice(0, 1) ||
+                        0}
+                    </div>
                   </div>
                   <p className="name">
                     {" "}

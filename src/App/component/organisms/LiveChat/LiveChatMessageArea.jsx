@@ -18,7 +18,7 @@ export const LiveChatMessageArea = () => {
     >
       <div className={styles.top}>
         <div className={styles.CloseIcon} onClick={HandleCovertingScreen}>
-          <i class="fas fa-chevron-left"></i>
+          <i className="fas fa-chevron-left"></i>
         </div>
         <div className={styles.presentation}>
           <h3 className={styles.heading_top}> Pavelify</h3>
@@ -28,8 +28,12 @@ export const LiveChatMessageArea = () => {
 
       <div className={styles.body}>
         <div className={styles.bodyContent}>
-          {Message.map((Message) => (
-            <TextMessage text={Message.text} my_message={Message.message} />
+          {Message.map((Message, index) => (
+            <TextMessage
+              key={String(index)}
+              text={Message.text}
+              my_message={Message.message}
+            />
           ))}
         </div>
         <form action="" className={styles.form}>
@@ -40,10 +44,10 @@ export const LiveChatMessageArea = () => {
               className={styles.input}
             />
             <div className={`${styles.IconWrapper} ${styles.Smile}`}>
-              <i class="far fa-smile-wink"></i>
+              <i className="far fa-smile-wink"></i>
             </div>
             <div className={styles.IconWrapper}>
-              <i class="fas fa-paperclip"></i>
+              <i className="fas fa-paperclip"></i>
             </div>
 
             <label htmlFor="send" className={styles.LabelWrapper}>

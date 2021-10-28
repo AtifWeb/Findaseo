@@ -124,7 +124,7 @@ export const RegisterForm = () => {
       <div className={styles.FeildsWrapper}>
         {Step.map((feild) => (
           <>
-            {feild.object == "InputWrapper" && (
+            {feild.object === "InputWrapper" && (
               <InputWrapper
                 id={feild.id}
                 labelText={feild.label}
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
                 }
               />
             )}
-            {feild.object == "GridInputWrapper" && (
+            {feild.object === "GridInputWrapper" && (
               <InputWrapper
                 id={feild.id}
                 labelText={feild.label}
@@ -153,13 +153,13 @@ export const RegisterForm = () => {
               />
             )}
 
-            {feild.object == "radio" && (
+            {feild.object === "radio" && (
               <div style={{ gridColumn: "span 2" }}>
                 <h4 className={styles.radioheading}>{feild.heading}</h4>
 
                 <ul id="radio">
-                  {feild["checkboxes"].map((EachCheckbox) => (
-                    <li className={styles.radiolist}>
+                  {feild["checkboxes"].map((EachCheckbox, index) => (
+                    <li key={String(index)} className={styles.radiolist}>
                       <label htmlFor={EachCheckbox}>
                         <input
                           type="radio"
@@ -188,7 +188,7 @@ export const RegisterForm = () => {
               </div>
             )}
 
-            {/* {feild.object == "button" && (
+            {/* {feild.object === "button" && (
               <Button text={feild.text} style={{ gridColumn: "span 2" }} />
             )} */}
           </>

@@ -50,7 +50,7 @@ export const BookMeeting = ({ company, companyName }) => {
           // to="/plus/Calender"
           onClick={() => setShowMeetings(true)}
           text="Book a meeting"
-          img={<i class="fas fa-calendar-week"></i>}
+          img={<i className="fas fa-calendar-week"></i>}
         />
       ) : (
         <div>
@@ -70,6 +70,7 @@ export const BookMeeting = ({ company, companyName }) => {
             <div>
               {calendars?.map((calendar, index) => (
                 <NeutralButton
+                  key={String(index)}
                   style={{
                     borderBottom: "1px solid lightgrey",
                     marginBottom: "10px",

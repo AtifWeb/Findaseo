@@ -6,8 +6,9 @@ export const PricingFaq = ({ PricingQuestion }) => {
   return (
     <div className={`${styles.PricingFaq} w-1200`}>
       <h1 className={styles.mainheading}>Frequently Asked Questions</h1>
-      {PricingQuestion.map((EachQuestsion) => (
+      {PricingQuestion.map((EachQuestsion, index) => (
         <PricingFaqRow
+          key={String(index)}
           question={EachQuestsion.question}
           answer={EachQuestsion.answer}
         />
