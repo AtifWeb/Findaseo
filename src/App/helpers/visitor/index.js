@@ -1,7 +1,7 @@
-const AUTH_KEY = "PavelifySESSIONKEY";
+const AUTH_KEY = "PavelifySESSIONKEY-";
 
-export const saveVisitor = (auth) => {
-  localStorage.setItem(AUTH_KEY, JSON.stringify(auth));
+export const saveVisitor = (auth, companyID) => {
+  localStorage.setItem(AUTH_KEY + companyID, JSON.stringify(auth));
   return true;
 };
 
@@ -12,8 +12,8 @@ export const isActive = () => {
   if (currentAuth?.cID && currentAuth.uuid) return true;
   return false;
 };
-export const getVisitor = () => {
-  let currentAuth = localStorage.getItem(AUTH_KEY);
+export const getVisitor = (companyID) => {
+  let currentAuth = localStorage.getItem(AUTH_KEY + companyID);
   if (!currentAuth) return false;
   return JSON.parse(currentAuth);
 };

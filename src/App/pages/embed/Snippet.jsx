@@ -42,7 +42,7 @@ const Snippet = () => {
 
   const socket = useContext(SocketContext);
   const messagesEndRef = useRef(null);
-  const [user, setTheUser] = useState(getVisitor());
+  const [user, setTheUser] = useState(getVisitor(params.company));
   const [prevLoaded, setPrevLoaded] = useState(false);
   const [chats, setChats] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
@@ -174,13 +174,13 @@ const Snippet = () => {
   };
 
   const saveGlobalUser = (user) => {
-    let currentUser = getVisitor();
+    let currentUser = getVisitor(params.company);
     if (currentUser) {
       currentUser = { ...currentUser, ...user };
     } else {
       currentUser = { ...user };
     }
-    saveVisitor(currentUser);
+    saveVisitor(currentUser, params.company);
     setTheUser(currentUser);
   };
 

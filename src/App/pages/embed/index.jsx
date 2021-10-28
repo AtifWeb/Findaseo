@@ -108,7 +108,7 @@ function Embed() {
     } else {
       currentUser = { ...user };
     }
-    saveVisitor(currentUser);
+    saveVisitor(currentUser, params.company);
     setTheUser(currentUser);
   };
 
