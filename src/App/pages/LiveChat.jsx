@@ -11,6 +11,7 @@ import Sidebar from "../component/Sidebar";
 import Person1 from "../../Assets/img/Frame 1.png";
 // import Person2 from "../../Assets/img/Frame 2.png";
 // import Person3 from "../../Assets/img/Frame 3.png";
+import StatusAlert, { StatusAlertService } from "react-status-alert";
 import PersonBig from "../../Assets/img/PersonBig.png";
 import time from "../../Assets/img/svg/time.svg";
 import { getUser } from "App/helpers/auth";
@@ -22,6 +23,7 @@ import { useSelector } from "react-redux";
 import { SocketContext } from "App/context/socket";
 import { generateRoomID } from "App/helpers/generateRoomID";
 import { format } from "date-fns";
+import copy from "clipboard-copy";
 import styled from "styled-components";
 import randomColor from "App/helpers/randomColor";
 import SpainFlag from "../../Assets/img/flag-spain.png";
@@ -343,6 +345,11 @@ function LiveChat() {
     });
   };
 
+  const copyLink = async (link) => {
+    await copy(link);
+    const alertID = StatusAlertService.showSuccess("Copied successfully");
+  };
+
   return (
     <div className="LiveChat main-wrapper d-flex">
       {/* sidebar */}
@@ -350,7 +357,7 @@ function LiveChat() {
       <div className="body-area">
         {/* header */}
         <BodyHeader active="LiveChat" />
-
+        <StatusAlert />
         <div
           className="body-main-area"
           style={{ paddingTop: 0, paddingBottom: 0 }}
@@ -686,10 +693,10 @@ function LiveChat() {
             {/* right side */}
             {visitor ? (
               <div className="right-side">
-                {/* <div className="top-area d-flex-align-center">
+                <div className="top-area d-flex-align-center">
                   <button>Assign Chat</button>
                   <button>Forward Chat</button>
-                </div> */}
+                </div>
                 <div className="profile-area">
                   <div style={{ position: "relative" }}>
                     {/* <img src={PersonBig} alt="" /> */}
@@ -699,6 +706,7 @@ function LiveChat() {
                         background: visitor?.color || "red",
                         height: "100px",
                         width: "100px",
+                        fontSize: "45px",
                       }}
                     >
                       {visitor?.name?.slice(0, 1) || 0}
@@ -708,8 +716,8 @@ function LiveChat() {
                         display: "inline-block",
                       }}
                       src={
-                        visitor?.countryCode?.toLowerCase()
-                          ? `https://flagcdn.com/w20/${visitor?.countryCode?.toLowerCase()}.png`
+                        visitor?.info?.countryCode?.toLowerCase()
+                          ? `https://flagcdn.com/w20/${visitor?.info?.countryCode?.toLowerCase()}.png`
                           : SpainFlag
                       }
                       alt=""
@@ -758,7 +766,10 @@ function LiveChat() {
                         <p>{visitor?.email}</p>
                       </div>
 
-                      <div className="icon-wrapper">
+                      <NeutralButton
+                        className="icon-wrapper"
+                        onClick={() => copyLink(visitor?.email)}
+                      >
                         <svg
                           width="18"
                           height="18"
@@ -775,7 +786,7 @@ function LiveChat() {
                             fill="#9CA2C9"
                           />
                         </svg>
-                      </div>
+                      </NeutralButton>
                     </div>
 
                     <div className="info-box d-flex-align-center">
@@ -799,7 +810,10 @@ function LiveChat() {
                         <p>{visitor?.phoneNumber}</p>
                       </div>
 
-                      <div className="icon-wrapper">
+                      <NeutralButton
+                        className="icon-wrapper"
+                        onClick={() => copyLink(visitor?.phoneNumber)}
+                      >
                         <svg
                           width="18"
                           height="18"
@@ -816,7 +830,7 @@ function LiveChat() {
                             fill="#9CA2C9"
                           />
                         </svg>
-                      </div>
+                      </NeutralButton>
                     </div>
 
                     <div className="info-box d-flex-align-center">

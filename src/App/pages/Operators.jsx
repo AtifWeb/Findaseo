@@ -295,7 +295,15 @@ function Operators() {
                             <input type="checkbox" name="" id="" />
                           </div>
                           <div className="col col2 d-flex-align-center">
-                            <img src={Person1} alt="" />
+                            <div
+                              className="livechat-tag"
+                              style={{
+                                background: operator?.color || "#2D96D6",
+                                marginRight: "5px",
+                              }}
+                            >
+                              {operator?.name?.slice(0, 1) || 0}
+                            </div>
                             <p>{operator?.name}</p>
                           </div>
                           <div className="col col3">

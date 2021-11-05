@@ -283,7 +283,7 @@ function Home() {
               <div className="top d-flex-align-center">
                 <h3>Todo Lists</h3>
                 <NeutralButton
-                  onClick={() => history.push(`/Todolist`)}
+                  onClick={() => history.push(`/settings/Integrations`)}
                   style={{ color: "#2998DE" }}
                 >
                   See All

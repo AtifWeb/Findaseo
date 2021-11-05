@@ -10,6 +10,7 @@ import EmailTicketSettings from "./settings/EmailTicket";
 import OperatingHoursSettings from "./settings/OperatingHours";
 import QuickReponseSettings from "./settings/QuickResponse";
 import Notifications from "./settings/Notifications";
+import Todolist from "./home/Todolist";
 
 function Settings() {
   const params = useParams();
@@ -82,6 +83,13 @@ function Settings() {
                     Departments
                   </Link>
                 </li>
+                <li
+                  className={params?.channel === "Integrations" ? "active" : ""}
+                >
+                  <Link onClick={() => history.push("/settings/Integrations")}>
+                    Integrations
+                  </Link>
+                </li>
               </ul>
 
               {/* third list */}
@@ -131,6 +139,8 @@ function Settings() {
             {params?.channel === "Notifications" ? <Notifications /> : null}
 
             {params?.channel === "Departments" ? <Departments /> : null}
+
+            {params?.channel === "Integrations" ? <Todolist /> : null}
           </div>
         </div>
       </div>

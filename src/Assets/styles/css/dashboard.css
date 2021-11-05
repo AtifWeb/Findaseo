@@ -1292,7 +1292,8 @@
   border-radius: 0px 7px 7px 0px;
 }
 
-.messages-box-area .left-side {
+.messages-box-area .left-side,
+.messages-box-area .middle-side {
   max-height: 90vh;
 }
 .messages-box-area .left-side .top-area {
@@ -1416,7 +1417,7 @@
 .messages-box-area .middle-side .messages-container-wrapper .message-container {
   display: flex;
   flex-direction: column;
-  min-height: 85vh;
+  height: 90vh;
   overflow: auto;
   padding: 2rem 3rem;
   background: #eff3f6;
