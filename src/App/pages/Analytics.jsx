@@ -394,7 +394,7 @@ function Analytics() {
 
             <div className="Customer-Lists">
               <div className="top d-flex-align-center">
-                <h3>Contacts (Live Chat)</h3>
+                <h3>Customer Catalogue</h3>
                 <NeutralButton onClick={() => history.push(`/LiveChat`)}>
                   See All
                 </NeutralButton>
