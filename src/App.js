@@ -2,6 +2,9 @@ import "./App.css";
 import "./Assets/styles/css/dashboard.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Settings from "./App/pages/Settings";
+import SettingsAccount from "./App/pages/SettingsAccount";
+import SettingsOperatingHours from "./App/pages/SettingsOperatingHours";
+import SettingsNotification from "./App/pages/SettingsNotification";
 import Contact from "./App/pages/Contact";
 import EmailTickets from "./App/pages/EmailTickets";
 import Operators from "./App/pages/Operators";
@@ -42,6 +45,15 @@ function App() {
           </Route>
           <Route path="/dashhboard/settings" exact>
             <Settings />
+          </Route>
+          <Route path="/dashhboard/SettingsAccount" exact>
+            <SettingsAccount />
+          </Route>
+          <Route path="/dashhboard/SettingsOperatingHours" exact>
+            <SettingsOperatingHours />
+          </Route>
+          <Route path="/dashhboard/SettingsNotifications" exact>
+            <SettingsNotification />
           </Route>
           <Route path="/dashhboard/contact" exact>
             <Contact />
