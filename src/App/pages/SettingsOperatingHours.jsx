@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import BodyHeader from "../component/BodyHeader";
 import Sidebar from "../component/Sidebar";
+import { OperatingHoursCheckbox } from "../component/organisms/settings/OperatingHours/OperatingHoursCheckbox/OperatingHoursCheckbox";
 
 function SettingsOperatingHours() {
   useEffect(() => {
@@ -79,103 +80,13 @@ function SettingsOperatingHours() {
             <div className="right-side Operating-right-side">
               <h2 className="special-h2">Operating Hours</h2>
               <form action="">
-                <div className="input-wrapper">
-                  <p>Sunday</p>
-                  <input type="checkbox" name="" id="sunday_checkbox" />
-                  <label
-                    className="checkbox-custom-op"
-                    htmlFor="sunday_checkbox"
-                  >
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>{" "}
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
-                  <button>Add 24 hours</button>
-                </div>
-                <div className="input-wrapper">
-                  <p>Monday</p>
-                  <input type="checkbox" name="" id="monday_checkbox" />
-                  <label
-                    className="checkbox-custom-op"
-                    htmlFor="monday_checkbox"
-                  >
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>{" "}
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />{" "}
-                  <button>Add 24 hours</button>
-                </div>
-                <div className="input-wrapper">
-                  <p>Tuesday</p>
-                  <input type="checkbox" name="" id="Tuesday" />
-                  <label className="checkbox-custom-op" htmlFor="Tuesday">
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />{" "}
-                  <button>Add 24 hours</button>
-                </div>{" "}
-                <div className="input-wrapper">
-                  <p>Wednesday</p>
-                  <input type="checkbox" name="" id="Wednesday" />
-                  <label className="checkbox-custom-op" htmlFor="Wednesday">
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>{" "}
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />{" "}
-                  <button>Add 24 hours</button>
-                </div>
-                <div className="input-wrapper">
-                  <p>Thursday</p>
-                  <input type="checkbox" name="" id="Thursday" />
-                  <label className="checkbox-custom-op" htmlFor="Thursday">
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>{" "}
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />{" "}
-                  <button>Add 24 hours</button>
-                </div>
-                <div className="input-wrapper">
-                  <p>Friday</p>
-                  <input type="checkbox" name="" id="Friday" />
-                  <label className="checkbox-custom-op" htmlFor="Friday">
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>{" "}
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />{" "}
-                  <button>Add 24 hours</button>
-                </div>
-                <div className="input-wrapper">
-                  <p>Saturday</p>
-                  <input type="checkbox" name="" id="Saturday" />
-                  <label className="checkbox-custom-op" htmlFor="Saturday">
-                    <p className="Available">Available</p>
-                    <p className="Unavailable">Unavailable</p>
-
-                    <span className="ball"></span>
-                  </label>{" "}
-                  <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />{" "}
-                  <button>Add 24 hours</button>
-                </div>
+                <OperatingHoursCheckbox day="Sunday" />
+                <OperatingHoursCheckbox day="Monday" />
+                <OperatingHoursCheckbox day="Tuesday" />
+                <OperatingHoursCheckbox day="Wednesday" />
+                <OperatingHoursCheckbox day="Thursday" />
+                <OperatingHoursCheckbox day="Friday" />
+                <OperatingHoursCheckbox day="Saturday" />
               </form>
             </div>
           </div>
