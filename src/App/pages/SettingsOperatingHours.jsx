@@ -90,7 +90,10 @@ function SettingsOperatingHours() {
                     <p className="Unavailable">Unavailable</p>
 
                     <span className="ball"></span>
-                  </label>
+                  </label>{" "}
+                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />
+                  <button>Add 24 hours</button>
                 </div>
                 <div className="input-wrapper">
                   <p>Monday</p>
@@ -105,7 +108,8 @@ function SettingsOperatingHours() {
                     <span className="ball"></span>
                   </label>{" "}
                   <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />{" "}
+                  <button>Add 24 hours</button>
                 </div>
                 <div className="input-wrapper">
                   <p>Tuesday</p>
@@ -116,9 +120,9 @@ function SettingsOperatingHours() {
 
                     <span className="ball"></span>
                   </label>
-
                   <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />{" "}
+                  <button>Add 24 hours</button>
                 </div>{" "}
                 <div className="input-wrapper">
                   <p>Wednesday</p>
@@ -130,7 +134,8 @@ function SettingsOperatingHours() {
                     <span className="ball"></span>
                   </label>{" "}
                   <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />{" "}
+                  <button>Add 24 hours</button>
                 </div>
                 <div className="input-wrapper">
                   <p>Thursday</p>
@@ -142,7 +147,8 @@ function SettingsOperatingHours() {
                     <span className="ball"></span>
                   </label>{" "}
                   <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />{" "}
+                  <button>Add 24 hours</button>
                 </div>
                 <div className="input-wrapper">
                   <p>Friday</p>
@@ -154,7 +160,8 @@ function SettingsOperatingHours() {
                     <span className="ball"></span>
                   </label>{" "}
                   <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />{" "}
+                  <button>Add 24 hours</button>
                 </div>
                 <div className="input-wrapper">
                   <p>Saturday</p>
@@ -166,7 +173,8 @@ function SettingsOperatingHours() {
                     <span className="ball"></span>
                   </label>{" "}
                   <input type="time" name="" id="" />
-                  <input type="time" name="" id="" />
+                  <input type="time" name="" id="" />{" "}
+                  <button>Add 24 hours</button>
                 </div>
               </form>
             </div>

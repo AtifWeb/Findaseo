@@ -78,17 +78,27 @@
 }
 
 /* operating hours */
+.Operating-right-side {
+  width: 80% !important;
+}
 .Operating-right-side p {
   margin: 0px !important;
 }
 
 .Operating-right-side form {
   margin-top: 1rem;
+  width: 100%;
 }
 .Operating-right-side form .input-wrapper {
   display: grid;
-  grid-template-columns: 150px 1fr 1fr 1fr;
+  grid-template-columns: 150px 1fr 1fr 1fr 1fr;
   grid-gap: 1rem;
+}
+.Operating-right-side form .input-wrapper button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #2579bd;
 }
 .Operating-right-side form > * + * {
   margin-top: 1rem;
@@ -106,6 +116,7 @@
   cursor: pointer;
   background: #bfcbd9;
   position: relative;
+  width: 100px;
 }
 .Operating-right-side form .input-wrapper .checkbox-custom-op > * {
   pointer-events: none;
@@ -122,7 +133,7 @@
   position: absolute;
 }
 .Operating-right-side form .input-wrapper .checkbox-custom-op .Available {
-  opacity: 0;
+  display: none;
 }
 
 .Operating-right-side form .input-wrapper input[type="checkbox"] {
@@ -146,7 +157,12 @@
   input:checked
   + .checkbox-custom-op
   .Available {
-  opacity: 1;
+  display: block;
+}
+.Operating-right-side form .input-wrapper .Unavailable {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .Operating-right-side
   form
@@ -154,7 +170,7 @@
   input:checked
   + .checkbox-custom-op
   .Unavailable {
-  opacity: 0;
+  display: none;
 }
 
 .Operating-right-side form .input-wrapper .checkbox-custom-op p {
@@ -2226,6 +2242,9 @@
   .Contact .body-area .body-main-area .table .col7 {
     display: none;
   }
+  .Operating-right-side {
+    width: 100% !important;
+  }
 }
 @media screen and (max-width: 900px) {
   .EmailTickets .navigation-bar {
@@ -2267,6 +2286,18 @@
   .grid-box-area .visitors-in-site .table-body .row li:last-child button {
     display: none;
   }
+  .Operating-right-side form .input-wrapper {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .Operating-right-side form > * + * {
+    margin-top: 2rem;
+  }
+  .Operating-right-side p {
+    grid-column: span 2;
+  }
+  .Operating-right-side form .input-wrapper .checkbox-custom-op {
+    width: 100%;
+  }
 }
 @media screen and (max-width: 700px) {
   .grid-box-area .visitors-in-site .table-head,
@@ -2290,12 +2321,6 @@
     > *
     + * {
     margin-left: 5px;
-  }
-  .Operating-right-side form .input-wrapper {
-    grid-template-columns: 1fr 1fr;
-  }
-  .Operating-right-side form > * + * {
-    margin-top: 2rem;
   }
 }
 @media screen and (max-width: 652px) {
@@ -2451,6 +2476,13 @@
   .grid-box-area .visitors-in-site .table-body .row li:nth-child(3),
   .grid-box-area .visitors-in-site .table-head li:nth-child(3) {
     display: none !important;
+  }
+  .Operating-right-side form .input-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .Operating-right-side p {
+    grid-column: span 1;
   }
 }
 @media screen and (max-width: 550px) {
