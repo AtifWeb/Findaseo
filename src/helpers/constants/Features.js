@@ -2,8 +2,7 @@ export const Features = [
   {
     value: "Omnichannel Messaging",
     desc: "Allow customers to communicate from any channel of their choice and respond through Pavelify multichannel messaging.",
-    largeImg:
-      "https://assets.website-files.com/5d6e0e6372061d52de830f1c/60e00788787a0095a16eeb68_Lead%20Manaegment.svg",
+    largeImg: "../../images/icons.jpg",
     img: "../../images/Page-1-Image-10.jpg",
   },
   {
