@@ -18,7 +18,7 @@ export const FeaturesCompany = () => {
           ))}
         </div>
 
-        <div className={styles.banner}>
+        {/* <div className={styles.banner}>
           <div className={styles.presentation}>
             <h1 className={styles.heading}>
               Make sure your sales team succeeds.
@@ -52,7 +52,7 @@ export const FeaturesCompany = () => {
               <p className={styles.card_para}>Save more hours a week</p>
             </div>{" "}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
