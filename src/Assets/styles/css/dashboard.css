@@ -1,3 +1,183 @@
+/* settings */
+.account-right-side {
+  flex: 1;
+  width: 100% !important;
+}
+.account-right-side form {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.account-right-side form > * + * {
+  margin-top: 1.5rem;
+}
+.account-right-side form label {
+  width: 150px;
+  display: inline-block;
+}
+.account-right-side form .input-wrapper {
+  display: flex;
+  align-items: center;
+}
+.account-right-side form input,
+.account-right-side form select {
+  width: 50%;
+  height: 40px;
+  border: 1px solid #ddd;
+  padding: 0rem 1rem;
+  outline: none;
+}
+.notification-right-side form input,
+.notification-right-side form select {
+  width: 40%;
+}
+.notification-right-side h2 i {
+  color: #0f1957;
+  margin-right: 0.5rem;
+}
+.notification-right-side form h2 {
+  margin-top: 3rem;
+}
+.notification-right-side form .add_email_address_button {
+  background: transparent;
+  border: none;
+  color: #0f1957;
+  outline: none;
+}
+.notification-right-side form .save-button {
+  background: #0f1957;
+  color: #fff;
+  display: block;
+  width: 150px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+}
+.account-right-side form select {
+  cursor: pointer;
+}
+.account-right-side form a,
+.account-right-side .file-wrapper label {
+  color: #2d96d6;
+  cursor: pointer;
+}
+.account-right-side .file-wrapper {
+  display: flex;
+  align-items: center;
+}
+.account-right-side .file-wrapper .icon-wrapper {
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.account-right-side .file-wrapper .icon-wrapper i {
+  font-size: 40px;
+}
+
+/* operating hours */
+.Operating-right-side {
+  width: 80% !important;
+}
+.Operating-right-side p {
+  margin: 0px !important;
+}
+
+.Operating-right-side form {
+  margin-top: 1rem;
+  width: 100%;
+}
+.Operating-right-side form .input-wrapper {
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr 1fr 1fr;
+  grid-gap: 1rem;
+}
+.Operating-right-side form .input-wrapper button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #2579bd;
+}
+.Operating-right-side form > * + * {
+  margin-top: 1rem;
+}
+.Operating-right-side form input {
+  border: 1px solid #ddd;
+  padding: 0.2rem 0.5rem;
+}
+.Operating-right-side form .input-wrapper .checkbox-custom-op {
+  display: flex;
+  align-items: center;
+
+  padding: 0.3rem 0.5rem;
+  border-radius: 99px;
+  cursor: pointer;
+  background: #bfcbd9;
+  position: relative;
+  width: 100px;
+}
+.Operating-right-side form .input-wrapper .checkbox-custom-op > * {
+  pointer-events: none;
+  transition: 0.3s ease all;
+}
+.Operating-right-side form .input-wrapper .checkbox-custom-op .ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  left: 5%;
+  transform: translateX(-5%);
+
+  position: absolute;
+}
+.Operating-right-side form .input-wrapper .checkbox-custom-op .Available {
+  display: none;
+}
+
+.Operating-right-side form .input-wrapper input[type="checkbox"] {
+  display: none;
+}
+.Operating-right-side form .input-wrapper input:checked + .checkbox-custom-op {
+  background: #2579bd;
+}
+.Operating-right-side
+  form
+  .input-wrapper
+  input:checked
+  + .checkbox-custom-op
+  .ball {
+  left: 95%;
+  transform: translateX(-95%);
+}
+.Operating-right-side
+  form
+  .input-wrapper
+  input:checked
+  + .checkbox-custom-op
+  .Available {
+  display: block;
+}
+.Operating-right-side form .input-wrapper .Unavailable {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Operating-right-side
+  form
+  .input-wrapper
+  input:checked
+  + .checkbox-custom-op
+  .Unavailable {
+  display: none;
+}
+
+.Operating-right-side form .input-wrapper .checkbox-custom-op p {
+  font-size: 13px;
+  flex: 1;
+  color: #fff;
+}
 /* dashboard */
 
 .boxChat {
@@ -2412,6 +2592,7 @@
     width: 100%;
     padding-right: 2rem;
   }
+
   /* analyticsc area */
   .Home .bottom-area > * {
     grid-column: span 10 !important;
@@ -2494,6 +2675,9 @@
   .Contact .body-area .body-main-area .table .col6,
   .Contact .body-area .body-main-area .table .col7 {
     display: none;
+  }
+  .Operating-right-side {
+    width: 100% !important;
   }
 }
 @media screen and (max-width: 900px) {
@@ -2831,6 +3015,13 @@
 @media screen and (max-width: 400px) {
   .main-wrapper .body-area .BodyHeader .right-area .profile-name-area p {
     display: none;
+  }
+  .body-main-area .body-box > .account-right-side form h2,
+  .body-main-area .body-box > .Operating-right-side form h2 {
+    font-size: 16px !important;
+  }
+  .body-main-area .body-box > .right-side .special-h2 {
+    font-size: 16px !important;
   }
 }
 @media screen and (max-width: 370px) {
