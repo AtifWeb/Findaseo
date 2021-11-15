@@ -24,6 +24,7 @@ import { generateRoomID } from "App/helpers/generateRoomID";
 import { format } from "date-fns";
 import styled from "styled-components";
 import ReactHtmlParser from "react-html-parser";
+import Modal from "App/component/Modal";
 window.currentDate = "";
 window.currentPerson = false;
 
@@ -55,6 +56,11 @@ function EmailTicketConversation() {
   const [message, setMessage] = useState("");
   const [ticket, setTicket] = useState();
   const [handler, setHandler] = useState({});
+  const [showQuick, setShowQuick] = useState(false);
+  const [quickResponses, setQuickResponses] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [operators, setOperators] = useState([]);
+  const [operator, setOperator] = useState(0);
 
   useEffect(() => {
     if (window.innerWidth < 1201) {
@@ -80,8 +86,33 @@ function EmailTicketConversation() {
     }
   }, []);
 
+  const fetchOperators = () => {
+    user &&
+      Axios({
+        method: "post",
+        url: `${process.env.REACT_APP_BASE_URL}/operators/fetch`,
+        data: {
+          cID: user?.cID,
+        },
+      })
+        .then((result) => {
+          if (result.data.success) {
+            setLoading(false);
+            setOperators([{ ...user }, ...result.data.operators]);
+          } else {
+            //
+          }
+        })
+        .catch((e) => {
+          console.log(handleError(e));
+          setLoading(false);
+        });
+  };
+
   useEffect(() => {
     fetchTickets();
+    fetchQuckResponse();
+    fetchOperators();
   }, []);
 
   useEffect(() => {
@@ -102,8 +133,32 @@ function EmailTicketConversation() {
         .then((result) => {
           if (result.data.success) {
             setTicket(result.data.ticket);
+
             setHandler(result.data.handler);
             setLoading(false);
+          } else {
+            //
+          }
+        })
+        .catch((e) => {
+          console.log(handleError(e));
+          setLoading(false);
+        });
+  };
+
+  const fetchQuckResponse = () => {
+    user &&
+      Axios({
+        method: "post",
+        url: `${process.env.REACT_APP_BASE_URL}/settings`,
+        data: {
+          cID: user?.cID,
+        },
+      })
+        .then((result) => {
+          if (result.data.success) {
+            setLoading(false);
+            setQuickResponses(result.data.configuration.quickResponse);
           } else {
             //
           }
@@ -172,6 +227,37 @@ function EmailTicketConversation() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const assignOperator = () => {
+    let d = operators.filter(
+      (o) => (user.isCompany && user.cID !== o.cID) || user.operatorID === o._id
+    )[operator];
+    let newOperatorID = d._id || d.cID;
+
+    Axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/assignOperatorToTicket`,
+      data: {
+        cID: user?.cID,
+        operatorID: newOperatorID,
+        ticketID: ticket._id,
+      },
+    })
+      .then((result) => {
+        if (result.data.success) {
+          setLoading(false);
+          setHandler(d);
+          setOperator(0);
+          setOpen(false);
+        } else {
+          //
+        }
+      })
+      .catch((e) => {
+        console.log(handleError(e));
+        setLoading(false);
+      });
+  };
+
   const renderMessage = (ticket, reply = false) => {
     let element;
     if (ticket.byOperator) {
@@ -233,13 +319,17 @@ function EmailTicketConversation() {
           <div className="date-area d-flex-align-center">
             <p className="name">
               {" "}
-              {reply
-                ? ticket.byOperator
-                  ? "Op: " + user?.name
-                  : ticket?.from?.value[0]?.name ||
-                    ticket?.from?.value[0]?.address
-                : ticket?.emailData?.from?.value[0]?.name ||
-                  ticket?.emailData?.from?.value[0]?.address}
+              {reply ? (
+                ticket.byOperator ? (
+                  <span>{user?.name}</span>
+                ) : (
+                  ticket?.from?.value[0]?.name ||
+                  ticket?.from?.value[0]?.address
+                )
+              ) : (
+                ticket?.emailData?.from?.value[0]?.name ||
+                ticket?.emailData?.from?.value[0]?.address
+              )}
             </p>
             <p>.</p>
             <img src={time} alt="" />
@@ -263,6 +353,7 @@ function EmailTicketConversation() {
 
     return element;
   };
+
   return (
     <div className="LiveChat main-wrapper d-flex email">
       {/* sidebar */}
@@ -270,8 +361,59 @@ function EmailTicketConversation() {
       <div className="body-area">
         {/* header */}
         <BodyHeader active="EmailTickets" />
+        <Modal open={open} setOpen={setOpen} close>
+          <div className="modal-body mx-auto text-center">
+            <h3 className="modal-title mb-4" id="operatorModalLabel">
+              Assign Operator
+            </h3>
+            <div>
+              <select
+                value={operator}
+                onChange={(e) => setOperator(e.target.value)}
+                style={{ minWidth: "300px" }}
+                name="operators"
+                id=""
+                className="form-control"
+              >
+                {operators &&
+                  operators
+                    .filter(
+                      (o) =>
+                        (user.isCompany && user.cID !== o.cID) ||
+                        user.operatorID === o._id
+                    )
+                    .map((operator, index) => (
+                      <option value={index} key={String(index)}>
+                        {operator.name} {!operator._id ? " (Admin)" : ""}
+                      </option>
+                    ))}
+              </select>
+            </div>
+          </div>
+          <div className="modal-footer mt-2">
+            <button
+              type="button"
+              className="btn btn-light"
+              data-bs-dismiss="modal"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </button>
 
-        <div className="body-main-area">
+            <button
+              className="btn"
+              data-bs-dismiss="modal"
+              onClick={assignOperator}
+              loading={loading}
+            >
+              Assign
+            </button>
+          </div>
+        </Modal>
+        <div
+          className="body-main-area"
+          style={{ paddingTop: 0, paddingBottom: 0 }}
+        >
           {/* <h2>Email Ticket</h2> */}
           <div className="messages-box-area">
             {/* <div className="left-side"></div> */}
@@ -348,7 +490,7 @@ function EmailTicketConversation() {
                 </div>
               </div> */}
 
-                <div className="messages-container-wrapper">
+                <div className="messages-container-wrapper  position-relative">
                   <div
                     className="message-container "
                     style={{ maxHeight: "85vh" }}
@@ -364,8 +506,57 @@ function EmailTicketConversation() {
 
                   {ticket?.status === "Resolved" ? (
                     <h3 className="text-center mb-3 py-2">Resolved</h3>
-                  ) : (
+                  ) : (user.isCompany && user.cID === handler._id) ||
+                    user.operatorID === handler._id ? (
                     <div className="message-sender-form mb-1">
+                      {showQuick ? (
+                        <div
+                          style={{
+                            position: "absolute",
+                            boxShadow: "2px 3px 3px lightgrey",
+                            background: "white",
+                            width: "90%",
+                            height: "200px",
+                            bottom: "100px",
+                            // left: "20%",
+                            borderRadius: "4px",
+                          }}
+                          className="py-2"
+                        >
+                          <ul
+                            className="px-2"
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                            }}
+                          >
+                            {quickResponses?.map((q) => (
+                              <li
+                                key={q}
+                                className="py-2 px-3 mb-2"
+                                style={{
+                                  boxShadow: "1px 1px 1px 1px lightgrey",
+                                  width: "100%",
+                                  borderRadius: "6px",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => setMessage(q)}
+                              >
+                                {q}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                      <ul
+                        className="message_sender_list px-3"
+                        style={{ marginBottom: 0 }}
+                      >
+                        <li onClick={() => setShowQuick((p) => !p)}>
+                          Quick Response
+                        </li>
+                      </ul>
                       <div className="input-wrapper d-flex-align-center py-2">
                         <input
                           value={message}
@@ -389,8 +580,12 @@ function EmailTicketConversation() {
                           onClick={() => messageSender()}
                           id="message-submit"
                           disabled={!message?.trim()}
-                        />
+                        ></button>
+
+                        <i className="fas fa-paperclip"></i>
+                        <i className="far fa-smile-beam"></i>
                         <label
+                          disabled={!message?.trim()}
                           htmlFor="message-submit"
                           className="icon-wrapper"
                         >
@@ -405,7 +600,7 @@ function EmailTicketConversation() {
                               width="31"
                               height="31"
                               rx="4"
-                              fill="#2D96D6"
+                              fill={!message?.trim() ? "lightgrey" : "#2D96D6"}
                             />
                             <path
                               d="M18.4151 10.7267L13.1476 12.4767C9.60674 13.6609 9.60674 15.5917 13.1476 16.77L14.7109 17.2892L15.2301 18.8525C16.4084 22.3934 18.3451 22.3934 19.5234 18.8525L21.2792 13.5909C22.0609 11.2284 20.7776 9.93919 18.4151 10.7267ZM18.6017 13.865L16.3851 16.0934C16.2976 16.1809 16.1867 16.2217 16.0759 16.2217C15.9651 16.2217 15.8542 16.1809 15.7667 16.0934C15.5976 15.9242 15.5976 15.6442 15.7667 15.475L17.9834 13.2467C18.1526 13.0775 18.4326 13.0775 18.6017 13.2467C18.7709 13.4159 18.7709 13.6959 18.6017 13.865Z"
@@ -415,7 +610,7 @@ function EmailTicketConversation() {
                         </label>
                       </div>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
             ) : null}
@@ -423,17 +618,27 @@ function EmailTicketConversation() {
             {/* right side */}
             {ticket ? (
               <div className="right-side" style={{ maxHeight: "85vh" }}>
-                <div className="top-area d-flex-align-center">
-                  {ticket?.status === "Resolved" ? null : (
-                    <NeutralButton
-                      onClick={() => resolve()}
-                      className="open-btn"
-                    >
-                      Mark as Resolved
-                    </NeutralButton>
-                  )}
-                  {/* <button>Forward Chat</button> */}
+                <div className="mb-2">
+                  <span className="text-muted me-2">Operator:</span>
+                  <b>{handler?.name}</b>
                 </div>
+                {(user.isCompany && user.cID === handler._id) ||
+                user.operatorID === handler._id ? (
+                  ticket?.status === "Resolved" ? null : (
+                    <div className="top-area d-flex-align-center">
+                      <NeutralButton
+                        onClick={() => resolve()}
+                        className="open-btn"
+                      >
+                        Mark as Resolved
+                      </NeutralButton>
+
+                      <button onClick={() => setOpen((p) => !p)}>
+                        Assign Ticket
+                      </button>
+                    </div>
+                  )
+                ) : null}
                 <div className="profile-area">
                   <div style={{ position: "relative" }}>
                     <div
@@ -442,6 +647,8 @@ function EmailTicketConversation() {
                         background: visitor?.color || "red",
                         height: "100px",
                         width: "100px",
+                        fontWeight: "bold",
+                        fontSize: "45px",
                       }}
                     >
                       {ticket?.emailData?.from?.value[0]?.name?.slice(0, 1) ||
@@ -512,7 +719,7 @@ function EmailTicketConversation() {
                         </svg>
                       </div>
                     </div>
-
+                    {/* 
                     <div className="info-box d-flex-align-center">
                       <svg
                         width="24"
@@ -533,7 +740,7 @@ function EmailTicketConversation() {
                         <h4>Handled By</h4>
                         <p>{handler?.name}</p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="tags-area">
                     <label htmlFor="add-tags">Add Tags</label>

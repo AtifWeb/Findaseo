@@ -75,7 +75,11 @@ const CalendarTypes = ({ type, bookings, past, upcoming }) => {
                     style={{ width: "100%" }}
                     className="col col3 d-flex-align-center"
                   >
-                    <b>{meeting?.location}</b>
+                    <b>
+                      {meeting?.location === "Phone Call"
+                        ? "Zoom"
+                        : meeting?.location}
+                    </b>
                   </div>
 
                   <div className="col col5 d-flex-align-center">
@@ -83,7 +87,7 @@ const CalendarTypes = ({ type, bookings, past, upcoming }) => {
                   </div>
 
                   <div className="col col4 d-flex-align-center">
-                    {meeting?.locationData?.startTime}
+                    {meeting?.locationData?.startTime || "______"}
                   </div>
 
                   <div className="col col5">
@@ -101,7 +105,9 @@ const CalendarTypes = ({ type, bookings, past, upcoming }) => {
                           Start Meeting
                         </NeutralButton>
                       ) : (
-                        <div style={{ width: "100%" }}></div>
+                        <NeutralButton className="text-muted">
+                          Start Meeting
+                        </NeutralButton>
                       )}
 
                       <NeutralButton>

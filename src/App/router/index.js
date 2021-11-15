@@ -176,6 +176,19 @@ const AuthRoutes = () => {
         </Switch>
       );
 
+    case "www":
+      return (
+        <Switch>
+          <Route
+            path="*"
+            component={() => {
+              window.location.replace(`${window.location.protocol}//${domain}`);
+              return null;
+            }}
+          />
+        </Switch>
+      );
+
     default:
       return <Login />;
   }

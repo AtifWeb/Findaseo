@@ -13,6 +13,7 @@ export const HomeContactBanner = () => {
         <UsePavelifyLink
           text="Try Pavelify for Free"
           style={{ width: "20%", backgroundColor: "#0F295C", color: "#fff" }}
+          link={"/auth/register"}
         />
       </div>
     </div>

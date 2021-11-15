@@ -18,6 +18,7 @@ import { getUser } from "App/helpers/auth";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import NeutralButton from "App/component/NeutralButton";
+import { Helmet } from "react-helmet";
 function Contact() {
   const params = useParams();
   const history = useHistory();
@@ -95,6 +96,9 @@ function Contact() {
   };
   return (
     <div className="Contact main-wrapper d-flex">
+      <Helmet>
+        <title>Contact - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="contact" />
       <div className="body-area">

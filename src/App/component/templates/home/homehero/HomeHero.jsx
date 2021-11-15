@@ -11,8 +11,7 @@ export const HomeHero = () => {
         </h1>
         <p className={styles.para}>
           Pavelify gives your business sales and customer satisfaction edge over
-          your competitors. Yes, Businesses love Pavelify, But Customers love it
-          too.
+          your competitors. Y
         </p>
         <small className={styles.small}>
           Live chat, Email Ticketing, Appointment Scheduling, Help Center and
@@ -22,6 +21,7 @@ export const HomeHero = () => {
         <UsePavelifyLink
           text="Try Pavelify for Free"
           style={{ width: "35%" }}
+          link="/auth/register"
         />
 
         {/* <HomeEmaiSender widthInput="70%" /> */}

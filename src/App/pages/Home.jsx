@@ -40,6 +40,7 @@ import {
   thisWeek,
 } from "./analytics/filters";
 import { format } from "date-fns";
+import { Helmet } from "react-helmet";
 
 function Home() {
   const history = useHistory();
@@ -212,6 +213,9 @@ function Home() {
 
   return (
     <div className="Home main-wrapper d-flex">
+      <Helmet>
+        <title>Dashboard - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="home" />
       <div className="body-area">
@@ -239,14 +243,14 @@ function Home() {
               </div>
             </div>
             <div className="box d-flex-align-center">
-              <img src={CalenderPurple} alt="" />
+              <img src={MessageBlue} alt="" />
               <div className="presentation">
                 <h4 className="heading">Total Email Tickets</h4>
                 <p>{tickets?.length}</p>
               </div>
             </div>
             <div className="box d-flex-align-center">
-              <img src={MessageBlue} alt="" />
+              <img src={CalenderPurple} alt="" />
               <div className="presentation">
                 <h4 className="heading">Calendar Booking</h4>
                 <p>{bookings?.length}</p>
@@ -295,7 +299,7 @@ function Home() {
                   onClick={() => history.push(`/settings/LiveChat`)}
                   className="d-flex-align-center"
                 >
-                  <img src={LiveChat} alt="" />
+                  <img src={GreenMessage} alt="" />
                   <p>Configure Live chat </p>
                   {todolist.livechatConfigured ? (
                     <img style={{ height: "20px" }} src={Checkmark} alt="" />
@@ -308,7 +312,7 @@ function Home() {
                   onClick={() => history.push(`/settings/EmailTickets`)}
                   className="d-flex-align-center"
                 >
-                  <img src={GreenMessage} alt="" />
+                  <img src={LiveChat} alt="" />
                   <p>Configure Email Ticketing</p>
 
                   {todolist.emailTicketConfigured ? (
@@ -483,7 +487,15 @@ function Home() {
                 {contacts &&
                   contacts.map((contact, index) => (
                     <li key={String(index)} className="d-flex-align-center">
-                      <img src={Person1} alt="" />
+                      <div
+                        className="livechat-tag"
+                        style={{
+                          background: contact?.color || "red",
+                          marginRight: "5px",
+                        }}
+                      >
+                        {contact?.name?.slice(0, 1) || 0}
+                      </div>
                       <div className="presentation">
                         <p>{contact?.name}</p>
                         <p>{contact?.email}</p>

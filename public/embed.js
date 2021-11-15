@@ -1,4 +1,4 @@
-const url = "https://pavelify.com";
+const url = "http://vcap.me:3000";
 (function () {
   const PAVELIFY_WRAPPER_ID = "pavelify-container";
   const IFRAME_ID = "pavelify-iframe-element";
@@ -64,6 +64,14 @@ const url = "https://pavelify.com";
           JSON.stringify({
             type: "SCREEN_SIZE",
             value: { width: window.innerWidth, height: window.innerHeight },
+          }),
+          "*"
+        );
+        const { href, origin } = window.location;
+        this.iframe.contentWindow.postMessage(
+          JSON.stringify({
+            type: "PAGE_VIEW",
+            value: { href, origin },
           }),
           "*"
         );

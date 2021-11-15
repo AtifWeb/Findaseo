@@ -43,8 +43,8 @@ function Home_Desk() {
       <div className="body-area">
         <div className="body_sidebar">
           <div className="body_sidebar_box">
-            <img src={SpainFlag} alt="" />
-            <p> English</p>
+            {/* <img src={SpainFlag} alt="" />
+            <p> English</p> */}
           </div>
           <div
             className="body_sidebar_box no_bg "

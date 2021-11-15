@@ -198,7 +198,14 @@ function BodyHeader({ active }) {
             <Dropdown>
               <ul>
                 <li>
-                  <NeutralButton>My Profile</NeutralButton>
+                  <NeutralButton
+                    onClick={() => {
+                      history.push("/settings/Account");
+                      setShowModal(false);
+                    }}
+                  >
+                    My Profile
+                  </NeutralButton>
                 </li>
                 <li>
                   <NeutralButton onClick={() => history.push("/logout")}>

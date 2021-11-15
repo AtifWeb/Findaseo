@@ -32,12 +32,15 @@ export const LoginForm = () => {
               "Signed in successfully"
             );
             // console.log(alertID);
+
             saveLogin({
               cID: user.cID,
               companyName: user.companyName,
               companyFullName: user.companyFullName,
               name: user.name,
               token: user.token,
+              operatorID: user.operatorID || "",
+              isCompany: user.isCompany || false,
               logged: true,
             });
             window.location = `${window.location.protocol}//${window.location.host}`;

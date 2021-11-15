@@ -45,7 +45,7 @@ export const PolicyListOptions = [
       {
         heading: "•	Choice/Opt-Out",
         value:
-          "    We provide all users with the opportunity to opt-out of receiving non-essential (promotional, marketing-related) communications from us on behalf of our partners, and from us in general, after setting up an account.If you want to remove your contact information from all Incorpuk.com lists then you may contact us with request.",
+          "    We provide all users with the opportunity to opt-out of receiving non-essential (promotional, marketing-related) communications from us on behalf of our partners, and from us in general, after setting up an account.If you want to remove your contact information from all Pavelify.com lists then you may contact us with request.",
       },
       {
         heading: "• Your Consent",

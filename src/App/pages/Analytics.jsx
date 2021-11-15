@@ -44,6 +44,7 @@ import {
   last6Months,
 } from "./analytics/filters";
 import { format } from "date-fns";
+import { Helmet } from "react-helmet";
 function Analytics() {
   const history = useHistory();
   const [user] = useState(getUser());
@@ -231,6 +232,9 @@ function Analytics() {
 
   return (
     <div className="Home main-wrapper d-flex">
+      <Helmet>
+        <title>Analytics - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="Analytics" />
       <div className="body-area">
@@ -258,14 +262,14 @@ function Analytics() {
               </div>
             </div>
             <div className="box d-flex-align-center">
-              <img src={CalenderPurple} alt="" />
+              <img src={MessageBlue} alt="" />
               <div className="presentation">
                 <h4 className="heading">Total Email Tickets</h4>
                 <p>{tickets?.length}</p>
               </div>
             </div>
             <div className="box d-flex-align-center">
-              <img src={MessageBlue} alt="" />
+              <img src={CalenderPurple} alt="" />
               <div className="presentation">
                 <h4 className="heading">Calendar Booking</h4>
                 <p>{bookings?.length}</p>
@@ -403,7 +407,15 @@ function Analytics() {
                 {contacts &&
                   contacts.map((contact, index) => (
                     <li key={String(index)} className="d-flex-align-center">
-                      <img src={Person1} alt="" />
+                      <div
+                        className="livechat-tag"
+                        style={{
+                          background: contact?.color || "red",
+                          marginRight: "5px",
+                        }}
+                      >
+                        {contact?.name?.slice(0, 1) || 0}
+                      </div>
                       <div className="presentation">
                         <p>{contact?.name}</p>
                         <p>{contact?.email}</p>

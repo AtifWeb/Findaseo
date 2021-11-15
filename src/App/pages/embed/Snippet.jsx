@@ -60,6 +60,7 @@ const Snippet = () => {
   const [sidebar, setSidebar] = useState();
   const [menus, setMenus] = useState(false);
   const [companyName, setCompanyName] = useState("");
+  const [pageView, setPageView] = useState({});
   const [innerSize, setInnerSize] = useState({
     width: 1000,
     height: 1000,
@@ -76,6 +77,10 @@ const Snippet = () => {
     );
   };
 
+  useEffect(() => {
+    startConversation && sendPageView();
+  }, [startConversation]);
+
   const handlePreviousConversation = (convs) => {
     if (!prevLoaded && !chats.length) {
       setPrevLoaded(true);
@@ -90,6 +95,30 @@ const Snippet = () => {
   const handleOperatorJoined = (data) => {
     setWeOnline(false);
     setOperator(data);
+  };
+
+  const sendPageView = () => {
+    const v = getVisitor(params.company);
+    Axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/conversation/addPageView`,
+      data: {
+        cID: params.company,
+        page: pageView.href,
+        uuid: v.uuid,
+      },
+    })
+      .then((result) => {
+        if (result.data.success) {
+          setLoading(false);
+        } else {
+          //
+        }
+      })
+      .catch((e) => {
+        console.log(handleError(e));
+        setLoading(false);
+      });
   };
 
   const handleAcceptance = (data) => {
@@ -109,6 +138,8 @@ const Snippet = () => {
     if (data?.type === "SCREEN_SIZE") {
       setInnerSize(data?.value);
       ToggleBurgerBtn(data?.value);
+    } else if (data?.type === "PAGE_VIEW") {
+      setPageView(data?.value);
     }
   };
 

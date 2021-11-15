@@ -12,6 +12,7 @@ import { useHistory, useParams } from "react-router";
 import { format } from "date-fns";
 import CalendarBookingIndex from "./calendar-booking";
 import CalendarTypes from "./calendar-booking/types";
+import { Helmet } from "react-helmet";
 function CalendarBooking() {
   const history = useHistory();
   const params = useParams();
@@ -90,6 +91,9 @@ function CalendarBooking() {
   }, [events, params?.type]);
   return (
     <div className="EmailTickets CalendarBooking main-wrapper d-flex">
+      <Helmet>
+        <title>Calendar Booking - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="calendar" />
       <div className="body-area">

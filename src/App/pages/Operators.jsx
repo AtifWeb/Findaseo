@@ -21,6 +21,8 @@ import Modal from "App/component/Modal";
 import NeutralButton from "App/component/NeutralButton";
 import { format } from "date-fns";
 import { capitalize } from "@material-ui/core";
+import StatusAlert, { StatusAlertService } from "react-status-alert";
+import { Helmet } from "react-helmet";
 
 function Operators() {
   const [loading, setLoading] = useState(false);
@@ -115,6 +117,7 @@ function Operators() {
         }
       })
       .catch((e) => {
+        const alertID = StatusAlertService.showError(handleError(e));
         console.log(handleError(e));
         setLoading(false);
       });
@@ -151,12 +154,15 @@ function Operators() {
 
   return (
     <div className="Contact Operators main-wrapper d-flex">
+      <Helmet>
+        <title>Operators - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="operators" />
       <div className="body-area">
         {/* header */}
         <BodyHeader active="operators" />
-
+        <StatusAlert />
         <Modal open={open} setOpen={setOpen} close>
           <div className="modal-body mx-auto text-center">
             <h3 className="modal-title mb-4" id="operatorModalLabel">

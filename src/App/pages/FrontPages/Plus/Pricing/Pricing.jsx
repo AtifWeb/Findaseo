@@ -8,9 +8,13 @@ import { PricingFaq } from "../../../../component/templates/Pricing/PricingFaq/P
 import { PricingQuestion } from "../../../../../helpers/constants/PricingQuestions";
 import { CommonHero } from "../../../../component/templates/Common/CommonHero/CommonHero";
 import { HomeContactBanner } from "../../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
+import { Helmet } from "react-helmet";
 export const Pricing = () => {
   return (
     <FrontPageLayout>
+      <Helmet>
+        <title>Pricing - Pavelify</title>
+      </Helmet>
       <CommonHero
         imageSrc="../../images/pricing.svg"
         mainheading="Get Started With Our Simplified and unbeatable Pricing Plans"

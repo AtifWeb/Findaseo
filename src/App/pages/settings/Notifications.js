@@ -69,11 +69,14 @@ const Notifications = () => {
   };
 
   return (
-    <div className="right-side">
+    <div className="right-side account-right-side notification-right-side">
       <StatusAlert />
-      <h2>Notifications </h2>
+      <h2 className="special-h2">
+        {" "}
+        <i class="fas fa-bell"></i>Notifications
+      </h2>
 
-      <div className="body mt-4">
+      {/* <div className="body mt-4">
         <div className="wrapper d-flex-align-center">
           <div
             className=" d-flex"
@@ -98,15 +101,44 @@ const Notifications = () => {
               Notify on new visit
             </label>
           </div>
+        </div> */}
+      <form action="">
+        <div className="input-wrapper">
+          <label htmlFor="">Incoming Visitor</label>{" "}
+          <select name="" id="">
+            <option value="default">default</option>
+          </select>
+        </div>{" "}
+        <div className="input-wrapper">
+          <label htmlFor="">New Chat Request</label>{" "}
+          <select name="" id="">
+            <option value="default">default</option>
+          </select>
+        </div>{" "}
+        <div className="input-wrapper">
+          <label htmlFor="">New Message</label>{" "}
+          <select name="" id="">
+            <option value="default">default</option>
+          </select>
         </div>
+        <h2>
+          <i class="fas fa-envelope"></i> Send Email Notifications
+        </h2>
+        <div className="input-wrapper">
+          <label htmlFor="Email">Send For</label>
+          <input type="email" id="Email" />
+        </div>
+        <button className="add_email_address_button cursor-pointer">
+          Add new email address
+        </button>{" "}
         <button
-          className="btn ms-5 mt-4  mx-auto"
           type="button"
           onClick={submitConfiguration}
+          className="save-button cursor-pointer"
         >
           Save
         </button>
-      </div>
+      </form>
     </div>
   );
 };

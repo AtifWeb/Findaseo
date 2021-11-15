@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { getUser } from "App/helpers/auth";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
+import { OperatingHoursCheckbox } from "App/component/molecules/OperatingHoursCheckbox";
 
 const OperatingHours = () => {
   const [from, setFrom] = useState(new Date());
@@ -68,12 +69,40 @@ const OperatingHours = () => {
         });
   };
 
-  return (
-    <div className="right-side">
-      <StatusAlert />
-      <h2>Operating Hours </h2>
+  useEffect(() => {
+    let Head = document.querySelectorAll(".right-side .head");
+    Head.forEach((EachHead) => {
+      EachHead.addEventListener("click", (e) => {
+        let ParentElement = e.target.parentNode;
 
-      <div className="body mt-4">
+        ParentElement.classList.toggle("active");
+      });
+    });
+  }, []);
+
+  return (
+    <div className="right-side Operating-right-side">
+      <StatusAlert />
+      <h2 className="special-h2">Operating Hours </h2>
+
+      <form action="">
+        <OperatingHoursCheckbox day="Sunday" />
+        <OperatingHoursCheckbox day="Monday" />
+        <OperatingHoursCheckbox day="Tuesday" />
+        <OperatingHoursCheckbox day="Wednesday" />
+        <OperatingHoursCheckbox day="Thursday" />
+        <OperatingHoursCheckbox day="Friday" />
+        <OperatingHoursCheckbox day="Saturday" />
+        <button
+          className="btn ms-5 mt-4  mx-auto"
+          type="button"
+          onClick={submitConfiguration}
+        >
+          Save
+        </button>
+      </form>
+
+      {/* <div className="body mt-4">
         <div className="wrapper d-flex-align-center">
           <div className="me-4">
             <label htmlFor="from">From:</label>
@@ -118,14 +147,7 @@ const OperatingHours = () => {
             </div>
           </div>
         </div>
-        <button
-          className="btn ms-5 mt-4  mx-auto"
-          type="button"
-          onClick={submitConfiguration}
-        >
-          Save
-        </button>
-      </div>
+      </div> */}
     </div>
   );
 };

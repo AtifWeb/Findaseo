@@ -5,9 +5,13 @@ import { ComingSoon } from "../../../../component/templates/ComingSoon/ComingSoo
 import { CommonHero } from "../../../../component/templates/Common/CommonHero/CommonHero";
 import { HomeContactBanner } from "../../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
 import { CareersForm } from "../../../../component/templates/Careers/CareersForm/CareersForm";
+import { Helmet } from "react-helmet";
 export const Careers = () => {
   return (
     <FrontPageLayout activeLink="Careers">
+      <Helmet>
+        <title>Careers - Pavelify</title>
+      </Helmet>
       <CommonHero
         imageSrc="../../images/careers.svg"
         mainheading="Careers"

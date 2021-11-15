@@ -18,6 +18,7 @@ import { format } from "date-fns";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 function LiveVisitors() {
   const history = useHistory();
   const onlineVisitors = useSelector((store) => store.onlineVisitors);
@@ -94,6 +95,9 @@ function LiveVisitors() {
 
   return (
     <div className="LiveVisitors main-wrapper  d-flex">
+      <Helmet>
+        <title>Live Visitor - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="LiveVisitor" />
       <div className="body-area">
@@ -156,7 +160,7 @@ function LiveVisitors() {
                           {format(new Date(visitor.registeredSince), "PP")}
                         </li>
                         <li>
-                          <a href="http://pavelify.com">http://pavelify.com</a>
+                          {/* <a href="http://pavelify.com">http://pavelify.com</a> */}
                         </li>
                         <li>
                           <div className="icons-wrapper">

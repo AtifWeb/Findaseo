@@ -18,6 +18,7 @@ import { format } from "date-fns";
 import { Dropdown } from "App/component/BodyHeader";
 import NeutralButton from "App/component/NeutralButton";
 import { capitalize } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 
 function EmailTickets() {
   const params = useParams();
@@ -86,6 +87,9 @@ function EmailTickets() {
   }, []);
   return (
     <div className="EmailTickets main-wrapper d-flex">
+      <Helmet>
+        <title>Email Tickets - Pavelify</title>
+      </Helmet>
       {/* sidebar */}
       <Sidebar active="EmailTickets" />
       <div className="body-area">

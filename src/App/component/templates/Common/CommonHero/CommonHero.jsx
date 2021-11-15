@@ -27,6 +27,7 @@ export const CommonHero = ({
           <UsePavelifyLink
             text="Try Pavelify for Free"
             style={{ width: "35%" }}
+            link={"/auth/register"}
           />
         )}
       </div>

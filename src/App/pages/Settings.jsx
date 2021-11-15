@@ -11,6 +11,8 @@ import OperatingHoursSettings from "./settings/OperatingHours";
 import QuickReponseSettings from "./settings/QuickResponse";
 import Notifications from "./settings/Notifications";
 import Todolist from "./home/Todolist";
+import Account from "./settings/Account";
+import { Helmet } from "react-helmet";
 
 function Settings() {
   const params = useParams();
@@ -23,6 +25,9 @@ function Settings() {
         params?.channel === "Departments" ? "Contact" : ""
       }`}
     >
+      <Helmet>
+        <title>Settings - Pavelify</title>
+      </Helmet>
       <Sidebar active="settings" />
       <div className="body-area">
         {/* header */}
@@ -95,8 +100,10 @@ function Settings() {
               {/* third list */}
               <ul>
                 <li className="heading">Personal</li>
-                <li>
-                  <Link>Account</Link>
+                <li className={params?.channel === "Account" ? "active" : ""}>
+                  <Link onClick={() => history.push("/settings/Account")}>
+                    Account
+                  </Link>
                 </li>
                 <li
                   className={
@@ -141,6 +148,7 @@ function Settings() {
             {params?.channel === "Departments" ? <Departments /> : null}
 
             {params?.channel === "Integrations" ? <Todolist /> : null}
+            {params?.channel === "Account" ? <Account /> : null}
           </div>
         </div>
       </div>
