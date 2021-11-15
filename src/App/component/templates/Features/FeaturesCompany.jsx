@@ -7,12 +7,6 @@ export const FeaturesCompany = () => {
   return (
     <div className={styles.Features}>
       <div className={`${styles.Content} w-1200`}>
-        <h1 className={styles.FeaturesHeading}>Awesome Features</h1>
-        <p className={styles.featurePara}>
-          Our CRM system has a tonne of features to make your life easier. It's
-          a Salescamp promise!
-        </p>
-
         <div className={styles.featuresWrapper}>
           {Features.map((Each) => (
             <HomeCard
