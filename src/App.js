@@ -32,7 +32,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <Settings />
+            <Features />
           </Route>
           <Route path="/dashhboard/help_desk" exact>
             <Home_Desk />

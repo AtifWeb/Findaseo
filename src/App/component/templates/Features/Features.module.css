@@ -2,12 +2,18 @@
   padding: 4rem 0rem;
   margin: 6rem 0rem;
   margin-bottom: 0px;
-  background: #f8f9f9;
 }
 .FeaturesHeading {
   text-align: center;
-  margin-bottom: 2rem;
+
   color: #333;
+}
+.featurePara {
+  margin-bottom: 2rem;
+  width: 500px;
+  margin: 0rem auto;
+  text-align: center;
+  font-size: 15px;
 }
 .featuresWrapper {
   width: 80%;
@@ -18,15 +24,137 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
 }
+
+.banner {
+  width: 80%;
+
+  margin: 4rem auto;
+
+  padding: 30px;
+
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  background-color: #fff;
+  background-image: url(https://assets.website-files.com/5d6e0e6372061d52de830f1c/5d9daefe88a50c93370cea2e_sales-box-bg-vector.svg);
+  background-position: 100% 100%;
+  background-size: auto;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 1px 0 rgb(0 0 0 / 30%), 2px 2px 10px 0 rgb(0 0 0 / 10%);
+}
+.presentation .heading {
+  margin-top: 0;
+
+  color: #383838;
+  font-size: 20px;
+
+  line-height: 29px;
+}
+.presentation .para {
+  max-width: none;
+
+  color: #868995;
+
+  letter-spacing: 0.5px;
+  font-size: 15px;
+  width: 550px;
+}
+.button {
+  padding: 12px 24px;
+  min-width: 200px;
+  border: 1px solid #13225f;
+  border-radius: 6px;
+  background-color: #13225f;
+  box-shadow: 2px 0 6px 0 rgb(3 37 38 / 8%);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.sales {
+  margin: 4rem auto;
+  width: 80%;
+}
+.sales_heading {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #383838;
+  font-size: 25px;
+
+  font-weight: 600;
+  text-align: center;
+}
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 4rem;
+
+  margin-top: 4rem;
+}
+.heading_card {
+  color: #383838;
+  font-size: 48px;
+  z-index: -1;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.heading_card::after {
+  content: "";
+  background: url(https://assets.website-files.com/5d6e0e6372061d52de830f1c/5d9da377bce455857c33aa4c_unlock-box-Bg.svg);
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-repeat: no-repeat;
+
+  left: 0px;
+  z-index: -1;
+  top: -10px;
+}
+.sub_heading {
+  color: #2e69ce;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.card_para {
+  color: #969aaa;
+  font-size: 14px;
+}
+@media screen and (max-width: 1150px) {
+  .presentation {
+    margin-right: 2rem !important;
+  }
+  .presentation .para {
+    width: 100%;
+  }
+}
 @media screen and (max-width: 900px) {
-  .featuresWrapper {
+  .featuresWrapper,
+  .banner,
+  .sales {
     width: 100%;
   }
 }
 @media screen and (max-width: 650px) {
   .featuresWrapper {
     grid-template-columns: 1fr;
-    width: 80%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
+@media screen and (max-width: 730px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
   }
 }
 @media screen and (max-width: 350px) {
@@ -38,5 +166,8 @@
 @media screen and (max-width: 450px) {
   .FeaturesHeading {
     font-size: 28px;
+  }
+  .featurePara {
+    width: 95%;
   }
 }
