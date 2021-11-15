@@ -1,4 +1,4 @@
-const url = "http://vcap.me:3000";
+const url = "https://pavelify.com";
 (function () {
   const PAVELIFY_WRAPPER_ID = "pavelify-container";
   const IFRAME_ID = "pavelify-iframe-element";
