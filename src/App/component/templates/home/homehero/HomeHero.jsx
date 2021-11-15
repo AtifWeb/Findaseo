@@ -11,7 +11,7 @@ export const HomeHero = () => {
         </h1>
         <p className={styles.para}>
           Pavelify gives your business sales and customer satisfaction edge over
-          your competitors. Y
+          your competitors.
         </p>
         <small className={styles.small}>
           Live chat, Email Ticketing, Appointment Scheduling, Help Center and
