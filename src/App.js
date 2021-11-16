@@ -31,8 +31,11 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/Features" exact>
             <Features />
+          </Route>
+          <Route path="/" exact>
+            <HomePage />
           </Route>
           <Route path="/dashhboard/help_desk" exact>
             <Home_Desk />

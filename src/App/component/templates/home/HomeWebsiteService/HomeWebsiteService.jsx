@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeCard } from "../../../organisms/Home/HomeCard/HomeCard";
+import { HomeCard } from "../../../organisms/Home/Card/HomeCard";
 import styles from "./HomeWebsiteService.module.css";
 export const HomeWebsiteService = () => {
   return (
