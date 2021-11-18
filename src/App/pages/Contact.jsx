@@ -8,23 +8,21 @@ import Calenders from "../../Assets/img/calendar.png";
 import DocumentText from "../../Assets/img/document-text.png";
 import LeftArrow from "../../Assets/img/left-contact.png";
 import RightArrow from "../../Assets/img/right-contact.png";
-import Person1 from "../../Assets/img/Frame 1.png";
-import Person2 from "../../Assets/img/Frame 2.png";
-import Person3 from "../../Assets/img/Frame 3.png";
-import Edit from "../../Assets/img/edit-2.png";
-import Trash from "../../Assets/img/trash.png";
 import { useHistory, useParams } from "react-router";
 import { getUser } from "App/helpers/auth";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import NeutralButton from "App/component/NeutralButton";
 import { Helmet } from "react-helmet";
+import { CSVLink, CSVDownload } from "react-csv";
+
 function Contact() {
   const params = useParams();
   const history = useHistory();
   const [user] = useState(getUser());
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState([]);
 
   useEffect(() => {
     setContacts([]);
@@ -33,7 +31,8 @@ function Contact() {
 
   const getContacts = () => {
     if (!user) return;
-
+    if (document.querySelector("#all-check-checkbox"))
+      document.querySelector("#all-check-checkbox").checked = false;
     // if (params.channel === "LiveChat") {
     Axios({
       method: "post",
@@ -44,9 +43,24 @@ function Contact() {
     })
       .then((result) => {
         if (result.data.success) {
-          setContacts(result.data.contacts);
+          params?.channel === "EmailTickets"
+            ? setContacts([
+                ...result.data.contacts
+                  .reduce(
+                    (map, obj) =>
+                      map.set(getUserEmailFromEmailTicket(obj).email, obj),
+                    new Map()
+                  )
+                  .values(),
+              ])
+            : setContacts([
+                ...result.data.contacts
+                  .reduce((map, obj) => map.set(obj.email, obj), new Map())
+                  .values(),
+              ]);
 
-          // @todo filter the emailticket from here to remove duplicate emails
+          setSelectedContacts([]);
+
           setLoading(false);
         } else {
           //
@@ -94,6 +108,62 @@ function Contact() {
     }
     return { email, name };
   };
+
+  const selectItem = (index, checked) => {
+    if (checked) {
+      let c = selectedContacts.filter((a) => a.id !== index);
+      let item = contacts[index];
+      setSelectedContacts([
+        ...c,
+        {
+          Name:
+            params?.channel !== "EmailTickets"
+              ? item?.name
+              : getUserEmailFromEmailTicket(item).name,
+          Email:
+            params?.channel !== "EmailTickets"
+              ? item?.email
+              : getUserEmailFromEmailTicket(item).email,
+          "Country/Location": item?.info?.countryName || item?.location,
+          id: index,
+        },
+      ]);
+      let allChecks = document.querySelectorAll(".checks:checked");
+      if (allChecks.length === contacts.length) {
+        document.querySelector("#all-check-checkbox").checked = true;
+      }
+    } else {
+      setSelectedContacts((s) => s.filter((a) => a.id !== index));
+      document.querySelector("#all-check-checkbox").checked = false;
+    }
+  };
+
+  const checkAll = (checked) => {
+    let allChecks = document.querySelectorAll(".checks");
+    if (checked) {
+      let all = [];
+      contacts.forEach((c, i) =>
+        all.push({
+          Name:
+            params?.channel !== "EmailTickets"
+              ? c?.name
+              : getUserEmailFromEmailTicket(c).name,
+          Email:
+            params?.channel !== "EmailTickets"
+              ? c?.email
+              : getUserEmailFromEmailTicket(c).email,
+          "Country/Location": c?.info?.countryName || c?.location,
+          id: i,
+        })
+      );
+      allChecks.forEach((i) => (i.checked = true));
+      setSelectedContacts(all);
+    } else {
+      setSelectedContacts([]);
+      allChecks.forEach((i) => (i.checked = false));
+    }
+  };
+
   return (
     <div className="Contact main-wrapper d-flex">
       <Helmet>
@@ -154,11 +224,26 @@ function Contact() {
             {params?.channel ? (
               <div className="right-area">
                 <div className="top-area d-flex-align-center">
-                  <h3>Live Chats</h3>
-                  <div className="export-area d-flex-align-center">
+                  <h3>
+                    {params?.channel === "LiveChat"
+                      ? "Live Chat"
+                      : params?.channel === "Calendars"
+                      ? "Calendars"
+                      : "Email Tickets"}
+                  </h3>
+                  <CSVLink
+                    data={selectedContacts}
+                    onClick={(e) => {
+                      return !selectedContacts?.length ? false : true;
+                    }}
+                    target="_blank"
+                    filename={`${params?.channel}.csv`}
+                    style={{ display: "flex" }}
+                    className="export-area d-flex-align-center"
+                  >
                     <img src={DocumentText} alt="" />
                     <p>Export</p>
-                  </div>
+                  </CSVLink>
 
                   <div className="slider-area  d-flex-align-center">
                     <p>
@@ -179,6 +264,7 @@ function Contact() {
                           type="checkbox"
                           name=""
                           id="all-check-checkbox"
+                          onChange={(e) => checkAll(e.target.checked)}
                         />
                       </div>
                       <div className="col col2">
@@ -205,7 +291,13 @@ function Contact() {
                         contacts?.map((contact, index) => (
                           <div className="row" key={String(index)}>
                             <div className="col col1">
-                              <input type="checkbox" name="" id="" />
+                              <input
+                                type="checkbox"
+                                className="checks"
+                                onChange={(e) =>
+                                  selectItem(index, e.target.checked)
+                                }
+                              />
                             </div>
                             <div className="col col2 d-flex-align-center">
                               <NeutralButton
@@ -218,7 +310,20 @@ function Contact() {
                                     : null
                                 }
                               >
-                                <img src={Person1} alt="" />
+                                {/* <img src={Person1} alt="" /> */}
+                                <div
+                                  className="livechat-tag"
+                                  style={{
+                                    background: contact?.color || "red",
+                                    marginRight: "5px",
+                                  }}
+                                >
+                                  {params?.channel !== "EmailTickets"
+                                    ? contact?.name?.slice(0, 1) || 0
+                                    : getUserEmailFromEmailTicket(
+                                        contact
+                                      ).name?.slice(0, 1) || 0}
+                                </div>
                               </NeutralButton>
                               <NeutralButton
                                 onClick={
@@ -231,7 +336,7 @@ function Contact() {
                                 }
                               >
                                 <p>
-                                  {params?.channel === "LiveChat"
+                                  {params?.channel !== "EmailTickets"
                                     ? contact?.name
                                     : getUserEmailFromEmailTicket(contact).name}
                                 </p>
@@ -239,7 +344,7 @@ function Contact() {
                             </div>
                             <div className="col col3">
                               <p>
-                                {params?.channel === "LiveChat"
+                                {params?.channel !== "EmailTickets"
                                   ? contact?.email
                                   : getUserEmailFromEmailTicket(contact).email}
                               </p>
@@ -250,7 +355,10 @@ function Contact() {
                               </select>
                             </div>
                             <div className="col col5">
-                              <p>{contact?.info?.countryName}</p>
+                              <p>
+                                {contact?.info?.countryName ||
+                                  contact?.location}
+                              </p>
                             </div>
                             <div className="col col6">
                               <h5>-</h5>

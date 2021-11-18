@@ -167,7 +167,21 @@ function LiveChat() {
       })
         .then((result) => {
           if (result.data.success) {
-            setConversation(result.data.conversations);
+            const c = result.data.conversations;
+            c.sort(
+              (a, b) =>
+                new Date(b.latestChat.timestamp).getTime() -
+                new Date(a.latestChat.timestamp).getTime()
+            );
+            console.log({ c });
+            setConversation(
+              params.user
+                ? [
+                    c.filter((a, b) => a.uuid === params.user)[0],
+                    ...c.filter((a, b) => a.uuid !== params.user),
+                  ]
+                : c
+            );
             setOperatorID(result.data.operatorID);
             let p = result.data.pages;
             p.sort((a, b) => b.timestamp - a.timestamp);

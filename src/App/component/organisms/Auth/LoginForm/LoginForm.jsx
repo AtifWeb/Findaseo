@@ -38,6 +38,7 @@ export const LoginForm = () => {
               companyName: user.companyName,
               companyFullName: user.companyFullName,
               name: user.name,
+              email: user.email,
               token: user.token,
               operatorID: user.operatorID || "",
               isCompany: user.isCompany || false,

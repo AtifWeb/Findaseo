@@ -175,7 +175,11 @@ function BodyHeader({ active }) {
         <div style={{ position: "relative" }}>
           <NeutralButton onClick={() => setShowModal((prev) => !prev)}>
             <div className="profile-name-area d-flex-align-center">
-              <img src={Photo} alt="" />
+              <img
+                src={user?.picture ? user?.picture : Photo}
+                style={{ width: "40px", borderRadius: "50%" }}
+                alt=""
+              />
               <p>{user?.name}</p>
               <div className="icon-wrapper">
                 <svg

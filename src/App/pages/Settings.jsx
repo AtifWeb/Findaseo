@@ -59,7 +59,7 @@ function Settings() {
                   </Link>
                 </li>
                 <li>
-                  <Link>Messengers</Link>
+                  <Link>Messenger</Link>
                 </li>
               </ul>
 
@@ -92,7 +92,7 @@ function Settings() {
                   className={params?.channel === "Integrations" ? "active" : ""}
                 >
                   <Link onClick={() => history.push("/settings/Integrations")}>
-                    Integrations
+                    Integration
                   </Link>
                 </li>
               </ul>

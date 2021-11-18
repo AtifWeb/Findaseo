@@ -113,7 +113,7 @@ function Analytics() {
 
   useEffect(() => {
     visits && filterByDate();
-  }, [filterOption]);
+  }, [filterOption, visits]);
 
   const filterByCountry = () => {
     let countries = {};

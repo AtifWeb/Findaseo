@@ -35,9 +35,12 @@ import { useHistory } from "react-router";
 import { capitalize } from "@material-ui/core";
 import {
   filterOptions,
+  last3Months,
+  last6Months,
   last7Days,
   thisMonth,
   thisWeek,
+  thisYear,
 } from "./analytics/filters";
 import { format } from "date-fns";
 import { Helmet } from "react-helmet";
@@ -113,7 +116,7 @@ function Home() {
 
   useEffect(() => {
     visits && filterByDate();
-  }, [filterOption]);
+  }, [filterOption, visits]);
 
   const filterByCountry = () => {
     let countries = {};
@@ -128,6 +131,8 @@ function Home() {
   };
 
   const filterByDate = () => {
+    let type = "day";
+
     let labels = [],
       datas = [],
       dates = [];
@@ -139,6 +144,22 @@ function Home() {
       case "This Month":
         dates = thisMonth();
         break;
+
+      case "Last 3 Months":
+        dates = last3Months();
+        type = "month";
+        break;
+
+      case "Last 6 Months":
+        dates = last6Months();
+        type = "month";
+        break;
+
+      case "This Year":
+        dates = thisYear();
+        type = "month";
+        break;
+
       default:
         dates = last7Days();
         break;
@@ -147,14 +168,22 @@ function Home() {
     for (let date of dates) {
       labels.push(date);
       let d = 0;
-      if (filterOption === "This Week") {
-        d = 2;
-      } else if (filterOption === "This Month") {
-        d = 7;
-      }
-      for (let visit of visits) {
-        if (format(new Date(visit.createdAt), "PP") === date) {
-          d++;
+
+      if (type === "day") {
+        for (let visit of visits) {
+          if (format(new Date(visit.createdAt), "PP") === date) {
+            d++;
+          }
+        }
+      } else {
+        for (let visit of visits) {
+          if (
+            `${format(new Date(visit.createdAt), "MMMM")}-${new Date(
+              visit.createdAt
+            ).getFullYear()}` === `${date}-${new Date().getFullYear()}`
+          ) {
+            d++;
+          }
         }
       }
       datas.push(d);
