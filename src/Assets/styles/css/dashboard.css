@@ -1,4 +1,106 @@
 /* settings */
+/* email provider */
+
+.email_provider .step {
+  margin-bottom: 1.5rem;
+}
+.email_provider .step1 p {
+  background: #eff3f6;
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  min-width: 300px;
+}
+.email_provider .step h3 {
+  font-size: 17px !important;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+.email_provider .step > * + * {
+  margin-top: 10px !important;
+}
+.email_provider_pure {
+  margin-bottom: 1rem;
+}
+.email_provider_pure img {
+  width: 40px;
+  margin-right: 10px;
+}
+.email_provider_pure a {
+  word-break: break-all;
+}
+@media screen and (max-width: 400px) {
+  .email_provider .step1 p {
+    min-width: 100%;
+  }
+}
+/* integration */
+
+.integration .boxesWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+}
+@media screen and (max-width: 1250px) {
+  .integration .boxesWrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 750px) {
+  .integration .boxesWrapper {
+    grid-template-columns: 1fr;
+  }
+}
+.integration .channel_name {
+  margin: 2rem 0rem;
+}
+
+.integration .boxesWrapper .box {
+  padding: 1.5rem;
+  border: 1px solid #f5f7f9;
+}
+.integration .boxesWrapper .box .head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+.integration .boxesWrapper .box .head p {
+  font-weight: 800;
+  font-size: 30px;
+  margin-bottom: 0px;
+  line-height: 30px;
+  margin-left: 10px;
+  text-align: center;
+}
+.integration .boxesWrapper .box > p {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  color: #9399a3;
+  text-align: center;
+  font-weight: 600;
+}
+.integration .boxesWrapper .box .head p span {
+  display: block;
+  font-weight: 400;
+}
+.integration .boxesWrapper .box img {
+  width: 70px;
+}
+@media screen and (max-width: 500px) {
+  .integration .channel_name {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .integration .boxesWrapper .box img {
+    width: 40px;
+  }
+  .integration .boxesWrapper .box .head p {
+    font-size: 20px;
+  }
+}
 .account-right-side {
   flex: 1;
   width: 100% !important;

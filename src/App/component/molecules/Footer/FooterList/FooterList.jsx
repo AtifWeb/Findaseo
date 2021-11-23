@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./FooterList.module.css";
 export const FooterList = ({ EachList }) => {
   return (
@@ -13,7 +14,16 @@ export const FooterList = ({ EachList }) => {
                   : styles.normalText
               }`}
             >
-              {EachItem.text}
+              {EachItem.type == "listItems" ? (
+                <Link
+                  to={EachItem.url}
+                  style={{ color: "#fff", textDecoration: "none" }}
+                >
+                  {EachItem.text}
+                </Link>
+              ) : (
+                <>{EachItem.text}</>
+              )}
             </li>
           )}
           {EachItem.type == "form" && (

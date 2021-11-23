@@ -13,12 +13,12 @@ export const FooterOptions = [
     {
       text: "Privacy Policy,",
       type: "listItems",
-      url: "/",
+      url: "/plus/PrivacyPolicy",
     },
     {
       text: "Terms and conditions",
       type: "listItems",
-      url: "/",
+      url: "/plus/Terms",
     },
     {
       text: "Careers",
