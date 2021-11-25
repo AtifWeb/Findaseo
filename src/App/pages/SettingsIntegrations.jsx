@@ -174,24 +174,21 @@ function SettingsIntegrations() {
               <div className="boxesWrapper">
                 <div className="box">
                   <div className="head">
-                    <img src={Zapier} alt="" />
-                    <p>Zapier</p>
+                    <img src={Zapier} alt="" style={{ width: "80%" }} />
                   </div>
                   <p>Easy connect your favorite apps</p>
                 </div>{" "}
                 <div className="box">
                   <div className="head">
                     {" "}
-                    <img src={pipe} alt="" />
-                    <p>Pipedrive</p>
+                    <img src={pipe} alt="" style={{ width: "90%" }} />
                   </div>
                   <p>Sync your Pipedrive contacts with Pavelify.</p>
                 </div>{" "}
                 <div className="box">
                   <div className="head">
                     {" "}
-                    <img src={zoho} alt="" />
-                    <p>Zoho</p>
+                    <img src={zoho} alt="" style={{ width: "80%" }} />
                   </div>
                   <p>Sync your Zoho contacts with Pavelify</p>
                 </div>{" "}
