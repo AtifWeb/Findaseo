@@ -1,6 +1,6 @@
 import React from "react";
 import { Features } from "../../../../helpers/constants/Features";
-import { HomeCard } from "../../organisms/Home/HomeCard/HomeCard";
+import { FeatureCard } from "../../organisms/Home/Card/FeatureCard";
 import styles from "./Features.module.css";
 
 export const FeaturesCompany = () => {
@@ -9,7 +9,7 @@ export const FeaturesCompany = () => {
       <div className={`${styles.Content} w-1200`}>
         <div className={styles.featuresWrapper}>
           {Features.map((Each) => (
-            <HomeCard
+            <FeatureCard
               key={Each.LargeText}
               img={Each.img}
               title={Each.value}

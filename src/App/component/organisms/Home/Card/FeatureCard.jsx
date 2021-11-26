@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./HomeCard.module.css";
-export const HomeCard = ({ title, desc, largeImg, img = null }) => {
+import styles from "./FeatureCard.module.css";
+export const FeatureCard = ({ title, desc, largeImg, img = null }) => {
   return (
     <div className={styles.HomeCard}>
       <div className={styles.top}>

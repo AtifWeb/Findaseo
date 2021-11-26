@@ -13,6 +13,8 @@ import Notifications from "./settings/Notifications";
 import Todolist from "./home/Todolist";
 import Account from "./settings/Account";
 import { Helmet } from "react-helmet";
+import EmailSetup from "./settings/EmailSetup";
+import Integrations from "./settings/Integrations";
 
 function Settings() {
   const params = useParams();
@@ -95,6 +97,19 @@ function Settings() {
                     Integration
                   </Link>
                 </li>
+                <li
+                  className={params?.channel === "EmailSetup" ? "active" : ""}
+                >
+                  <Link onClick={() => history.push("/settings/EmailSetup")}>
+                    Email Setup
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link to="/dashhboard/SettingsIntegration">Integration</Link>
+                </li>{" "}
+                <li>
+                  <Link to="/dashhboard/SettingsEmailSetup">Email Setup</Link>
+                </li> */}
               </ul>
 
               {/* third list */}
@@ -147,7 +162,8 @@ function Settings() {
 
             {params?.channel === "Departments" ? <Departments /> : null}
 
-            {params?.channel === "Integrations" ? <Todolist /> : null}
+            {params?.channel === "Integrations" ? <Integrations /> : null}
+            {params?.channel === "EmailSetup" ? <EmailSetup /> : null}
             {params?.channel === "Account" ? <Account /> : null}
           </div>
         </div>

@@ -54,6 +54,12 @@ function SettingsOperatingHours() {
                 </li>
                 <li>
                   <Link>Departements</Link>
+                </li>{" "}
+                <li>
+                  <Link to="/dashhboard/SettingsIntegration">Integration</Link>
+                </li>{" "}
+                <li>
+                  <Link to="/dashhboard/SettingsEmailSetup">Email Setup</Link>
                 </li>
               </ul>
 
