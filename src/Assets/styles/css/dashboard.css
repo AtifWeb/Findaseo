@@ -58,6 +58,8 @@
 .integration .boxesWrapper .box {
   padding: 1.5rem;
   border: 1px solid #f5f7f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px #ddd;
 }
 .integration .boxesWrapper .box .head {
   display: flex;

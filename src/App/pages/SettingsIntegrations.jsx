@@ -7,6 +7,12 @@ import Insta from "../../Assets/img/Page-1-Image-2.jpg";
 import Twitter from "../../Assets/img/Page-1-Image-3.jpg";
 import telegram from "../../Assets/img/Page-1-Image-4.png";
 import whatsapp from "../../Assets/img/Page-1-Image-5.png";
+import Twilio from "../../Assets/img/Page-2-Image-6.jpg";
+import Line from "../../Assets/img/sPage-2-Image-7.jpg";
+import slack from "../../Assets/img/sPage-2-Image-8.jpg";
+import Zapier from "../../Assets/img/sPage-2-Image-9.jpg";
+import pipe from "../../Assets/img/Page-3-Image-10.jpg";
+import zoho from "../../Assets/img/Page-3-Image-11.jpg";
 
 function SettingsIntegrations() {
   useEffect(() => {
@@ -140,69 +146,52 @@ function SettingsIntegrations() {
                   </div>
                   <p>Reply to your WhatsApp messages through Pavelify</p>
                 </div>
-              </div>
-
-              <h3 className="channel_name">
-                Salesforce Sync your contacts between Salesforce and Pavelify
-              </h3>
-
-              <div className="boxesWrapper">
                 <div className="box">
                   <div className="head">
-                    <p>Zapier</p>
+                    <img src={Twilio} alt="" />
+                    <p>Twilio SMS</p>
                   </div>
-                  <p>Easy connect your favorite apps</p>
+                  <p>Get your Twilio SMS on Pavelify</p>
                 </div>{" "}
                 <div className="box">
                   <div className="head">
-                    <p>Pipedrive</p>
-                  </div>
-                  <p>Sync your Pipedrive contacts with Pavelify.</p>
-                </div>{" "}
-                <div className="box">
-                  <div className="head">
-                    <p>Auto-Responder</p>
-                  </div>
-                  <p>Send automated answers on multiple channels</p>
-                </div>{" "}
-                <div className="box">
-                  <div className="head">
-                    <p>Telegram</p>
-                  </div>
-                  <p>
-                    Get and reply to your Telegram messages through Pavelify
-                  </p>
-                </div>{" "}
-                <div className="box">
-                  <div className="head">
-                    <p>Slack</p>
-                  </div>
-                  <p>Reply to your Slack messages through Pavelify</p>
-                </div>{" "}
-                <div className="box">
-                  <div className="head">
-                    <p>Line</p>
+                    <img src={Line} alt="" />
+                    <p>LINE</p>
                   </div>
                   <p>Reply to your Line app messages through Pavelify</p>
                 </div>{" "}
                 <div className="box">
                   <div className="head">
-                    <p>Zoho</p>
+                    <img src={slack} alt="" />
+                    <p>Slack</p>
+                  </div>
+                  <p>Reply to your Slack messages through Pavelify</p>
+                </div>
+              </div>
+
+              <h3 className="channel_name">Other Channels</h3>
+
+              <div className="boxesWrapper">
+                <div className="box">
+                  <div className="head">
+                    <img src={Zapier} alt="" style={{ width: "80%" }} />
+                  </div>
+                  <p>Easy connect your favorite apps</p>
+                </div>{" "}
+                <div className="box">
+                  <div className="head">
+                    {" "}
+                    <img src={pipe} alt="" style={{ width: "90%" }} />
+                  </div>
+                  <p>Sync your Pipedrive contacts with Pavelify.</p>
+                </div>{" "}
+                <div className="box">
+                  <div className="head">
+                    {" "}
+                    <img src={zoho} alt="" style={{ width: "80%" }} />
                   </div>
                   <p>Sync your Zoho contacts with Pavelify</p>
                 </div>{" "}
-                <div className="box">
-                  <div className="head">
-                    <p>Hubspot</p>
-                  </div>
-                  <p>Sync your Hubspot contact with Pavelify</p>
-                </div>{" "}
-                <div className="box">
-                  <div className="head">
-                    <p>Twilio SMS</p>
-                  </div>
-                  <p>Get your Twilio SMS on Pavelify</p>
-                </div>
               </div>
             </div>
           </div>
