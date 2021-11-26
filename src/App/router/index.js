@@ -17,6 +17,12 @@ import Home_Desk from "App/pages/Home_Desk";
 import Todolist from "App/pages/home/Todolist";
 import Logout from "App/pages/auth/logout";
 
+import SettingsEmailSetup from "App/pages/SettingsEmailSetup";
+import SettingsAccount from "App/pages/SettingsAccount";
+import SettingsOperatingHours from "App/pages/SettingsOperatingHours";
+import SettingsIntegrations from "App/pages/SettingsIntegrations";
+import SettingsNotification from "App/pages/SettingsNotification";
+
 import Snippet from "App/pages/embed/Snippet";
 import Embed from "App/pages/embed";
 
@@ -29,6 +35,7 @@ import { Careers } from "App/pages/FrontPages/Plus/Careers/Careers";
 import { PrivacyPolicy } from "App/pages/FrontPages/Plus/Privacy Policy/PrivacyPolicy";
 import { Login } from "App/pages/FrontPages/Plus/Auth/Login/Login";
 import { Register } from "App/pages/FrontPages/Plus/Auth/Register/Register";
+import { Terms } from "App/pages/FrontPages/Plus/Terms/Terms";
 import useGetSubdomain from "App/hooks/useGetSubdomain";
 
 // import { HomePage } from "./App/pages/FrontPages/HomePage/HomePage";
@@ -65,6 +72,10 @@ const AuthRoutes = () => {
           </Route>
           <Route path="/PrivacyPolicy" exact>
             <PrivacyPolicy />
+          </Route>
+
+          <Route path="/Terms" exact>
+            <Terms />
           </Route>
 
           <Route path="/plus/Calender/Confirm" exact>
@@ -158,6 +169,21 @@ const AuthRoutes = () => {
           </Route>
           <Route path="/Todolist" exact>
             <Todolist />
+          </Route>
+          <Route path="/dashhboard/SettingsAccount" exact>
+            <SettingsAccount />
+          </Route>
+          <Route path="/dashhboard/SettingsIntegration" exact>
+            <SettingsIntegrations />
+          </Route>
+          <Route path="/dashhboard/SettingsEmailSetup" exact>
+            <SettingsEmailSetup />
+          </Route>
+          <Route path="/dashhboard/SettingsOperatingHours" exact>
+            <SettingsOperatingHours />
+          </Route>
+          <Route path="/dashhboard/SettingsNotifications" exact>
+            <SettingsNotification />
           </Route>
           <Route path="/logout" exact>
             <Logout />
