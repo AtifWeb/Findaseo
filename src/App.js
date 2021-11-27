@@ -50,7 +50,7 @@ function App() {
             <CalenderBooking />
           </Route>
           <Route path="/" exact>
-            <Settings />
+            <HomePage />
           </Route>
           {/* <Route path="/dashhboard/settings" exact>
             <Settings />
