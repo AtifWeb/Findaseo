@@ -33,27 +33,22 @@ export const Fields = [
   ],
   [
     {
-      object: "GridInputWrapper",
+      object: "InputWrapper",
       label: "Company name",
       id: "cname",
       inputType: "text",
       inputPlaceholder: "Enter Company Name",
     },
-   
-    {
-      object: "radio",
-      type: "radio",
-      id: "radio",
-      heading: "What are you solving for?",
-      checkboxes: [
-        "Manage customer service requests",
-        "Manage and engage sales leads ",
-        "Both of Above",
-      ],
-    },
     {
       object: "InputWrapper",
-      label: "Your subdomain",
+      label: "Company Website",
+      id: "cweb",
+      inputType: "text",
+      inputPlaceholder: "Enter Company Website",
+    },
+    {
+      object: "subdomain",
+      label: "Your Pavelify Subdomain",
       id: "subdomain",
       inputType: "slug",
       inputPlaceholder: "Enter Subdomain Name",

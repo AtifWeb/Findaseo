@@ -47,7 +47,20 @@ export const RegisterForm = () => {
               />
             )}
 
-            {feild.object == "radio" && (
+            {
+              feild.object=="subdomain"&&(
+                <div className={styles.DomainInput}         style={{ gridColumn: "span 2", marginTop: 0 }} >
+                  <label htmlFor={feild.id}>{feild.label}</label>
+                  <div className={styles.domainInputWrapper}>
+                  <input type="text" placeholder={feild.inputPlaceholder} id={feild.id} />
+                  <p>.Pavelify.com</p>
+                  </div>
+                  
+                </div>
+              )
+            }
+
+            {/* {feild.object == "radio" && (
               <div style={{ gridColumn: "span 2" }}>
                 <h4 className={styles.radioheading}>{feild.heading}</h4>
                 <ul>
@@ -63,10 +76,10 @@ export const RegisterForm = () => {
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
 
             {feild.object == "button" && (
-              <Button text={feild.text} style={{ gridColumn: "span 2" }} />
+              <Button text={feild.text} style={{ gridColumn: "span 2" ,marginBottom:0}} />
             )}
           </>
         ))}

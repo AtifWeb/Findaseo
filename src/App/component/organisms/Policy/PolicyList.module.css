@@ -15,3 +15,8 @@
 .subList {
   padding-left: 2rem;
 }
+@media screen and (max-width:650px) {
+  .head{
+    font-size: 18px;
+  }
+}

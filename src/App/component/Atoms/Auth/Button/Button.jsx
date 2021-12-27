@@ -20,7 +20,7 @@ export const Button = ({
           {text}
         </Link>
       ) : (
-        <p>{text}</p>
+        <p style={{marginBottom:0}}>{text}</p>
       )}
     </button>
   ) : (
@@ -38,7 +38,7 @@ export const Button = ({
           {text}
         </Link>
       ) : (
-        <p>{text}</p>
+        <p style={{marginBottom:0}}>{text}</p>
       )}
     </button>
   );

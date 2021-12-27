@@ -9,3 +9,13 @@
   margin-bottom: 1rem;
   width: 80%;
 }
+
+.BeforeList{
+  font-size: 2rem;
+}
+
+@media screen and (max-width:600px) {
+  .BeforeList{
+    font-size: 1.5rem;
+  }
+}
