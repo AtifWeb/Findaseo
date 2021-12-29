@@ -1,3 +1,4 @@
+
 export const Fields = [
   [
     {
@@ -25,10 +26,10 @@ export const Fields = [
     },
     {
       object: "InputWrapper",
-      label: "Phone Number",
-      id: "phone_number",
+      label: "Company Website",
+      id: "cweb",
       inputType: "text",
-      inputPlaceholder: "Enter Phone Name",
+      inputPlaceholder: "Enter Company Website",
     },
   ],
   [
@@ -39,13 +40,7 @@ export const Fields = [
       inputType: "text",
       inputPlaceholder: "Enter Company Name",
     },
-    {
-      object: "InputWrapper",
-      label: "Company Website",
-      id: "cweb",
-      inputType: "text",
-      inputPlaceholder: "Enter Company Website",
-    },
+  
     {
       object: "subdomain",
       label: "Your Pavelify Subdomain",
@@ -61,9 +56,16 @@ export const Fields = [
       inputType: "password",
       inputPlaceholder: "Enter Password",
     },
+ 
     {
       object: "button",
       text: "Complete",
     },
+    {
+      object:"text",
+      text:`By clicking "Complete" you acknowledge and accept.`,
+      linkterm:"Pavelify Terms",
+      linkprivacy:"Privacy Notice"
+          },
   ],
 ];
