@@ -4,7 +4,7 @@ import { Button } from "../../../Atoms/Auth/Button/Button";
 import { InputWrapper } from "../../../molecules/Auth/InputWrapper/InputWrapper";
 import { HandleNextStep } from "./events/HandleStep";
 import styles from "./Register.module.css";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 export const RegisterForm = () => {
   const [Step, setStep] = useState([]);
   useEffect(() => {
@@ -48,22 +48,46 @@ export const RegisterForm = () => {
               />
             )}
 
-            {
-              feild.object=="subdomain"&&(
-                <div className={styles.DomainInput}         style={{ gridColumn: "span 2", marginTop: 0 ,marginBottom:20}} >
-                  <label htmlFor={feild.id}>{feild.label}</label>
-                  <div className={styles.domainInputWrapper}>
-                  <input type="text" placeholder={feild.inputPlaceholder} id={feild.id} />
+            {feild.object == "subdomain" && (
+              <div
+                className={styles.DomainInput}
+                style={{ gridColumn: "span 2", marginTop: 0, marginBottom: 20 }}
+              >
+                <label htmlFor={feild.id}>{feild.label}</label>
+                <div className={styles.domainInputWrapper}>
+                  <input
+                    type="text"
+                    placeholder={feild.inputPlaceholder}
+                    id={feild.id}
+                  />
                   <p>.Pavelify.com</p>
-                  </div>
-                  
                 </div>
-              )
-            }
+              </div>
+            )}
 
-
-            {feild.object=="text"&&(
-              <p style={{gridColumn:"span 2",marginBottom:"0px",textAlign:"center"}}>{feild.text} <Link to="https://pavelify.com/Terms" style={{color:"#13225f"}}>{feild.linkterm}</Link> and <Link to="https://pavelify.com/PrivacyPolicy" style={{color:"#13225f"}}>{feild.linkprivacy}</Link></p>
+            {feild.object == "text" && (
+              <p
+                style={{
+                  gridColumn: "span 2",
+                  marginBottom: "0px",
+                  textAlign: "center",
+                }}
+              >
+                {feild.text}{" "}
+                <Link
+                  to="https://pavelify.com/Terms"
+                  style={{ color: "#13225f" }}
+                >
+                  {feild.linkterm}
+                </Link>{" "}
+                and{" "}
+                <Link
+                  to="https://pavelify.com/PrivacyPolicy"
+                  style={{ color: "#13225f" }}
+                >
+                  {feild.linkprivacy}
+                </Link>
+              </p>
             )}
 
             {/* {feild.object == "radio" && (
@@ -85,7 +109,10 @@ export const RegisterForm = () => {
             )} */}
 
             {feild.object == "button" && (
-              <Button text={feild.text} style={{ gridColumn: "span 2" ,marginBottom:0}} />
+              <Button
+                text={feild.text}
+                style={{ gridColumn: "span 2", marginBottom: 0 }}
+              />
             )}
           </>
         ))}
