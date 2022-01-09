@@ -1,9 +1,9 @@
 export const HeaderOptions = [
-  {
-    name: "Pricing",
-    url: "/pricing",
-    type: null,
-  },
+  // {
+  //   name: "Pricing",
+  //   url: "/pricing",
+  //   type: null,
+  // },
   {
     name: "Features",
     url: "/features",
@@ -11,7 +11,7 @@ export const HeaderOptions = [
   },
 
   {
-    name: "Try Pavelify for Free",
+    name: "Use Pavelify for Free",
     url: "/auth/register",
     type: "button",
     buttonType: "solid",

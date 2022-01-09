@@ -12,19 +12,19 @@ function Register(props) {
   // const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [companyName, setCompanyName] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   // const subdomain = useGetSubdomain();
   const reg = () => {
-    if (!email || !password || !companyName) return;
+    if (!email || !password || !name) return;
     setLoading(true);
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/auth/register`,
+      url: `${process.env.REACT_APP_BASE_URL}/back/auth/register`,
       data: {
         email,
         password,
-        companyName,
+        name,
       },
     })
       .then((result) => {
@@ -57,7 +57,7 @@ function Register(props) {
           <div className="card rounded-0 shadow text-white mb-3">
             <div className="card-header bg-primary text-center ">
               {" "}
-              Company Registration
+              Admin Registration
             </div>
             {props.error ? (
               <p className="alert alert-danger">{props.error}</p>
@@ -74,16 +74,16 @@ function Register(props) {
               <form action="">
                 <div className="">
                   <label htmlFor="email" className="form-label">
-                    Company Name
+                    Admin Name
                   </label>
                   <input
                     type="text"
-                    name="companyName"
+                    name="name"
                     className="form-control"
-                    id="companyName"
-                    placeholder="e.g Pavelify"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
+                    id="name"
+                    placeholder=""
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="">
@@ -115,7 +115,7 @@ function Register(props) {
                   />
                 </div>
                 <div className="text-center">
-                  <button onClick={reg} loading={loading}>
+                  <button type="button" onClick={reg} loading={loading}>
                     Create Account
                   </button>
                 </div>

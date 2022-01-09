@@ -196,7 +196,7 @@ const Booking = (props) => {
             window.location = "/";
           }
           setLoading(false);
-          console.log(result.data);
+
           setCalendar(result.data.calendar);
           result.data.calendar?.duration &&
             setWhich(result.data.calendar?.duration);
@@ -231,6 +231,7 @@ const Booking = (props) => {
         "Please enter your phone number"
       );
     } else {
+      setLoading(true);
       let [h, m] = time?.split(":");
       date.setHours(h, m, 0);
 
@@ -304,6 +305,7 @@ const Booking = (props) => {
             time,
             date,
             continue: name && email && phone ? submitForm : null,
+            loading,
           }}
         />
       )}

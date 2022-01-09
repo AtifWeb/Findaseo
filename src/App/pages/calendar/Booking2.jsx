@@ -189,7 +189,7 @@ const Booking = (props) => {
             window.location = "/";
           }
           setLoading(false);
-          console.log(result.data.calendar);
+
           setCalendar(result.data.calendar);
           setUnavailableTimes(result.data.unavailableTimes);
         } else {

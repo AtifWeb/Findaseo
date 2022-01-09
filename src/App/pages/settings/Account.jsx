@@ -19,8 +19,6 @@ const Account = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [picture, setPicture] = useState("");
 
-  console.log({ user });
-
   useEffect(() => {
     let Head = document.querySelectorAll(".right-side .head");
     Head.forEach((EachHead) => {
@@ -66,7 +64,6 @@ const Account = () => {
             ...user,
             ...result.data.user,
           });
-          setName("");
         } else {
           //
         }

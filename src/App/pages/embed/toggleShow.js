@@ -13,17 +13,15 @@ export const HandleBotDisplay = (e, innerSize) => {
     // }
 
     document.querySelector(".collapse-bot").classList.remove("active");
-    document.querySelector("#closeIconButton").classList.add("fa-comment-alt");
-    document.querySelector("#closeIconButton").classList.remove("fa-times");
+    document.querySelector("#closeIconButton").classList.add("d-none");
+    document.querySelector("#chatIconImg").classList.remove("d-none");
 
     window.parent.postMessage(JSON.stringify({ type: "CLOSE_IFRAME" }), "*");
   } else {
     window.parent.postMessage(JSON.stringify({ type: "OPEN_IFRAME" }), "*");
     document.querySelector(".collapse-bot").style.display = "block";
-    document
-      .querySelector("#closeIconButton")
-      .classList.remove("fa-comment-alt");
-    document.querySelector("#closeIconButton").classList.add("fa-times");
+    document.querySelector("#closeIconButton").classList.remove("d-none");
+    document.querySelector("#chatIconImg").classList.add("d-none");
 
     document.querySelector(".collapse-bot").style.opacity = 1;
     document.querySelector(".collapse-bot").style.transform =

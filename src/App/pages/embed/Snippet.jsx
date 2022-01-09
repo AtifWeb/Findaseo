@@ -22,6 +22,8 @@ import {
   ToggleBurgerBtn,
 } from "./toggleShow";
 import styles from "./snippet.module.css";
+import Picker from "emoji-picker-react";
+
 import { BookMeeting } from "App/component/organisms/LiveChat/BookMeeting/BookMeeting";
 import { LiveChatConversation } from "App/component/organisms/LiveChat/LiveChatConversation/LiveChatConversation";
 import { LiveChatSearch } from "App/component/organisms/LiveChat/LiveChatSearch/LiveChatSearch";
@@ -31,10 +33,8 @@ import { Message } from "App/component/organisms/LiveChat/helper/Messages";
 import SenderIcon from "../../../Assets/img/sender.svg";
 import styles2 from "./LiveChatMessageArea.module.css";
 import capitalize from "helpers/capitalize";
-import { useLayoutEffect } from "react";
-
 let checkDesktop = null;
-
+let audio = new Audio("/sound/newMessage.wav");
 const Snippet = () => {
   const params = useParams();
   const [open, setOpen] = useState(false);
@@ -62,9 +62,14 @@ const Snippet = () => {
   const [companyName, setCompanyName] = useState("");
   const [pageView, setPageView] = useState({});
   const [innerSize, setInnerSize] = useState({
-    width: 1000,
-    height: 1000,
+    width: 400,
+    height: 400,
   });
+  const [showEmoji, setShowEmoji] = useState(false);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setMessage((m) => m + emojiObject.emoji);
+  };
 
   const URL = window.location.protocol + "//" + window.location.host;
   //hostname
@@ -89,7 +94,7 @@ const Snippet = () => {
   };
 
   const handleOnMessage = (message) => {
-    addConversations([message]);
+    addConversations([message], true);
   };
 
   const handleOperatorJoined = (data) => {
@@ -135,6 +140,7 @@ const Snippet = () => {
 
   const handleIframeMessages = (message) => {
     const data = JSON.parse(message.data);
+    console.log(data);
     if (data?.type === "SCREEN_SIZE") {
       setInnerSize(data?.value);
       ToggleBurgerBtn(data?.value);
@@ -215,8 +221,9 @@ const Snippet = () => {
     setTheUser(currentUser);
   };
 
-  const addConversations = useCallback((convs) => {
+  const addConversations = useCallback((convs, newMessage = false) => {
     setChats((chats) => [...chats, ...convs]);
+    newMessage && audio.play();
   }, []);
 
   const sendName = () => {
@@ -422,9 +429,13 @@ const Snippet = () => {
                       }}
                     >
                       <img
-                        style={{ width: "30px", height: "30px" }}
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "50%",
+                        }}
                         alt="Support"
-                        src={Person1}
+                        src={operator?.picture ? operator?.picture : Person1}
                         className="rounded-circle float-start me-2 "
                       />
                       <span className="d-inline-block pt-1">
@@ -502,74 +513,122 @@ const Snippet = () => {
                       />
                     ))}
                     <div ref={messagesEndRef} />
+                    {showEmoji ? (
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: "60px",
+                          background: "white",
+                          width: "80%",
+                        }}
+                      >
+                        <div
+                          className="pe-3 py-1"
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          <button
+                            onClick={() => setShowEmoji((b) => !b)}
+                            type="button"
+                            style={{
+                              border: "none",
+                              textAlign: "right",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <i className="fa fa-times"></i>
+                          </button>
+                        </div>
+                        <Picker
+                          pickerStyle={{ width: "100%" }}
+                          onEmojiClick={onEmojiClick}
+                        />
+                      </div>
+                    ) : null}
                   </div>
                   <div style={{ background: "white", textAlign: "center" }}>
                     <small className="text-muted py-auto">
                       {" "}
                       Powered by{" "}
-                      <i
-                        style={{ color: appearance?.backgroundColor }}
-                        className="fa fa-bolt "
-                      ></i>{" "}
-                      <b>Pavelify</b>
+                      <a href="https://pavelify.com" target="_blank">
+                        <i
+                          style={{ color: appearance?.backgroundColor }}
+                          className="fa fa-bolt "
+                        ></i>{" "}
+                        <b>Pavelify</b>
+                      </a>
                     </small>
                   </div>
                   <div className={styles2.form}>
                     <div className={styles2.inputWrapper}>
-                      <input
-                        type="text"
-                        placeholder="Send a message"
-                        className={styles2.input}
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyUp={(e) => {
-                          e.stopPropagation();
-                          var event = e || window.event;
-                          var charCode = event.which || event.keyCode;
+                      <div className="d-flex-align-center pt-1">
+                        <textarea
+                          type="text"
+                          placeholder="Send a message"
+                          className={styles2.input}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          onKeyUp={(e) => {
+                            e.stopPropagation();
+                            var event = e || window.event;
+                            var charCode = event.which || event.keyCode;
 
-                          if (charCode === "13") {
-                            // Enter pressed
-                            messageSender();
-                          }
-                        }}
-                      />
+                            if (charCode === 13) {
+                              // Enter pressed
+                              messageSender();
+                            }
+                          }}
+                        />
+                        {message?.trim() ? (
+                          <div className="me-1">
+                            <button
+                              onClick={() => messageSender()}
+                              disabled={!message?.trim()}
+                              title="Send"
+                              className={`text-white text-center  ${styles2.sendBtn}`}
+                              style={{
+                                width: "40px",
+                                height: "40px",
+                                borderRadius: "50%",
+                                border: "none",
+                                cursor: "pointer",
+                                background: "white",
+                                boxShadow: "1px 1px 1px lightgrey",
+
+                                position: "relative",
+                              }}
+                            >
+                              <img
+                                style={{
+                                  width: "35px",
+                                }}
+                                src={SenderIcon}
+                              />
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
 
                       <div
-                        title="Insert an Emoji"
-                        className={`${styles2.IconWrapper} ${styles2.Smile}`}
+                        className="d-flex-align-center ps-3"
+                        style={{ minHeight: "30px", background: "white" }}
                       >
-                        <i className="far fa-smile-wink"></i>
-                      </div>
-                      <div
-                        title="Attach a file"
-                        className={styles2.IconWrapper}
-                      >
-                        <i className="fas fa-paperclip"></i>
-                      </div>
-                      {message?.trim() ? (
-                        <div className="me-3">
-                          <button
-                            onClick={() => messageSender()}
-                            disabled={!message?.trim()}
-                            title="Send"
-                            className={` text-white text-center  ${styles2.sendBtn}`}
-                            style={{
-                              width: "32px",
-                              height: "32px",
-                              borderRadius: "50%",
-                              border: "none",
-                              cursor: "pointer",
-                              boxShadow: `grey 0px 22px 70px 4px`,
-                            }}
-                          >
-                            <img src={SenderIcon} />
-                            {/* <i
-                              style={{ fontSize: "13px" }}
-                              className="fa fa-arrow-right"
-                            ></i> */}
-                          </button>
+                        <div
+                          onClick={() => setShowEmoji((b) => !b)}
+                          title="Insert an Emoji"
+                          className={`${styles2.IconWrapper} ${styles2.Smile}`}
+                        >
+                          <i className="far fa-smile-wink"></i>
                         </div>
-                      ) : null}
+                        <div
+                          title="Attach a file"
+                          className={styles2.IconWrapper}
+                        >
+                          <i className="fas fa-paperclip"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -819,19 +878,28 @@ const Snippet = () => {
             // onClick={() => setOpen((prev) => !prev)}
             className="boxs"
             style={{
-              backgroundColor: appearance?.backgroundColor,
-              color: "white",
+              backgroundColor: "rgb(18,35,94)",
+              // color: "white",
               borderRadius: "50%",
               border: "none",
               cursor: "pointer",
               width: "50px",
               height: "50px",
-              boxShadow: `${appearance?.backgroundColor} 0px 22px 70px 4px`,
+              boxShadow: `2px 2px 20px #555`,
               zIndex: `${Number.MAX_SAFE_INTEGER}`,
             }}
             // id="open-chat"
           >
-            <i id="closeIconButton" className="fa  fa-comment-alt  fa-lg"></i>
+            <img
+              id="chatIconImg"
+              style={{ width: "50px" }}
+              src={"/images/chat.png"}
+              alt="chat icon"
+            />
+            <i
+              id="closeIconButton"
+              className="fa fa-times fa-lg text-white d-none"
+            ></i>
           </button>
           {/* {appearance?.widgetPosition === "left" && (
             <ButtonLabel

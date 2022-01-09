@@ -7,8 +7,7 @@ import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 
 const Notifications = () => {
-  const [from, setFrom] = useState(new Date());
-  const [to, setTo] = useState(new Date());
+  const [notifications, setNotifications] = useState({});
   const [user] = useState(getUser());
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -25,8 +24,7 @@ const Notifications = () => {
       })
         .then((result) => {
           if (result.data.success) {
-            setFrom(result.data.configuration.operatingHours[0]);
-            setTo(result.data.configuration.operatingHours[1]);
+            setNotifications(result.data.configuration?.notifications);
             setLoading(false);
           } else {
             //
@@ -40,15 +38,14 @@ const Notifications = () => {
 
   const submitConfiguration = () => {
     user &&
-      from &&
-      to &&
+      notifications &&
       Axios({
         method: "post",
         url: `${process.env.REACT_APP_BASE_URL}/settings/save`,
         data: {
           cID: user?.cID,
           configuration: {
-            operatingHours: [from, to],
+            notifications,
           },
         },
       })
@@ -68,73 +65,81 @@ const Notifications = () => {
         });
   };
 
+  const onChange = (e) => {
+    const { checked, id } = e.target;
+    setNotifications((n) => ({ ...n, [id]: checked }));
+  };
+
   return (
     <div className="right-side account-right-side notification-right-side">
       <StatusAlert />
       <h2 className="special-h2">
-        {" "}
-        <i class="fas fa-bell"></i>Notifications
+        <i className="fas fa-bell"></i>Notifications
       </h2>
 
-      {/* <div className="body mt-4">
-        <div className="wrapper d-flex-align-center">
-          <div
-            className=" d-flex"
-            style={{
-              width: "200px",
-              justifyContent: "flex-start",
-              alignItems: "center",
-            }}
-          >
-            <input
-              style={{
-                width: "20px",
-                height: "20px",
-              }}
-              type="checkbox"
-              placeholder=""
-              value={from}
-              id="from"
-              onChange={(e) => setFrom(e.target.value)}
-            />
-            <label className="ms-3" htmlFor="from">
-              Notify on new visit
-            </label>
-          </div>
-        </div> */}
       <form action="">
         <div className="input-wrapper">
-          <label htmlFor="">Incoming Visitor</label>{" "}
-          <select name="" id="">
-            <option value="default">default</option>
-          </select>
+          <label htmlFor="incomingVisitor">Incoming Visitor</label>{" "}
+          <input
+            className="me-2"
+            id="incomingVisitor"
+            checked={notifications?.incomingVisitor}
+            type="checkbox"
+            style={{ width: "20px" }}
+            onChange={onChange}
+          />
         </div>{" "}
         <div className="input-wrapper">
-          <label htmlFor="">New Chat Request</label>{" "}
-          <select name="" id="">
-            <option value="default">default</option>
-          </select>
-        </div>{" "}
+          <label htmlFor="newMessage">New Message</label>{" "}
+          <input
+            className="me-2"
+            id="newMessage"
+            checked={notifications?.newMessage}
+            type="checkbox"
+            style={{ width: "20px" }}
+            onChange={onChange}
+          />
+        </div>
         <div className="input-wrapper">
-          <label htmlFor="">New Message</label>{" "}
-          <select name="" id="">
-            <option value="default">default</option>
-          </select>
+          <label htmlFor="newTicket">New Ticket</label>{" "}
+          <input
+            className="me-2"
+            id="newTicket"
+            checked={notifications?.newTicket}
+            type="checkbox"
+            style={{ width: "20px" }}
+            onChange={onChange}
+          />
         </div>
         <h2>
-          <i class="fas fa-envelope"></i> Send Email Notifications
+          <i className="fas fa-envelope"></i> Send Email Notifications
         </h2>
         <div className="input-wrapper">
-          <label htmlFor="Email">Send For</label>
-          <input type="email" id="Email" />
+          <label htmlFor="assignChat">Assign Chat</label>
+          <input
+            className="me-2"
+            id="assignChat"
+            checked={notifications?.assignChat}
+            type="checkbox"
+            style={{ width: "20px" }}
+            onChange={onChange}
+          />
         </div>
-        <button className="add_email_address_button cursor-pointer">
-          Add new email address
-        </button>{" "}
+        <div className="input-wrapper">
+          <label htmlFor="newEventSchedule">New Event Schedule</label>
+          <input
+            className="me-2"
+            id="newEventSchedule"
+            type="checkbox"
+            checked={notifications?.newEventSchedule}
+            style={{ width: "20px" }}
+            onChange={onChange}
+          />
+        </div>
         <button
           type="button"
           onClick={submitConfiguration}
-          className="save-button cursor-pointer"
+          className="save-button cursor-pointer ms-4 mt-5"
         >
           Save
         </button>

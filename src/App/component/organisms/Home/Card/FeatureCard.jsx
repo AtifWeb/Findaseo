@@ -13,7 +13,7 @@ export const FeatureCard = ({ title, desc, largeImg, img = null }) => {
           <h1 className={styles.heading}>{title}</h1>
           <p className={styles.para}>{desc}</p>
 
-          <Link to="/features" className={styles.learn_more}>
+          <Link to="/auth/login" className={styles.learn_more}>
             LEARN MORE
           </Link>
         </div>

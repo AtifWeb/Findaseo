@@ -2,7 +2,7 @@
   background: #13215e;
   width: 360px;
   color: #fff;
-  height: 500px;
+  height: 520px;
   overflow: auto;
   display: none;
   opacity: 0;
@@ -21,7 +21,7 @@
 }
 .CloseIcon {
   position: absolute;
-  top: 20px;
+  top: 5rem;
   cursor: pointer;
   right: 20px;
 }
@@ -54,10 +54,11 @@
   border-radius: 0px;
   opacity: 1 !important;
   transform: translateY(0px) !important;
+  padding: 2.5rem 0;
 }
 
 .CollapseAbleLiveChat_400 {
-  /* width: 95%; */
+  width: 95%;
   align-self: flex-end;
 }
 .heading_400 {

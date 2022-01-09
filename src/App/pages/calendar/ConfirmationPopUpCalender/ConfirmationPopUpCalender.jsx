@@ -91,7 +91,7 @@ const ConfirmationPopUpCalender = ({ data }) => {
               type="button"
               onClick={data.continue}
               className={styles.button}
-              disabled={!data.continue}
+              disabled={!data.continue || data.loading}
             >
               Schedule Meeting
             </button>

@@ -12,7 +12,9 @@ export const Register = () => {
         <title>Get Started - Pavelify</title>
       </Helmet>
       <div className={styles.logo}>
-        <h3>Logo</h3>
+        <a href="/">
+          <img style={{ width: "150px" }} src="/images/logo.png" />
+        </a>
       </div>
       <RegisterForm />
     </div>

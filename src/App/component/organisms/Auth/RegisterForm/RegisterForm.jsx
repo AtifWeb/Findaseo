@@ -6,7 +6,9 @@ import { Fields } from "../../../../../helpers/constants/RegisterFormFeilds";
 import { Button } from "../../../Atoms/Auth/Button/Button";
 import { InputWrapper } from "../../../molecules/Auth/InputWrapper/InputWrapper";
 import { HandleNextStep } from "./events/HandleStep";
+import { Link } from "react-router-dom";
 import styles from "./Register.module.css";
+import useGetSubdomain from "App/hooks/useGetSubdomain";
 export const RegisterForm = () => {
   const [Step, setStep] = useState([]);
   const [data, setData] = useState({
@@ -18,8 +20,11 @@ export const RegisterForm = () => {
     phone_number: "",
     radio: "",
     subdomain: "",
+    cweb: "",
   });
   const [loading, setLoading] = useState(false);
+
+  const { subdomain, domain } = useGetSubdomain();
 
   useEffect(() => {
     setStep(Fields[0]);
@@ -49,7 +54,6 @@ export const RegisterForm = () => {
     let errorCount = 0;
     for (let step of Step) {
       if (!data[step.id]) {
-        console.log(step.id);
         errorCount++;
         // @todo match pattern
         document.querySelector(`#${step.id}`).style.borderColor = "red";
@@ -79,6 +83,7 @@ export const RegisterForm = () => {
       url: `${process.env.REACT_APP_BASE_URL}/auth/register`,
       data: {
         email: data.email,
+        website: data.cweb,
         password: data.password,
         companyName: data.subdomain,
         companyFullName: data.cname,
@@ -119,7 +124,7 @@ export const RegisterForm = () => {
         </span>
       </div>
       <h2 className={`${styles.heading} heading-steps`}>
-        {/* Try Pavelify 14 days free Trial */}
+        {/* Use Pavelify 14 days free Trial */}
       </h2>
       <div className={styles.FeildsWrapper}>
         {Step.map((feild) => (
@@ -152,8 +157,57 @@ export const RegisterForm = () => {
                 }
               />
             )}
+            {feild.object == "subdomain" && (
+              <div
+                className={styles.DomainInput}
+                style={{ gridColumn: "span 2", marginTop: 0, marginBottom: 20 }}
+              >
+                <label htmlFor={feild.id}>{feild.label}</label>
+                <div className={styles.domainInputWrapper}>
+                  <input
+                    type="text"
+                    placeholder={feild.inputPlaceholder}
+                    id={feild.id}
+                    value={data[feild.id]}
+                    onChange={(e) =>
+                      setData((prev) => ({
+                        ...prev,
+                        [feild.id]: e.target.value,
+                      }))
+                    }
+                  />
+                  <p>.Pavelify.com</p>
+                </div>
+              </div>
+            )}
+            {feild.object == "text" && (
+              <p
+                style={{
+                  gridColumn: "span 2",
+                  marginBottom: "0px",
+                  textAlign: "center",
+                }}
+              >
+                {feild.text}{" "}
+                <a
+                  href={`${window.location.protocol}//${domain}/Terms`}
+                  target={"_blank"}
+                  style={{ color: "#13225f" }}
+                >
+                  {feild.linkterm}
+                </a>{" "}
+                and{" "}
+                <a
+                  href={`${window.location.protocol}//${domain}/PrivacyPolicy`}
+                  target={"_blank"}
+                  style={{ color: "#13225f" }}
+                >
+                  {feild.linkprivacy}
+                </a>
+              </p>
+            )}
 
-            {feild.object === "radio" && (
+            {/* {feild.object === "radio" && (
               <div style={{ gridColumn: "span 2" }}>
                 <h4 className={styles.radioheading}>{feild.heading}</h4>
 
@@ -186,7 +240,7 @@ export const RegisterForm = () => {
                   Please select one option
                 </small>
               </div>
-            )}
+            )} */}
 
             {/* {feild.object === "button" && (
               <Button text={feild.text} style={{ gridColumn: "span 2" }} />

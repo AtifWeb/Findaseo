@@ -183,9 +183,7 @@ function Embed() {
           setPreChat(
             JSON.parse(result.data.configuration.chatConfiguration.preChat)
           );
-          console.log(
-            JSON.parse(result.data.configuration.chatConfiguration.preChat)
-          );
+
           // setSidebar(
           //   JSON.parse(result.data.configuration.chatConfiguration.sidebar)
           // );

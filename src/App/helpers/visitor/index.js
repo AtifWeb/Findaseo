@@ -1,5 +1,5 @@
 const AUTH_KEY = "PavelifySESSIONKEY-";
-
+const localStorage = window.localStorage;
 export const saveVisitor = (auth, companyID) => {
   localStorage.setItem(AUTH_KEY + companyID, JSON.stringify(auth));
   return true;

@@ -9,7 +9,7 @@ export const Terms = () => {
     <FrontPageLayout>
       <CommonHero
         imageSrc="../../images/terms.svg"
-        mainheading="Terms and Conditions"
+        mainheading="Terms of Use"
         secondpara=" We respect your private information hence we want you to fully understand and become aware about our information collection process. This policy and all its clauses are applicable to Pavelify.com"
         thirdpara="By using our website, you consent to the data gathering practices used anywhere in the website."
       />

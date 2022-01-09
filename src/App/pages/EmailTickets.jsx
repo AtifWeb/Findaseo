@@ -231,10 +231,10 @@ function EmailTickets() {
               </div>
 
               <div className="right-area d-flex-align-center">
-                <div className="export-area d-flex-align-center">
+                {/* <div className="export-area d-flex-align-center">
                   <img src={DocumentText} alt="" />
                   <p>Export</p>
-                </div>
+                </div> */}
 
                 <div className="slider-area  d-flex-align-center">
                   <p>
@@ -255,7 +255,7 @@ function EmailTickets() {
               {tickets &&
                 tickets?.map((ticket, index) => (
                   <div
-                    key={() => String(index)}
+                    key={String(index)}
                     className="row d-flex-align-center"
                     onClick={() =>
                       history.push(`/EmailTickets/conversation/${ticket?._id}`)
@@ -265,9 +265,26 @@ function EmailTickets() {
                       <input type="checkbox" name="" id="" />
                     </div>
                     <div className="profile-area d-flex-align-center">
-                      <img src={Person1} alt="" />
+                      <div
+                        className="livechat-tag"
+                        style={{
+                          background: "#2D96D7",
+                        }}
+                      >
+                        {capitalize(
+                          ticket?.emailData?.from?.value[0]?.name ||
+                            ticket?.emailData?.from?.value[0]?.address
+                        )?.slice(0, 1) || 0}
+                      </div>
                       <div className="presentation">
-                        <h4>{ticket?.emailData?.subject}</h4>
+                        <h4
+                          style={{
+                            fontWeight:
+                              ticket?.status === "Pending" ? "bold" : "normal",
+                          }}
+                        >
+                          {ticket?.emailData?.subject}
+                        </h4>
                         <p>
                           <span>
                             {ticket?.emailData?.from?.value[0]?.name ||

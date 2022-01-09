@@ -338,7 +338,7 @@ function Home() {
                 </li>
                 <li
                   style={{ cursor: "pointer" }}
-                  onClick={() => history.push(`/settings/EmailTickets`)}
+                  onClick={() => history.push(`/settings/EmailSetup`)}
                   className="d-flex-align-center"
                 >
                   <img src={LiveChat} alt="" />

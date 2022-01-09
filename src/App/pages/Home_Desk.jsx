@@ -41,6 +41,7 @@ function Home_Desk() {
       {/* sidebar */}
       <Sidebar active="help_desk" />
       <div className="body-area">
+        <ComingSoon />
         <div className="body_sidebar">
           <div className="body_sidebar_box">
             {/* <img src={SpainFlag} alt="" />
@@ -196,5 +197,23 @@ function Home_Desk() {
     </div>
   );
 }
+
+const ComingSoon = () => (
+  <div
+    style={{
+      zIndex: 20,
+      position: "absolute",
+      background: "#ddd",
+      width: "100vw",
+      height: "100vh",
+      opacity: "0.7",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <h2 className="text-center">Coming Soon!</h2>
+  </div>
+);
 
 export default Home_Desk;

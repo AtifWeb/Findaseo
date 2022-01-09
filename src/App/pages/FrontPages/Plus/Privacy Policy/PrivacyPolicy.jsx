@@ -18,7 +18,7 @@ export const PrivacyPolicy = () => {
       <CommonHero
         imageSrc="../../images/privacy.svg"
         mainheading="Privacy Policy"
-        secondpara=" We respect your private information hence we want you to fully understand and become aware about our information collection process. This policy and all its clauses are applicable to Pavelify.com"
+        secondpara='Thank you for choosing to be part of our community at Pavelify Inc, doing business as Pavelify ("Pavelify," "we," "us," or "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice or our practices with regard to your personal information, please contact us at hello@pavelify.help.'
         thirdpara="By using our website, you consent to the data gathering practices used anywhere in the website."
       />
 

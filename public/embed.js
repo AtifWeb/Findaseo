@@ -1,4 +1,5 @@
-const url = "http://vcap.me:3000";
+// const url = "http://vcap.me:3000";
+const url = "https://pavelify.com";
 (function () {
   const PAVELIFY_WRAPPER_ID = "pavelify-container";
   const IFRAME_ID = "pavelify-iframe-element";
@@ -8,12 +9,15 @@ const url = "http://vcap.me:3000";
     window.addEventListener(
       "message",
       (e) => {
-        const data = JSON.parse(e.data);
+        let data = {};
+        try {
+          data = JSON.parse(e.data);
+        } catch (e) {}
 
-        if (data.type === "CLOSE_IFRAME") {
+        if (data.type && data.type === "CLOSE_IFRAME") {
           this.iframe.classList.remove("mobile");
           this.iframe.classList.remove("desktop");
-        } else if (data.type === "OPEN_IFRAME") {
+        } else if (data.type && data.type === "OPEN_IFRAME") {
           handleScreenSize();
         }
       },
@@ -77,17 +81,17 @@ const url = "http://vcap.me:3000";
         );
       };
 
-      window.onresize = (e) => {
-        handleScreenSize();
+      // window.onresize = (e) => {
+      //   handleScreenSize();
 
-        this.iframe.contentWindow.postMessage(
-          JSON.stringify({
-            type: "SCREEN_SIZE",
-            value: { width: window.innerWidth, height: window.innerHeight },
-          }),
-          "*"
-        );
-      };
+      //   this.iframe.contentWindow.postMessage(
+      //     JSON.stringify({
+      //       type: "SCREEN_SIZE",
+      //       value: { width: window.innerWidth, height: window.innerHeight },
+      //     }),
+      //     "*"
+      //   );
+      // };
     } else {
     }
   };

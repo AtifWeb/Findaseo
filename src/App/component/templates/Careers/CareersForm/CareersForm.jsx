@@ -37,7 +37,7 @@ export const CareersForm = () => {
             <input type="text" placeholder="Skills" className={styles.input} />
           </div>
 
-          <button className={styles.Button}>Try Pavelify for free</button>
+          <button className={styles.Button}>Use Pavelify for free</button>
         </form>
       </div>
     </div>

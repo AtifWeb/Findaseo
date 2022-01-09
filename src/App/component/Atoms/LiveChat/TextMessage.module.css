@@ -1,9 +1,10 @@
 .TextMessage {
-  background: #bbb;
+  background: rgb(239, 242, 246);
   display: inline-block;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 16px;
   font-size: 13px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
+  min-width: 25%;
   max-width: 80%;
 }

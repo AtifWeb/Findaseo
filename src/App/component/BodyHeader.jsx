@@ -139,7 +139,7 @@ function BodyHeader({ active }) {
       </form>
 
       <div className="right-area d-flex-align-center">
-        <button className="sm-btn">Upgrade</button>
+        {/* <button className="sm-btn">Upgrade</button> */}
         <div className="icon-wrapper">
           <svg
             width="24"
@@ -175,11 +175,24 @@ function BodyHeader({ active }) {
         <div style={{ position: "relative" }}>
           <NeutralButton onClick={() => setShowModal((prev) => !prev)}>
             <div className="profile-name-area d-flex-align-center">
-              <img
-                src={user?.picture ? user?.picture : Photo}
-                style={{ width: "40px", borderRadius: "50%" }}
-                alt=""
-              />
+              {user?.picture ? (
+                <img
+                  src={user?.picture}
+                  style={{ width: "40px", borderRadius: "50%" }}
+                  alt=""
+                />
+              ) : (
+                <div
+                  className="livechat-tag"
+                  style={{
+                    background: user?.color || "#2D96D7",
+                    marginRight: "5px",
+                  }}
+                >
+                  {user?.name?.slice(0, 1) || 0}
+                </div>
+              )}
+
               <p>{user?.name}</p>
               <div className="icon-wrapper">
                 <svg

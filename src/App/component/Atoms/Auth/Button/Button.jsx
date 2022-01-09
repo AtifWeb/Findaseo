@@ -9,6 +9,7 @@ export const Button = ({
   onClick = null,
   ext_class = null,
   loading = false,
+  link = "",
 }) => {
   return onClick === null ? (
     <button
@@ -18,13 +19,13 @@ export const Button = ({
     >
       {type !== null ? (
         <Link
-          to=""
+          to={link}
           className={`${styles.link} ${outline === true && styles.outline}`}
         >
           {text}
         </Link>
       ) : (
-        <p>{text}</p>
+        <p style={{ marginBottom: 0 }}>{text}</p>
       )}
     </button>
   ) : (
@@ -45,7 +46,9 @@ export const Button = ({
           {text}
         </Link>
       ) : (
-        <p>{loading ? <i className="fas fa-spin fa-spinner"></i> : text}</p>
+        <p style={{ marginBottom: 0 }}>
+          {loading ? <i className="fas fa-spin fa-spinner"></i> : text}
+        </p>
       )}
     </button>
   );

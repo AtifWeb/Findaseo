@@ -11,30 +11,25 @@ export const FooterOptions = [
       type: "image",
     },
     {
-      text: "Privacy Policy",
+      text: " Account",
       type: "listItems",
-      url: "/PrivacyPolicy",
+      url: "/auth/login",
     },
-    {
-      text: "Terms and conditions",
-      type: "listItems",
-      url: "/Terms",
-    },
-    // {
-    //   text: "Terms and conditions",
-    //   type: "listItems",
-    //   url: "#",
-    // },
     {
       text: "Careers",
       type: "listItems",
       url: "/careers",
     },
-    // {
-    //   text: " Affiliates",
-    //   type: "listItems",
-    //   url: "#",
-    // },
+    {
+      text: "Privacy Policy",
+      type: "listItems",
+      url: "/PrivacyPolicy",
+    },
+    {
+      text: "Terms of Use",
+      type: "listItems",
+      url: "/Terms",
+    },
   ],
   [
     {
@@ -46,11 +41,11 @@ export const FooterOptions = [
       type: "listItems",
       url: "/features",
     },
-    {
-      text: "Pricing",
-      type: "listItems",
-      url: "/pricing",
-    },
+    // {
+    //   text: "Pricing",
+    //   type: "listItems",
+    //   url: "/pricing",
+    // },
     // {
     //   text: "Product",
     //   type: "listItems",
@@ -59,7 +54,8 @@ export const FooterOptions = [
     {
       text: "Support",
       type: "listItems",
-      url: "/",
+      url: "mail:hello@pavelify.help",
+      external: true,
     },
   ],
   // [

@@ -47,6 +47,13 @@ function Settings() {
                   </Link>
                 </li>
                 <li
+                  className={params?.channel === "EmailSetup" ? "active" : ""}
+                >
+                  <Link onClick={() => history.push("/settings/EmailSetup")}>
+                    Email Setup
+                  </Link>
+                </li>
+                <li
                   className={params?.channel === "EmailTickets" ? "active" : ""}
                 >
                   <Link onClick={() => history.push("/settings/EmailTickets")}>
@@ -97,13 +104,7 @@ function Settings() {
                     Integration
                   </Link>
                 </li>
-                <li
-                  className={params?.channel === "EmailSetup" ? "active" : ""}
-                >
-                  <Link onClick={() => history.push("/settings/EmailSetup")}>
-                    Email Setup
-                  </Link>
-                </li>
+
                 {/* <li>
                   <Link to="/dashhboard/SettingsIntegration">Integration</Link>
                 </li>{" "}

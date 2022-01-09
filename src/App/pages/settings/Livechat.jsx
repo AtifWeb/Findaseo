@@ -32,7 +32,6 @@ const LiveChatSettings = () => {
         },
       })
         .then((result) => {
-          console.log(result.data.configuration);
           if (result.data.success) {
             setPreChat(
               JSON.parse(result.data.configuration.chatConfiguration.preChat)
@@ -120,8 +119,11 @@ const LiveChatSettings = () => {
           </div>
           <div action="" className="body">
             <div className="container text-center">
-              <h3>Paste this in the body of your website:</h3>
-              <div className="form-group mb-3">
+              <h3>
+                Paste this on every page of your website you want the live chat
+                widget to appear:
+              </h3>
+              <div className="form-group mb-3 mt-1">
                 <textarea
                   readOnly
                   name=""

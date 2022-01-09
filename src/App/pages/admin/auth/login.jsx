@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import handleError from "App/helpers/handleError";
-import { saveLogin } from "App/helpers/auth/index";
+import { saveAdmin } from "App/helpers/auth/index";
 // import { useHistory } from "react-router-dom";
 import StatusAlert, { StatusAlertService } from "react-status-alert";
 import "react-status-alert/dist/status-alert.css";
@@ -13,32 +13,30 @@ function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(loading);
+
   const subdomain = useGetSubdomain();
   const signIn = () => {
     setLoading(true);
     Axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/auth/login`,
+      url: `${process.env.REACT_APP_BASE_URL}/back/auth/login`,
       data: {
         email,
         password,
-        companyName: subdomain,
       },
     })
       .then((result) => {
         setLoading(false);
-        console.log(result.data);
+
         if (result.data.success) {
           let { user } = result.data;
-          if (user.cID && user.name && user.token) {
+          if (user._id && user.name && user.token) {
             const alertID = StatusAlertService.showSuccess(
               "Signed in successfully"
             );
-            console.log(alertID);
-            saveLogin({
-              cID: user.cID,
-              companyName: user.companyName,
+
+            saveAdmin({
+              _id: user._id,
               name: user.name,
               token: user.token,
               logged: true,
@@ -54,7 +52,7 @@ function Login(props) {
         const alertID = StatusAlertService.showError(
           handleError(e) || "An error came up, please try again"
         );
-        console.log(alertID);
+
         setLoading(false);
       });
   };
@@ -68,7 +66,7 @@ function Login(props) {
             <div className="card rounded-0 shadow text-white mb-3">
               <div className="card-header bg-primary text-center ">
                 {" "}
-                Sign In as Operator
+                Sign in as Admin
               </div>
               {props.error ? (
                 <p className="alert alert-danger">{props.error}</p>

@@ -29,6 +29,9 @@ import randomColor from "App/helpers/randomColor";
 import SpainFlag from "../../Assets/img/flag-spain.png";
 import Modal from "App/component/Modal";
 import { Helmet } from "react-helmet";
+import Picker from "emoji-picker-react";
+import ReactHtmlParser from "react-html-parser";
+import linkify from "helpers/linkify";
 
 window.currentDate = "";
 window.currentWho = "";
@@ -45,6 +48,8 @@ const Status = styled.span`
   right: 15px;
 `;
 
+let audio = new Audio("/sound/newMessage.wav");
+
 function LiveChat() {
   const history = useHistory();
   const socket = useContext(SocketContext);
@@ -57,7 +62,6 @@ function LiveChat() {
   const params = useParams();
   const [prevLoaded, setPrevLoaded] = useState(false);
   const [chats, setChats] = useState([]);
-  const [currentDate, setCurrentDate] = useState("");
   const [message, setMessage] = useState("");
   const [filter, setFilter] = useState("");
   const { unreadChats } = useSelector((store) => store);
@@ -70,6 +74,12 @@ function LiveChat() {
   const [operatorID, setOperatorID] = useState("");
   const [pages, setPages] = useState([]);
   const [currentSideTab, setCurrentSideTab] = useState(0);
+
+  const [showEmoji, setShowEmoji] = useState(false);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setMessage((m) => m + emojiObject.emoji);
+  };
 
   useEffect(() => {
     if (window.innerWidth < 1201) {
@@ -96,6 +106,12 @@ function LiveChat() {
     fetchQuckResponse();
     fetchOperators();
   }, []);
+
+  const closeQuickResponse = () => {
+    if (showQuick) {
+      setShowQuick(false);
+    }
+  };
 
   const fetchOperators = () => {
     user &&
@@ -173,7 +189,9 @@ function LiveChat() {
                 new Date(b.latestChat.timestamp).getTime() -
                 new Date(a.latestChat.timestamp).getTime()
             );
-            console.log({ c });
+            if (!params.user && c.length) {
+              return history.push(`/LiveChat/${c[0]?.uuid}`);
+            }
             setConversation(
               params.user
                 ? [
@@ -182,6 +200,7 @@ function LiveChat() {
                   ]
                 : c
             );
+
             setOperatorID(result.data.operatorID);
             let p = result.data.pages;
             p.sort((a, b) => b.timestamp - a.timestamp);
@@ -213,6 +232,7 @@ function LiveChat() {
       socket.emit("operatorJoined", {
         roomID: generateRoomID(user.cID, chatter),
         operatorName: user.name,
+        picture: user?.picture,
       });
 
       socket.on("previousConversation", (convs) => {
@@ -223,7 +243,7 @@ function LiveChat() {
         }
       });
       socket.on("message", (message) => {
-        addConversations([message]);
+        addConversations([message], true);
       });
     }
   }, [chatter, socket]);
@@ -232,7 +252,8 @@ function LiveChat() {
     scrollDown();
   }, [chats]);
 
-  const addConversations = useCallback((convs) => {
+  const addConversations = useCallback((convs, newMessage = false) => {
+    newMessage && audio.play();
     setChats((chats) => [...chats, ...convs]);
   }, []);
 
@@ -294,7 +315,7 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_img_user" alt="" /> */}
-              <p>{chat.message}</p>
+              <p>{ReactHtmlParser(linkify(chat.message))}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{visitor.name}</p>
                 <p>.</p>
@@ -318,7 +339,7 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_user" alt="" /> */}
-              <p>{chat.message}</p>
+              <p>{ReactHtmlParser(linkify(chat.message))}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{visitor.name}</p>
                 <p>.</p>
@@ -354,7 +375,7 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_img_user" alt="" /> */}
-              <p>{chat?.message}</p>
+              <p>{ReactHtmlParser(linkify(chat?.message))}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">Jhon</p>
                 <p>.</p>
@@ -377,7 +398,7 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_img_user" alt="" /> */}
-              <p>{chat?.message}</p>
+              <p>{ReactHtmlParser(linkify(chat?.message))}</p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{user?.name}</p>
                 <p>.</p>
@@ -457,7 +478,7 @@ function LiveChat() {
   };
 
   return (
-    <div className="LiveChat main-wrapper d-flex">
+    <div className="LiveChat main-wrapper d-flex" onClick={closeQuickResponse}>
       <Helmet>
         <title>Live Chat - Pavelify</title>
       </Helmet>
@@ -580,6 +601,11 @@ function LiveChat() {
                           history.push(`/LiveChat/${conversation?.uuid}`)
                         }
                         key={String(conversation?.uuid)}
+                        style={
+                          conversation?.uuid === params.user
+                            ? { background: "#ddd" }
+                            : null
+                        }
                         className="user d-flex-align-center cursor-pointer"
                       >
                         <div className="images_wrapper">
@@ -739,65 +765,96 @@ function LiveChat() {
                 </div>
               </div> */}
 
-                <div className="messages-container-wrapper  position-relative">
+                <div className="messages-container-wrapper position-relative">
                   <div className="message-container">
                     {chats &&
                       chats.map((chat, index) => loadMessages(chat, index))}
                     <div ref={messagesEndRef} />
                   </div>
-
-                  {(user.isCompany && user.cID === operatorID) ||
-                  user.operatorID === operatorID ? (
-                    <div className="message-sender-form">
-                      {showQuick ? (
-                        <div
-                          style={{
-                            position: "absolute",
-                            boxShadow: "2px 3px 3px lightgrey",
-                            background: "white",
-                            width: "90%",
-                            height: "200px",
-                            bottom: "100px",
-                            // left: "20%",
-                            borderRadius: "4px",
-                          }}
-                          className="py-2"
-                        >
-                          <ul
-                            className="px-2"
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              flexDirection: "column",
-                            }}
-                          >
-                            {quickResponses?.map((q) => (
-                              <li
-                                key={q}
-                                className="py-2 px-3 mb-2"
-                                style={{
-                                  boxShadow: "1px 1px 1px 1px lightgrey",
-                                  width: "100%",
-                                  borderRadius: "6px",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => setMessage(q)}
-                              >
-                                {q}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                      <ul
-                        className="message_sender_list px-3"
-                        style={{ marginBottom: 0 }}
+                  {showEmoji ? (
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "50px",
+                        background: "white",
+                        width: "80%",
+                      }}
+                    >
+                      <div
+                        className="pe-3 py-1"
+                        style={{ display: "flex", justifyContent: "flex-end" }}
                       >
-                        <li onClick={() => setShowQuick((p) => !p)}>
-                          Quick Response
-                        </li>
-                      </ul>
-                      <div className="input-wrapper d-flex-align-center py-2">
+                        <button
+                          onClick={() => setShowEmoji((b) => !b)}
+                          type="button"
+                          style={{
+                            border: "none",
+                            textAlign: "right",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <i className="fa fa-times"></i>
+                        </button>
+                      </div>
+                      <Picker
+                        pickerStyle={{ width: "100%" }}
+                        onEmojiClick={onEmojiClick}
+                      />
+                    </div>
+                  ) : null}
+                  {/* {(user.isCompany && user.cID === operatorID) ||
+                  user.operatorID === operatorID ? ( */}
+                  <div className="message-sender-form">
+                    {showQuick ? (
+                      <div
+                        style={{
+                          position: "absolute",
+                          boxShadow: "2px 3px 3px lightgrey",
+                          background: "white",
+                          width: "90%",
+                          height: "200px",
+                          bottom: "100px",
+                          // left: "20%",
+                          borderRadius: "4px",
+                        }}
+                        className="py-2"
+                      >
+                        <ul
+                          className="px-2"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                          }}
+                        >
+                          {quickResponses?.map((q) => (
+                            <li
+                              key={q}
+                              className="py-2 px-3 mb-2"
+                              style={{
+                                boxShadow: "1px 1px 1px 1px lightgrey",
+                                width: "100%",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => setMessage(q)}
+                            >
+                              {q}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    <ul
+                      className="message_sender_list px-3"
+                      style={{ marginBottom: 0 }}
+                    >
+                      <li onClick={() => setShowQuick((p) => !p)}>
+                        Quick Response
+                      </li>
+                    </ul>
+                    <div className="input-wrapper py-2">
+                      <div className=" d-flex-align-center mb-2">
                         <input
                           value={message}
                           type="text"
@@ -808,7 +865,7 @@ function LiveChat() {
                             var event = e || window.event;
                             var charCode = event.which || event.keyCode;
 
-                            if (charCode === "13") {
+                            if (charCode === 13) {
                               // Enter pressed
                               messageSender();
                             }
@@ -822,16 +879,14 @@ function LiveChat() {
                           disabled={!message?.trim()}
                         ></button>
 
-                        <i className="fas fa-paperclip"></i>
-                        <i className="far fa-smile-beam"></i>
                         <label
                           disabled={!message?.trim()}
                           htmlFor="message-submit"
                           className="icon-wrapper"
                         >
                           <svg
-                            width="31"
-                            height="31"
+                            width="40"
+                            height="40"
                             viewBox="0 0 31 31"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -849,8 +904,32 @@ function LiveChat() {
                           </svg>
                         </label>
                       </div>
+                      <div>
+                        <button
+                          style={{
+                            border: "none",
+                            background: "transparent",
+                            cursor: "pointer",
+                          }}
+                          type="button"
+                        >
+                          <i className="fas fa-paperclip"></i>
+                        </button>
+                        <button
+                          onClick={() => setShowEmoji((b) => !b)}
+                          style={{
+                            border: "none",
+                            background: "transparent",
+                            cursor: "pointer",
+                          }}
+                          type="button"
+                        >
+                          <i className="far fa-smile-beam"></i>
+                        </button>
+                      </div>
                     </div>
-                  ) : null}
+                  </div>
+                  {/* ) : null} */}
                 </div>
               </div>
             ) : null}

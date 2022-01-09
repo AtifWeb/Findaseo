@@ -3,10 +3,7 @@ import StatusAlert, { StatusAlertService } from "react-status-alert";
 import "react-status-alert/dist/status-alert.css";
 import { useParams } from "react-router";
 import { getUser, saveLogin } from "App/helpers/auth";
-import Axios from "Lib/Axios/axios";
-import handleError from "App/helpers/handleError";
-import { Link } from "react-router-dom";
-import { data } from "App/Utils/DashboardChart";
+import copy from "clipboard-copy";
 import pic1 from "../../../Assets/img/Page-1-Image-1s.jpg";
 import pic2 from "../../../Assets/img/Page-1-Image-2s.jpg";
 import pic3 from "../../../Assets/img/Page-1-Image-3s.jpg";
@@ -25,16 +22,12 @@ import pic15 from "../../../Assets/img/Page-2-Image-15.jpg";
 import pic16 from "../../../Assets/img/Page-3-Image-16.jpg";
 
 const EmailSetup = () => {
-  const [from, setFrom] = useState(new Date());
-  const [to, setTo] = useState(new Date());
   const [user] = useState(getUser());
-  const [loading, setLoading] = useState(false);
-  const [name, setName] = useState(user?.name);
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [picture, setPicture] = useState("");
 
+  const copyLink = async (link) => {
+    await copy(link);
+    const alertID = StatusAlertService.showSuccess("Copied successfully");
+  };
   return (
     <div className="right-side account-right-side email_provider">
       <StatusAlert />
@@ -44,9 +37,21 @@ const EmailSetup = () => {
         to switch between different tabs/websites just to answer customer
         queries.{" "}
       </p>
+      <p>
+        <br />
+      </p>
+      <p>
+        To send the email to another department, change <mark>contact</mark> to
+        another department. e.g{" "}
+        <mark>billing@{user?.companyName}.pavelify.com</mark>.
+      </p>
       <div className="step step1">
         <h3>1. Copy the following email</h3>
-        <p>Example@pavelify.com</p>
+        <p
+          onClick={() => copyLink(`contact@${user?.companyName}.pavelify.com`)}
+        >
+          contact@{user?.companyName}.pavelify.com
+        </p>
       </div>
       <div className="step">
         <h3>2. Setup email Forwarding</h3>
@@ -67,13 +72,13 @@ const EmailSetup = () => {
           href="https://support.google.com/mail/answer/10957?hl=en#zippy=%2Cturn-automatic-fowarding-on-or-off"
           target="_blank"
         >
-          Microsoft 365 Business Instructions{" "}
+          Google Gmail Instructions{" "}
         </a>
       </div>
       <div className="email_provider_pure">
         <img src={pic2} alt="" />
         <a
-          href="Instructions https://docs.microsoft.com/en-us/microsoft-365/admin/email/configure-email-forwarding?view=o365-worldwide"
+          href="https://docs.microsoft.com/en-us/microsoft-365/admin/email/configure-email-forwarding?view=o365-worldwide"
           target="_blank"
         >
           Microsoft 365 Business Instructions

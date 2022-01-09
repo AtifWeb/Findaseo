@@ -12,6 +12,7 @@ import {
   addUnreadChats,
   addUnreadTickets,
   addVisitors,
+  addUpcomingBookings,
 } from "App/redux/actions";
 
 export const Badge = styled.span`
@@ -26,24 +27,30 @@ export const Badge = styled.span`
   line-height: 20px;
   top: 5px;
 `;
-
+let audio = new Audio("/sound/incomingVisitor.wav");
 function Sidebar({ active }) {
   const params = useParams();
   const location = useLocation();
   const history = useHistory();
   const route = location.pathname.split("/")[1];
 
-  const { onlineVisitors, unreadTickets, unreadChats } = useSelector(
-    (store) => store
-  );
+  const { onlineVisitors, unreadTickets, unreadChats, upcomingBookings } =
+    useSelector((store) => store);
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const [user] = useState(getUser());
 
-  const handleJoinVisitors = useCallback(({ visitors, tickets }) => {
-    tickets !== undefined && dispatch(addUnreadTickets(tickets));
-    dispatch(addVisitors(visitors));
-  }, []);
+  const handleJoinVisitors = useCallback(
+    ({ visitors, tickets, upcomingBookings }) => {
+      tickets !== undefined && dispatch(addUnreadTickets(tickets));
+      upcomingBookings && dispatch(addUpcomingBookings(upcomingBookings));
+      dispatch(addVisitors(visitors));
+      visitors?.length &&
+        visitors?.length > onlineVisitors?.length &&
+        audio.play();
+    },
+    []
+  );
 
   const handeUnreadChats = useCallback(({ unreadChats }) => {
     dispatch(addUnreadChats(unreadChats));
@@ -56,6 +63,10 @@ function Sidebar({ active }) {
 
     socket.on("onlineVisitors", handleJoinVisitors);
     socket.on("unreadChats", handeUnreadChats);
+    return () => {
+      socket.off("onlineVisitors", handleJoinVisitors);
+      socket.off("unreadChats", handeUnreadChats);
+    };
   }, [handleJoinVisitors, socket, handeUnreadChats]);
 
   return (
@@ -141,6 +152,7 @@ function Sidebar({ active }) {
                 fill="#6A7097"
               />
             </svg>
+            {upcomingBookings ? <Badge> {upcomingBookings}</Badge> : null}
           </Link>
         </li>
 

@@ -25,6 +25,7 @@ import { format } from "date-fns";
 import styled from "styled-components";
 import ReactHtmlParser from "react-html-parser";
 import Modal from "App/component/Modal";
+import linkify from "helpers/linkify";
 window.currentDate = "";
 window.currentPerson = false;
 
@@ -310,11 +311,12 @@ function EmailTicketConversation() {
           <p>
             {reply
               ? ticket.byOperator
-                ? ticket.message
-                : ticket?.html
-                ? ReactHtmlParser(ticket?.html)
-                : ReactHtmlParser(ticket?.textAsHtml)
-              : ticket?.emailData?.text}
+                ? ReactHtmlParser(linkify(ticket.message))
+                : ReactHtmlParser(linkify(ticket?.textAsHtml))
+                ? ReactHtmlParser(ticket?.textAsHtml)
+                : ReactHtmlParser(ticket?.html)
+              : ReactHtmlParser(linkify(ticket?.emailData?.text)) ||
+                ReactHtmlParser(ticket?.emailData?.html)}
           </p>
           <div className="date-area d-flex-align-center">
             <p className="name">

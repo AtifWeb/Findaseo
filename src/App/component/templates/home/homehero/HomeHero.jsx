@@ -19,7 +19,7 @@ export const HomeHero = () => {
         </small>
 
         <UsePavelifyLink
-          text="Try Pavelify for Free"
+          text="Use Pavelify for Free"
           style={{ width: "35%" }}
           link="/auth/register"
         />

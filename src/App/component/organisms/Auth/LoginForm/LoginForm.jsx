@@ -92,7 +92,12 @@ export const LoginForm = () => {
 
       <span className={styles.helpingMessage}>New here?</span>
 
-      <Button text="Register" type="link" outline={true} />
+      <Button
+        link="/auth/register"
+        text="Register"
+        type="link"
+        outline={true}
+      />
     </div>
   );
 };

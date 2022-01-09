@@ -22,13 +22,22 @@ export const FooterList = ({ EachList }) => {
               >
                 {EachItem.type === "heading" ? (
                   EachItem.text
-                ) : (
+                ) : !EachItem.external ? (
                   <Link
                     style={{ color: "white" }}
                     to={{ pathname: EachItem.url }}
                   >
                     {EachItem.text}
                   </Link>
+                ) : (
+                  <a
+                    style={{ color: "white" }}
+                    target="_blank"
+                    href={EachItem.url}
+                  >
+                    {" "}
+                    {EachItem.text}
+                  </a>
                 )}
               </li>
             ))}

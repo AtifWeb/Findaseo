@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import { isLogin } from "../helpers/auth/index";
+import { isLogin, adminLogged } from "../helpers/auth/index";
 
 import Settings from "App/pages/Settings";
 import Contact from "App/pages/Contact";
@@ -15,7 +15,7 @@ import Calendars from "App/pages/calendar/Calendars";
 import Booking from "App/pages/calendar/Booking";
 import Home_Desk from "App/pages/Home_Desk";
 import Todolist from "App/pages/home/Todolist";
-import Logout from "App/pages/auth/logout";
+import Logout from "App/pages/admin/auth/logout";
 
 import SettingsEmailSetup from "App/pages/SettingsEmailSetup";
 import SettingsAccount from "App/pages/SettingsAccount";
@@ -43,8 +43,9 @@ import useGetSubdomain from "App/hooks/useGetSubdomain";
 // import { Features } from "./App/pages/FrontPages/Plus/Features/Features";
 // import { Careers } from "./App/pages/FrontPages/Plus/Careers/Careers";
 // import { PrivacyPolicy } from "./App/pages/FrontPages/Plus/Privacy Policy/PrivacyPolicy";
-// import { Login } from "./App/pages/FrontPages/Plus/Auth/Login/Login";
-// import { Register } from "./App/pages/FrontPages/Plus/Auth/Register/Register";
+import ALogin from "App/pages/admin/auth/login";
+import ARegister from "App/pages/admin/auth/register";
+import ADashboard from "App/pages/admin/dashboard/index";
 import { Calender } from "App/pages/FrontPages/Plus/Calender/Calender";
 import { ConfirmationPopUpCalender } from "App/pages/FrontPages/Plus/ConfirmationPopUpCalender/ConfirmationPopUpCalender";
 
@@ -108,6 +109,7 @@ const AuthRoutes = () => {
           />
         </Switch>
       );
+      break;
 
     case "livechat":
       return (
@@ -117,6 +119,7 @@ const AuthRoutes = () => {
           </Route>
         </Switch>
       );
+      break;
 
     case "meeting":
       return (
@@ -127,6 +130,7 @@ const AuthRoutes = () => {
         </Switch>
       );
 
+      break;
     case "app":
       return isLogin() ? (
         <Switch>
@@ -212,6 +216,28 @@ const AuthRoutes = () => {
               return null;
             }}
           />
+        </Switch>
+      );
+    case "back":
+      return adminLogged() ? (
+        <Switch>
+          <Route path="/" exact>
+            <ADashboard />
+          </Route>
+          <Redirect from="*" to="/" />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route path="/" exact>
+            <ALogin />
+          </Route>
+          <Route path="/login" exact>
+            <ALogin />
+          </Route>
+          <Route path="/register" exact>
+            <ARegister />
+          </Route>
+          <Redirect from="*" to="/" />
         </Switch>
       );
 

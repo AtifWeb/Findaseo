@@ -41,6 +41,38 @@
   height: 10px;
   display: block;
 }
+
+.domainInputWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.domainInputWrapper input {
+  width: 100%;
+  flex: 1;
+  height: 50px;
+  outline: none;
+  padding: 0rem 1rem;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-right: 0px;
+  font-family: "Poppins", sans-serif;
+}
+.domainInputWrapper p {
+  width: 140px;
+  border: 1px solid #ddd;
+  border-left: 0px;
+  display: flex;
+  height: 50px;
+  color: #3e5a58;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f0ec;
+  margin: 0px;
+  font-size: 15px;
+  text-align: center;
+}
 @media screen and (max-width: 650px) {
   .RegisterForm {
     width: 100%;

@@ -23,7 +23,6 @@ const EmailTicket = () => {
         },
       })
         .then((result) => {
-          console.log(result.data.configuration);
           if (result.data.success) {
             setAutoResponse(result.data.configuration.emailAutoResponse);
             setLoading(false);

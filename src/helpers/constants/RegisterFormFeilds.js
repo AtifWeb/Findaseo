@@ -25,15 +25,15 @@ export const Fields = [
     },
     {
       object: "InputWrapper",
-      label: "Phone Number",
-      id: "phone_number",
+      label: "Company Website",
+      id: "cweb",
       inputType: "text",
-      inputPlaceholder: "Enter Phone Name",
+      inputPlaceholder: "Enter Your Website",
     },
   ],
   [
     {
-      object: "GridInputWrapper",
+      object: "InputWrapper",
       label: "Company name",
       id: "cname",
       inputType: "text",
@@ -41,19 +41,8 @@ export const Fields = [
     },
 
     {
-      object: "radio",
-      type: "radio",
-      id: "radio",
-      heading: "What are you solving for?",
-      checkboxes: [
-        "Manage customer service requests",
-        "Manage and engage sales leads ",
-        "Both of Above",
-      ],
-    },
-    {
-      object: "InputWrapper",
-      label: "Your subdomain",
+      object: "subdomain",
+      label: "Your Pavelify Subdomain",
       id: "subdomain",
       inputType: "slug",
       inputPlaceholder: "Enter Subdomain Name",
@@ -66,9 +55,16 @@ export const Fields = [
       inputType: "password",
       inputPlaceholder: "Enter Password",
     },
-    // {
-    //   object: "button",
-    //   text: "Complete",
-    // },
+
+    {
+      object: "button",
+      text: "Complete",
+    },
+    {
+      object: "text",
+      text: `By clicking "Complete" you acknowledge and accept `,
+      linkterm: "Pavelify Terms",
+      linkprivacy: "Privacy Notice",
+    },
   ],
 ];
