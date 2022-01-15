@@ -8,6 +8,7 @@
   height: 100px;
   display: flex;
   align-items: center;
+  z-index: 9;
 }
 .HeaderContent {
   display: flex;

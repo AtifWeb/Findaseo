@@ -4,6 +4,7 @@ import styles from "./HomePage.module.css";
 import { ComingSoon } from "../../../component/templates/ComingSoon/ComingSoon";
 import { HomeHero } from "../../../component/templates/home/homehero/HomeHero";
 import { HomeWebsiteService } from "../../../component/templates/home/HomeWebsiteService/HomeWebsiteService";
+import CustomerReviews from "../../../component/templates/CustomerReviews/CustomerReviews";
 import { HomeContactBanner } from "../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
 import { CommonHero } from "../../../component/templates/Common/CommonHero/CommonHero";
 
@@ -25,6 +26,10 @@ Real Time Analytics
 "
         secondpara="See real time visitors lists on your website. Know where they are coming from and their interaction history across your website. Personalize your messaging."
       />
+
+      {/* Reviews Area */}
+
+      <CustomerReviews />
 
       {/* banner */}
       <HomeContactBanner />
