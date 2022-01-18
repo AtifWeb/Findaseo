@@ -8,7 +8,7 @@ import { Reviews } from "./Reviews";
 const CustomerReviews = () => {
   return (
     <div className={styles.ReviewsWrapper}>
-      <h1>What Our People are Saying</h1>
+      <h1>What People are Saying</h1>
 
       <div className={styles.sliderWrapper}>
         <Splide
