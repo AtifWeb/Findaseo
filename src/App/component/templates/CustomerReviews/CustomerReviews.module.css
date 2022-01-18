@@ -1,10 +1,11 @@
 .ReviewsWrapper {
   padding-bottom: 5rem;
   padding-top: 5rem;
-  background-color: #edf0f5;
+  background-color: #f8f9f9;
 }
 .ReviewsWrapper .sliderWrapper {
-  width: 85%;
+  width: 90%;
+
   cursor: grab;
   margin: 0rem auto !important;
 }
@@ -24,7 +25,7 @@
   transform: translateX(-50%);
   height: 3px;
   width: 150px;
-  background-color: #326bff;
+  background-color: #333;
 }
 .ReviewsWrapper ul {
   padding: 0px;

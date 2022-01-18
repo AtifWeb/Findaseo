@@ -6,7 +6,7 @@ export const Reviews = [
     review:
       "We have been using Pavelify and it seems to be one of the best addition we did to our business this year. The crazy thing is that it is free. Our team and business is more organized and we have seen our customers love us more ",
     img: ReviewImage1,
-    name: "Victor Enrique",
+    name: "Victor E",
     belowName: "Director of Growth at Conterize",
   },
   {
@@ -20,14 +20,14 @@ export const Reviews = [
     review:
       "Pavelify has completely unified our customer support and sales team. Support is top notch. If we have gotten most of their features from other platforms we would have been spending more money per year. The free live chat, ticketing and appointment scheduling has been so great for our business. ",
     img: ReviewImage3,
-    name: "Betty Andrew",
-    belowName: "P  Marketing  at AZ Media",
+    name: "Betty A",
+    belowName: "VP  Marketing  at AZ Media",
   },
   {
     review:
       "We have been using Pavelify and it seems to be one of the best addition we did to our business this year. The crazy thing is that it is free. Our team and business is more organized and we have seen our customers love us more ",
     img: ReviewImage1,
-    name: "Victor Enrique",
+    name: "Victor E",
     belowName: "Director of Growth at Conterize",
   },
   {
@@ -41,7 +41,7 @@ export const Reviews = [
     review:
       "Pavelify has completely unified our customer support and sales team. Support is top notch. If we have gotten most of their features from other platforms we would have been spending more money per year. The free live chat, ticketing and appointment scheduling has been so great for our business. ",
     img: ReviewImage3,
-    name: "Betty Andrew",
-    belowName: "P  Marketing  at AZ Media",
+    name: "Betty A",
+    belowName: "VP  Marketing  at AZ Media",
   },
 ];
