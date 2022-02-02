@@ -1,0 +1,61 @@
+.CardReviewWrapper {
+  height: 100%;
+  border-radius: 20px;
+  padding: 2rem 2rem;
+}
+.CardReview {
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  height: 100%;
+  border-radius: 20px;
+}
+.CardReview > p {
+  color: rgb(109, 107, 107);
+  font-size: 14px;
+  text-align: center;
+}
+.profile_user {
+  display: flex;
+  align-items: flex-end;
+}
+.user_img {
+  width: 50px;
+  height: 50px;
+
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile_name {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.profile_name h1 {
+  font-size: 14px;
+
+  margin-bottom: 0px;
+}
+.profile_name p {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+@media screen and (max-width: 500px) {
+  .CardReview {
+    padding: 2rem 1rem;
+  }
+  .user_img {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  .profile_name h1 {
+    font-size: 13px;
+  }
+  .profile_name p {
+    font-size: 11px;
+  }
+  .CardReview > p {
+    font-size: 12px;
+  }
+}

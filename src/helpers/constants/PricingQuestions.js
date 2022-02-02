@@ -1,17 +1,26 @@
 export const PricingQuestion = [
   {
+    question: "What happens after the free trial?",
+    answer:
+      "After the free trial period, you can chose any plan of your choice. You can upgrade to a higher plan or downgrade to lower plan or even to the free plan. So there isn’t any upfront obligation and no payment details required to start your free trial. ",
+  },
+  {
     question: "Is the free plan free forever? ",
     answer:
-      "Pavelify supports all businesses at every stage. Our free plan is free forever. The free plan is only for live chat and without real time visitors analytics. However, if you want to gain access to all Pavelify features, you will have to upgrade to any of the paid plans where you will have access to real time visitors analytics, Email ticketing, appointment scheduling and lots more with the option of adding a higher number of support agents. ",
+      "The free plan is free forever. You can downgrade to the free plan at any time of your choice or upgrade to higher plans. ",
   },
   {
     question: "Can I Upgrade or Downgrade at any time?",
-    answer:
-      "Absolutely. You can chose to upgrade to higher plans or downgrade to lower plans at any time of your choice. You will have this option on your dashboard. ",
+    answer: "Sure, you can upgrade or downgrade your plan at any time. ",
   },
   {
-    question: "What will happen if my trial elapse?",
+    question: "Is it possible to pay yearly?",
     answer:
-      "After your free trials you will be required to pay the specific fee for the chosen trial or chose any of the plans available plans.",
+      "Yes, it is possible to pay yearly. You can enable yearly payment from your Pavelify account. There are additional discounts for yearly payments as well.",
+  },
+  {
+    question:
+      "Are there limits to the number of messages or contacts per month?",
+    answer: "Are there limits to the number of messages or contacts per month?",
   },
 ];
