@@ -44,14 +44,17 @@ import {
   last6Months,
 } from "./analytics/filters";
 import { format } from "date-fns";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { useQuery } from "react-query";
+import { fetchStats } from "Lib/Axios/endpoints/queries";
 function Analytics() {
   const history = useHistory();
   const [user] = useState(getUser());
-  const [contacts, setContacts] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [tickets, setTickets] = useState([]);
-  const [visits, setVisits] = useState([]);
+
+  const {
+    data: { bookings, contacts, visits, tickets },
+  } = useQuery("stats", fetchStats, { initialData: {} });
+
   const [visitsByCountry, setVisitsByCountry] = useState({});
   const [visitsByCountryCode, setVisitsByCountryCode] = useState({});
   const [loading, setLoading] = useState(false);
@@ -101,10 +104,6 @@ function Analytics() {
       ],
     };
   };
-
-  useEffect(() => {
-    fetchStats();
-  }, []);
 
   useEffect(() => {
     visits && filterByCountry();
@@ -202,32 +201,6 @@ function Analytics() {
     }
     setVisitsByCountryCode(countries);
     // console.log({ countries });
-  };
-
-  const fetchStats = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/getStats`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setTickets(result.data.stats?.tickets);
-            setBookings(result.data.stats?.bookings);
-            setContacts(result.data.stats?.contacts);
-            setVisits(result.data.stats?.visits);
-            // console.log({ visits: result.data.stats?.visits });
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
   };
 
   return (

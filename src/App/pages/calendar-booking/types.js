@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Edit from "../../../Assets/img/edit-2.png";
 import Trash from "../../../Assets/img/trash.png";
-// import { format } from "date-fns";
 
 const CalendarTypes = ({ type, bookings, past, upcoming }) => {
   const [meetings, setMeetings] = useState(bookings);

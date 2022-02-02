@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { CalenderBookingArea } from "../../../../component/templates/Calender/CalenderBookingArea/CalenderBookingArea";
 
 import { PeronMettingArea } from "../../../../component/templates/Calender/PeronMettingArea/PeronMettingArea";

@@ -12,7 +12,7 @@ import QuickReponseSettings from "./settings/QuickResponse";
 import Notifications from "./settings/Notifications";
 import Todolist from "./home/Todolist";
 import Account from "./settings/Account";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import EmailSetup from "./settings/EmailSetup";
 import Integrations from "./settings/Integrations";
 

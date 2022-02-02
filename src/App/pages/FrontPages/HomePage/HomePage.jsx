@@ -6,7 +6,7 @@ import { HomeHero } from "../../../component/templates/home/homehero/HomeHero";
 import { HomeWebsiteService } from "../../../component/templates/home/HomeWebsiteService/HomeWebsiteService";
 import { HomeContactBanner } from "../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
 import { CommonHero } from "../../../component/templates/Common/CommonHero/CommonHero";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export const HomePage = () => {
   return (

@@ -18,12 +18,13 @@ import { format } from "date-fns";
 import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { useQuery } from "react-query";
+import { fetchStats } from "Lib/Axios/endpoints/queries";
 function LiveVisitors() {
   const history = useHistory();
   const onlineVisitors = useSelector((store) => store.onlineVisitors);
   const [user] = useState(getUser());
-  const [visits, setVisits] = useState([]);
   const [visitsByCountry, setVisitsByCountry] = useState([]);
   const [visitsByCountryCode, setVisitsByCountryCode] = useState({});
   const [loading, setLoading] = useState(false);
@@ -31,9 +32,11 @@ function LiveVisitors() {
     ...visitsByCountryCode,
   };
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
+  const {
+    data: { visits },
+  } = useQuery("stats", fetchStats, {
+    initialData: {},
+  });
 
   useEffect(() => {
     visits && filterByCountry();
@@ -69,28 +72,6 @@ function LiveVisitors() {
       }
     }
     setVisitsByCountryCode(countries);
-  };
-
-  const fetchStats = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/getStats`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setVisits(result.data.stats?.visits);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
   };
 
   return (

@@ -48,7 +48,7 @@ function SettingsIntegrations() {
                   <Link>Calendars</Link>
                 </li>
                 <li>
-                  <Link>Mesenggers</Link>
+                  <Link>Messengers</Link>
                 </li>
               </ul>
 

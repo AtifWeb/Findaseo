@@ -26,6 +26,12 @@ import styled from "styled-components";
 import ReactHtmlParser from "react-html-parser";
 import Modal from "App/component/Modal";
 import linkify from "helpers/linkify";
+import { useQuery } from "react-query";
+import {
+  fetchOperatorsAndDepartments,
+  fetchSettings,
+  fetchTicketConversation,
+} from "Lib/Axios/endpoints/queries";
 window.currentDate = "";
 window.currentPerson = false;
 
@@ -42,26 +48,35 @@ const Status = styled.span`
 `;
 
 function EmailTicketConversation() {
-  const history = useHistory();
-  const socket = useContext(SocketContext);
   const messagesEndRef = useRef(null);
   const [user, setTheUser] = useState(getUser());
-  const [conversations, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [chatter, setChatter] = useState("");
-  const [visitor, setVisitor] = useState(null);
   const params = useParams();
-  const [prevLoaded, setPrevLoaded] = useState(false);
-  const [chats, setChats] = useState([]);
-  const [currentDate, setCurrentDate] = useState("");
   const [message, setMessage] = useState("");
-  const [ticket, setTicket] = useState();
-  const [handler, setHandler] = useState({});
   const [showQuick, setShowQuick] = useState(false);
-  const [quickResponses, setQuickResponses] = useState([]);
   const [open, setOpen] = useState(false);
-  const [operators, setOperators] = useState([]);
   const [operator, setOperator] = useState(0);
+
+  const visitor = null;
+
+  const {
+    data: { operators, departments },
+  } = useQuery("operatorsAndDepartments", fetchOperatorsAndDepartments, {
+    initialData: {},
+  });
+
+  const {
+    data: { ticket, handler },
+    refetch,
+  } = useQuery(["getTicketConversation", params?.id], fetchTicketConversation, {
+    initialData: {},
+  });
+
+  const {
+    data: { quickResponse: quickResponses },
+  } = useQuery("settings", fetchSettings, {
+    initialData: {},
+  });
 
   useEffect(() => {
     if (window.innerWidth < 1201) {
@@ -87,88 +102,10 @@ function EmailTicketConversation() {
     }
   }, []);
 
-  const fetchOperators = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/operators/fetch`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setLoading(false);
-            setOperators([{ ...user }, ...result.data.operators]);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
-
-  useEffect(() => {
-    fetchTickets();
-    fetchQuckResponse();
-    fetchOperators();
-  }, []);
-
   useEffect(() => {
     window.currentDate = "";
     scrollDown();
   }, [ticket]);
-
-  const fetchTickets = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/email-ticket/get`,
-        data: {
-          cID: user?.cID,
-          ticketID: params?.id,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setTicket(result.data.ticket);
-
-            setHandler(result.data.handler);
-            setLoading(false);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
-
-  const fetchQuckResponse = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/settings`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setLoading(false);
-            setQuickResponses(result.data.configuration.quickResponse);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
 
   const resolve = () => {
     user &&
@@ -183,7 +120,7 @@ function EmailTicketConversation() {
       })
         .then((result) => {
           if (result.data.success) {
-            setTicket(result.data.ticket);
+            refetch(["getTicketConversation", params?.id]);
 
             setLoading(false);
           } else {
@@ -211,7 +148,7 @@ function EmailTicketConversation() {
         .then((result) => {
           if (result.data.success) {
             setMessage("");
-            setTicket(result.data.ticket);
+            refetch(["getTicketConversation", params?.id]);
             setLoading(false);
             scrollDown();
           } else {
@@ -246,7 +183,7 @@ function EmailTicketConversation() {
       .then((result) => {
         if (result.data.success) {
           setLoading(false);
-          setHandler(d);
+          refetch(["getTicketConversation", params?.id]);
           setOperator(0);
           setOpen(false);
         } else {
@@ -308,7 +245,7 @@ function EmailTicketConversation() {
             ticket.byOperator ? "me" : ""
           }`}
         >
-          <p>
+          <p style={{ wordWrap: "break-word" }}>
             {reply
               ? ticket.byOperator
                 ? ReactHtmlParser(linkify(ticket.message))
@@ -506,113 +443,119 @@ function EmailTicketConversation() {
                     <div ref={messagesEndRef} />
                   </div>
 
-                  {ticket?.status === "Resolved" ? (
-                    <h3 className="text-center mb-3 py-2">Resolved</h3>
-                  ) : (user.isCompany && user.cID === handler._id) ||
-                    user.operatorID === handler._id ? (
-                    <div className="message-sender-form mb-1">
-                      {showQuick ? (
-                        <div
-                          style={{
-                            position: "absolute",
-                            boxShadow: "2px 3px 3px lightgrey",
-                            background: "white",
-                            width: "90%",
-                            height: "200px",
-                            bottom: "100px",
-                            // left: "20%",
-                            borderRadius: "4px",
-                          }}
-                          className="py-2"
-                        >
-                          <ul
-                            className="px-2"
+                  {
+                    ticket?.status === "Resolved" ? (
+                      <h3 className="text-center mb-3 py-2">Resolved</h3>
+                    ) : (
+                      //  (user.isCompany && user.cID === handler._id) ||
+                      //   user.operatorID === handler._id ?
+                      <div className="message-sender-form mb-1">
+                        {showQuick ? (
+                          <div
                             style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              flexDirection: "column",
+                              position: "absolute",
+                              boxShadow: "2px 3px 3px lightgrey",
+                              background: "white",
+                              width: "90%",
+                              height: "200px",
+                              bottom: "100px",
+                              // left: "20%",
+                              borderRadius: "4px",
                             }}
+                            className="py-2"
                           >
-                            {quickResponses?.map((q) => (
-                              <li
-                                key={q}
-                                className="py-2 px-3 mb-2"
-                                style={{
-                                  boxShadow: "1px 1px 1px 1px lightgrey",
-                                  width: "100%",
-                                  borderRadius: "6px",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => setMessage(q)}
-                              >
-                                {q}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                      <ul
-                        className="message_sender_list px-3"
-                        style={{ marginBottom: 0 }}
-                      >
-                        <li onClick={() => setShowQuick((p) => !p)}>
-                          Quick Response
-                        </li>
-                      </ul>
-                      <div className="input-wrapper d-flex-align-center py-2">
-                        <input
-                          value={message}
-                          type="text"
-                          onChange={(e) => setMessage(e.target.value)}
-                          placeholder="Write a message"
-                          onKeyUp={(e) => {
-                            e.stopPropagation();
-                            var event = e || window.event;
-                            var charCode = event.which || event.keyCode;
-
-                            if (charCode === "13") {
-                              // Enter pressed
-                              messageSender();
-                            }
-                          }}
-                        />
-                        <button
-                          type="button"
-                          value=""
-                          onClick={() => messageSender()}
-                          id="message-submit"
-                          disabled={!message?.trim()}
-                        ></button>
-
-                        <i className="fas fa-paperclip"></i>
-                        <i className="far fa-smile-beam"></i>
-                        <label
-                          disabled={!message?.trim()}
-                          htmlFor="message-submit"
-                          className="icon-wrapper"
+                            <ul
+                              className="px-2"
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                              }}
+                            >
+                              {quickResponses?.map((q) => (
+                                <li
+                                  key={q}
+                                  className="py-2 px-3 mb-2"
+                                  style={{
+                                    boxShadow: "1px 1px 1px 1px lightgrey",
+                                    width: "100%",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() => setMessage(q)}
+                                >
+                                  {q}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : null}
+                        <ul
+                          className="message_sender_list px-3"
+                          style={{ marginBottom: 0 }}
                         >
-                          <svg
-                            width="31"
-                            height="31"
-                            viewBox="0 0 31 31"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                          <li onClick={() => setShowQuick((p) => !p)}>
+                            Quick Response
+                          </li>
+                        </ul>
+                        <div className="input-wrapper d-flex-align-center py-2">
+                          <input
+                            value={message}
+                            type="text"
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder="Write a message"
+                            onKeyUp={(e) => {
+                              e.stopPropagation();
+                              var event = e || window.event;
+                              var charCode = event.which || event.keyCode;
+
+                              if (charCode === "13") {
+                                // Enter pressed
+                                messageSender();
+                              }
+                            }}
+                          />
+                          <button
+                            type="button"
+                            value=""
+                            onClick={() => messageSender()}
+                            id="message-submit"
+                            disabled={!message?.trim()}
+                          ></button>
+
+                          <i className="fas fa-paperclip"></i>
+                          <i className="far fa-smile-beam"></i>
+                          <label
+                            disabled={!message?.trim()}
+                            htmlFor="message-submit"
+                            className="icon-wrapper"
                           >
-                            <rect
+                            <svg
                               width="31"
                               height="31"
-                              rx="4"
-                              fill={!message?.trim() ? "lightgrey" : "#2D96D6"}
-                            />
-                            <path
-                              d="M18.4151 10.7267L13.1476 12.4767C9.60674 13.6609 9.60674 15.5917 13.1476 16.77L14.7109 17.2892L15.2301 18.8525C16.4084 22.3934 18.3451 22.3934 19.5234 18.8525L21.2792 13.5909C22.0609 11.2284 20.7776 9.93919 18.4151 10.7267ZM18.6017 13.865L16.3851 16.0934C16.2976 16.1809 16.1867 16.2217 16.0759 16.2217C15.9651 16.2217 15.8542 16.1809 15.7667 16.0934C15.5976 15.9242 15.5976 15.6442 15.7667 15.475L17.9834 13.2467C18.1526 13.0775 18.4326 13.0775 18.6017 13.2467C18.7709 13.4159 18.7709 13.6959 18.6017 13.865Z"
-                              fill="white"
-                            />
-                          </svg>
-                        </label>
+                              viewBox="0 0 31 31"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                width="31"
+                                height="31"
+                                rx="4"
+                                fill={
+                                  !message?.trim() ? "lightgrey" : "#2D96D6"
+                                }
+                              />
+                              <path
+                                d="M18.4151 10.7267L13.1476 12.4767C9.60674 13.6609 9.60674 15.5917 13.1476 16.77L14.7109 17.2892L15.2301 18.8525C16.4084 22.3934 18.3451 22.3934 19.5234 18.8525L21.2792 13.5909C22.0609 11.2284 20.7776 9.93919 18.4151 10.7267ZM18.6017 13.865L16.3851 16.0934C16.2976 16.1809 16.1867 16.2217 16.0759 16.2217C15.9651 16.2217 15.8542 16.1809 15.7667 16.0934C15.5976 15.9242 15.5976 15.6442 15.7667 15.475L17.9834 13.2467C18.1526 13.0775 18.4326 13.0775 18.6017 13.2467C18.7709 13.4159 18.7709 13.6959 18.6017 13.865Z"
+                                fill="white"
+                              />
+                            </svg>
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                  ) : null}
+                    )
+                    // : null
+                  }
                 </div>
               </div>
             ) : null}

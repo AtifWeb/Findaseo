@@ -10,69 +10,36 @@ import LeftArrow from "../../Assets/img/left-contact.png";
 import RightArrow from "../../Assets/img/right-contact.png";
 import { useHistory, useParams } from "react-router";
 import { getUser } from "App/helpers/auth";
-import Axios from "Lib/Axios/axios";
-import handleError from "App/helpers/handleError";
 import NeutralButton from "App/component/NeutralButton";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { CSVLink, CSVDownload } from "react-csv";
+import { getUserEmailFromEmailTicket } from "helpers";
+import { useQuery } from "react-query";
+import { fetchContacts } from "Lib/Axios/endpoints/queries";
 
 function Contact() {
   const params = useParams();
   const history = useHistory();
   const [user] = useState(getUser());
-  const [contacts, setContacts] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  const { data: contacts, refetch } = useQuery(
+    ["contacts", params?.channel],
+    fetchContacts,
+    {
+      initialData: [],
+    }
+  );
+
   const [selectedContacts, setSelectedContacts] = useState([]);
 
   useEffect(() => {
-    setContacts([]);
-    getContacts();
+    resetChecks();
   }, [params?.channel]);
 
-  const getContacts = () => {
+  const resetChecks = () => {
     if (!user) return;
     if (document.querySelector("#all-check-checkbox"))
       document.querySelector("#all-check-checkbox").checked = false;
-    // if (params.channel === "LiveChat") {
-    Axios({
-      method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/contacts/${params?.channel}`,
-      data: {
-        cID: user?.cID,
-      },
-    })
-      .then((result) => {
-        if (result.data.success) {
-          params?.channel === "EmailTickets"
-            ? setContacts([
-                ...result.data.contacts
-                  .reduce(
-                    (map, obj) =>
-                      map.set(getUserEmailFromEmailTicket(obj).email, obj),
-                    new Map()
-                  )
-                  .values(),
-              ])
-            : setContacts([
-                ...result.data.contacts
-                  .reduce((map, obj) => map.set(obj.email, obj), new Map())
-                  .values(),
-              ]);
-
-          setSelectedContacts([]);
-
-          setLoading(false);
-        } else {
-          //
-        }
-      })
-      .catch((e) => {
-        console.log(handleError(e));
-        setLoading(false);
-      });
-    // } else {
-    //   setContacts([]);
-    // }
   };
   useEffect(() => {
     let Checkbox = document.querySelector("#all-check-checkbox");
@@ -93,21 +60,6 @@ function Contact() {
       }
     });
   }, []);
-
-  const getUserEmailFromEmailTicket = (ticket) => {
-    let email = "";
-    let name = "";
-    if (
-      ticket?.emailData?.to?.value[0].address?.indexOf("pavelify.com") === -1
-    ) {
-      email = ticket?.emailData?.to?.value[0].address;
-      name = ticket?.emailData?.to?.value[0].name;
-    } else {
-      email = ticket?.emailData?.from?.value[0].address;
-      name = ticket?.emailData?.from?.value[0].name;
-    }
-    return { email, name };
-  };
 
   const selectItem = (index, checked) => {
     if (checked) {
@@ -176,7 +128,6 @@ function Contact() {
         <BodyHeader active="contact" />
 
         <div className="body-main-area">
-          {/* <h2>Contacts</h2> */}
           <div className="body-box">
             <div className="left-side">
               <div className="top-area d-flex-align-center">

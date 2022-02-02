@@ -16,6 +16,8 @@ import SideBarLogo from "../../../Assets/img/Pavelify.png";
 import Calender from "./Calender/Calender";
 import ConfirmationPopUpCalender from "./ConfirmationPopUpCalender/ConfirmationPopUpCalender";
 import useGetSubdomain from "App/hooks/useGetSubdomain";
+import { useQuery } from "react-query";
+import { getCalendar } from "Lib/Axios/endpoints/queries";
 
 const Container = styled.div`
   display: flex;
@@ -123,9 +125,7 @@ const Label = styled.h5`
 const Booking = (props) => {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  const [which, setWhich] = useState("15 mins");
   const [loading, setLoading] = useState(false);
-  const [calendar, setCalendar] = useState({});
   const params = useParams();
   const companyName = params?.companyName;
   const slug = params?.calendar;
@@ -134,12 +134,23 @@ const Booking = (props) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [unavailableTimes, setUnavailableTimes] = useState([]);
   const { subdomain, domain } = useGetSubdomain();
 
-  useEffect(() => {
-    companyName && slug && getCalendar();
-  }, [companyName, slug]);
+  const {
+    data: {
+      calendar,
+      unavailableTimes,
+      calendar: { duration: which = "15 mins" },
+    },
+    refetch,
+    isFetched,
+  } = useQuery(["calendar", companyName.toLowerCase(), slug], getCalendar, {
+    initialData: { calendar: {} },
+  });
+
+  if (isFetched && !calendar) {
+    window.location = "/";
+  }
 
   const timeFunction = (from, to, interval = 15) => {
     let timeArray = [];
@@ -180,36 +191,6 @@ const Booking = (props) => {
         which === "15 mins" ? 15 : which === "30 mins" ? 30 : 60
       );
   }, [calendar, which, unavailableTimes]);
-
-  const getCalendar = () => {
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/calendar-bookings/get`,
-      data: {
-        companyName: companyName?.toLowerCase(),
-        slug,
-      },
-    })
-      .then((result) => {
-        if (result.data.success) {
-          if (!calendar) {
-            window.location = "/";
-          }
-          setLoading(false);
-
-          setCalendar(result.data.calendar);
-          result.data.calendar?.duration &&
-            setWhich(result.data.calendar?.duration);
-          setUnavailableTimes(result.data.unavailableTimes);
-        } else {
-          window.location = "/";
-        }
-      })
-      .catch((e) => {
-        console.log(handleError(e));
-        setLoading(false);
-      });
-  };
 
   const nextStep = () => {
     if (!date) {

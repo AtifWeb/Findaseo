@@ -2,7 +2,7 @@ import { SocketContext } from "App/context/socket";
 import { generateRoomID } from "App/helpers/generateRoomID";
 import handleError from "App/helpers/handleError";
 import { getVisitor, saveVisitor } from "App/helpers/visitor";
-import Axios from "Lib/Axios/axios";
+import axios from "axios";
 import React, {
   useCallback,
   useContext,
@@ -33,9 +33,12 @@ import { Message } from "App/component/organisms/LiveChat/helper/Messages";
 import SenderIcon from "../../../Assets/img/sender.svg";
 import styles2 from "./LiveChatMessageArea.module.css";
 import capitalize from "helpers/capitalize";
+import { onFilePicked, toBase64 } from "helpers/fileUpload";
+import StatusAlert, { StatusAlertService } from "react-status-alert";
 let checkDesktop = null;
 let audio = new Audio("/sound/newMessage.wav");
 const Snippet = () => {
+  const inputFile = useRef(null);
   const params = useParams();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -45,7 +48,6 @@ const Snippet = () => {
   const [user, setTheUser] = useState(getVisitor(params.company));
   const [prevLoaded, setPrevLoaded] = useState(false);
   const [chats, setChats] = useState([]);
-  const [currentDate, setCurrentDate] = useState("");
   const [greeting, setGreeting] = useState(" Do you need any assistance?");
   const [askName, setAskName] = useState(false);
   const [name, setName] = useState("");
@@ -104,7 +106,7 @@ const Snippet = () => {
 
   const sendPageView = () => {
     const v = getVisitor(params.company);
-    Axios({
+    axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/conversation/addPageView`,
       data: {
@@ -234,9 +236,10 @@ const Snippet = () => {
     sendNewAcceptance({ name, email, phoneNumber });
   };
 
-  const sendTheMessage = (message) => {
+  const sendTheMessage = (message, attachment = false) => {
     socket.emit("message", {
       message,
+      attachment,
       roomID: generateRoomID(params.company, user.uuid),
       name: user.name,
       visitor: true,
@@ -272,7 +275,7 @@ const Snippet = () => {
   };
 
   const getConfigurations = () => {
-    Axios({
+    axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}/embed${
         params.company ? "/" + params.company : ""
@@ -294,21 +297,6 @@ const Snippet = () => {
           setCompanyName(result.data?.companyName);
 
           setLoading(false);
-          // console.log({
-          //   prechat: JSON.parse(
-          //     result.data.configuration?.chatConfiguration?.preChat
-          //   ),
-          // });
-          // console.log({
-          //   appearance: JSON.parse(
-          //     result.data.configuration?.chatConfiguration?.appearance
-          //   ),
-          // });
-          // console.log({
-          //   sidebar: JSON.parse(
-          //     result.data.configuration?.chatConfiguration?.sidebar
-          //   ),
-          // });
         } else {
           //
         }
@@ -317,6 +305,46 @@ const Snippet = () => {
         console.log(handleError(e));
         setLoading(false);
       });
+  };
+
+  const uploadAttachment = async (e) => {
+    const file = onFilePicked(e);
+    if (!file) return;
+    try {
+      const fileBase64 = await toBase64(file);
+
+      axios({
+        method: "post",
+        url: `${process.env.REACT_APP_BASE_URL}/chat/uploadAttachment`,
+        data: {
+          file: fileBase64,
+          type: file.type,
+        },
+      })
+        .then((result) => {
+          if (result.data.success) {
+            sendTheMessage(result.data.message, true);
+            addConversations([
+              {
+                message: result.data.message,
+                attachment: true,
+                sender: "Visitor",
+                seen: false,
+                timestamp: new Date(),
+              },
+            ]);
+          } else {
+            //
+            const alertID = StatusAlertService.showError("File not uploaded");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          StatusAlertService.showError(handleError(e));
+        });
+    } catch (e) {
+      return console.log(e);
+    }
   };
 
   return (
@@ -330,6 +358,7 @@ const Snippet = () => {
           flexDirection: "column",
         }}
       >
+        <StatusAlert />
         <div
           className={`text-white ${styles.CollapseAbleLiveChat} ${
             innerSize?.width <= 600 ? styles.CollapseAbleLiveChat_600 : ""
@@ -509,6 +538,7 @@ const Snippet = () => {
                         primaryColor={appearance?.backgroundColor}
                         key={String(index)}
                         text={Message?.message?.trim()}
+                        attachment={Message.attachment}
                         my_message={Message.sender === "Visitor"}
                       />
                     ))}
@@ -622,8 +652,17 @@ const Snippet = () => {
                         >
                           <i className="far fa-smile-wink"></i>
                         </div>
+                        <input
+                          type="file"
+                          id="file"
+                          onChange={uploadAttachment}
+                          accept=".png,.jpeg,.jpg,.gif,.doc,.docx,.pdf,.xls,.xlsx,.mp4,.3gp,.txt,.csv,"
+                          ref={inputFile}
+                          style={{ display: "none" }}
+                        />
                         <div
                           title="Attach a file"
+                          onClick={() => inputFile.current.click()}
                           className={styles2.IconWrapper}
                         >
                           <i className="fas fa-paperclip"></i>
@@ -878,13 +917,13 @@ const Snippet = () => {
             // onClick={() => setOpen((prev) => !prev)}
             className="boxs"
             style={{
-              backgroundColor: "rgb(18,35,94)",
+              backgroundColor: appearance?.backgroundColor || "rgb(18,35,94)",
               // color: "white",
               borderRadius: "50%",
               border: "none",
               cursor: "pointer",
-              width: "50px",
-              height: "50px",
+              width: "56px",
+              height: "56px",
               boxShadow: `2px 2px 20px #555`,
               zIndex: `${Number.MAX_SAFE_INTEGER}`,
             }}

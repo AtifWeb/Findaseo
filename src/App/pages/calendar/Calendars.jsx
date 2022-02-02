@@ -18,6 +18,8 @@ import BodyHeader from "App/component/BodyHeader";
 import copy from "clipboard-copy";
 import { MAIN_URL } from "../settings/Livechat";
 import useGetSubdomain from "App/hooks/useGetSubdomain";
+import { fetchCalendars } from "Lib/Axios/endpoints/queries";
+import { useQuery } from "react-query";
 
 const Departments = (props) => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +28,6 @@ const Departments = (props) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [days, setDays] = useState([]);
-  const [calendars, setCalendars] = useState([]);
   const [calendar, setCalendar] = useState(null);
   const [user] = useState(getUser());
   const [slug, setSlug] = useState("");
@@ -36,31 +37,11 @@ const Departments = (props) => {
   const { domain } = useGetSubdomain();
   const [livechatVisibility, setLivechatVisibility] = useState("No");
 
-  useEffect(() => {
-    fetchCalendars();
-  }, []);
-  const fetchCalendars = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/calendar-bookings/calendars`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setLoading(false);
-            setCalendars(result.data.calendars);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
+  const {
+    data: { calendars },
+  } = useQuery("calendars", fetchCalendars, {
+    initialData: {},
+  });
 
   const manageCalendar = () => {
     if (!name) return;

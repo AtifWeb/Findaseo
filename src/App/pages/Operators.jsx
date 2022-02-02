@@ -22,19 +22,44 @@ import NeutralButton from "App/component/NeutralButton";
 import { format } from "date-fns";
 import { capitalize } from "@material-ui/core";
 import StatusAlert, { StatusAlertService } from "react-status-alert";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { fetchOperatorsAndDepartments } from "Lib/Axios/endpoints/queries";
+import { manageOperator } from "Lib/Axios/endpoints/mutations";
 
 function Operators() {
   const [loading, setLoading] = useState(false);
-  const [operators, setOperators] = useState([]);
   const [user, setUser] = useState(getUser());
   const [action, setAction] = useState("create");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [departments, setDepartments] = useState([]);
   const [department, setDepartment] = useState([]);
   const [operator, setOperator] = useState();
   const [open, setOpen] = useState(false);
+
+  const {
+    data: { operators, departments },
+    refetch,
+  } = useQuery("operatorsAndDepartments", fetchOperatorsAndDepartments, {
+    initialData: {},
+  });
+
+  const mutation = useMutation(manageOperator, {
+    onSuccess: (data) => {
+      console.log({ data });
+      setLoading(false);
+      setOpen(false);
+      refetch({});
+    },
+    onError: (error) => {
+      const alertID = StatusAlertService.showError(handleError(error));
+      console.log(handleError(error));
+      setLoading(false);
+    },
+    onMutate: () => {
+      setLoading(true);
+    },
+  });
 
   useEffect(() => {
     let Checkbox = document.querySelector("#all-check-checkbox");
@@ -55,73 +80,6 @@ function Operators() {
       }
     });
   }, []);
-
-  useEffect(() => {
-    fetchOperators();
-  }, []);
-  const fetchOperators = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/operators/fetch`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setLoading(false);
-            setOperators(result.data.operators);
-            setDepartments(result.data.departments);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
-
-  const manageOperator = () => {
-    let operatorID = operator?._id;
-    if (action === "department") {
-      if (!operatorID || !department) return;
-    } else {
-      if (!name || !email) return;
-    }
-
-    setLoading(true);
-    Axios({
-      method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/operators`,
-      data: {
-        cID: user?.cID,
-        name: action === "department" ? " " : name,
-        email: action === "department" ? " " : email,
-        action,
-        department,
-        operatorID,
-      },
-    })
-      .then((result) => {
-        setLoading(false);
-        setOpen(false);
-
-        if (result.data.success) {
-          setOperators(result.data.operators);
-          setName("");
-          setEmail("");
-        } else {
-          //
-        }
-      })
-      .catch((e) => {
-        const alertID = StatusAlertService.showError(handleError(e));
-        console.log(handleError(e));
-        setLoading(false);
-      });
-  };
 
   const editOperator = (index) => {
     setAction("edit");
@@ -224,7 +182,9 @@ function Operators() {
             <button
               className="btn"
               data-bs-dismiss="modal"
-              onClick={manageOperator}
+              onClick={() =>
+                mutation.mutate({ operator, action, department, name, email })
+              }
               loading={loading}
             >
               {action === "create"

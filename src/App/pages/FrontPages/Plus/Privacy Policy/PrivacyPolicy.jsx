@@ -8,7 +8,7 @@ import { PricingQuestion } from "../../../../../helpers/constants/PricingQuestio
 import { CommonHero } from "../../../../component/templates/Common/CommonHero/CommonHero";
 import { HomeContactBanner } from "../../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
 import { PrivacyPolicyNotes } from "../../../../component/templates/PrivacyPolicy/PrivacyPolicyNotes";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 export const PrivacyPolicy = () => {
   return (
     <FrontPageLayout>

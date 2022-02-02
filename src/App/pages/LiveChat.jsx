@@ -7,10 +7,6 @@ import React, {
 } from "react";
 import BodyHeader from "../component/BodyHeader";
 import Sidebar from "../component/Sidebar";
-// import PlusIcon from "../../Assets/img/purple-plus.png";
-import Person1 from "../../Assets/img/Frame 1.png";
-// import Person2 from "../../Assets/img/Frame 2.png";
-// import Person3 from "../../Assets/img/Frame 3.png";
 import StatusAlert, { StatusAlertService } from "react-status-alert";
 import PersonBig from "../../Assets/img/PersonBig.png";
 import time from "../../Assets/img/svg/time.svg";
@@ -19,19 +15,29 @@ import Axios from "Lib/Axios/axios";
 import handleError from "App/helpers/handleError";
 import { useHistory, useParams } from "react-router";
 import NeutralButton from "App/component/NeutralButton";
-import { useSelector } from "react-redux";
 import { SocketContext } from "App/context/socket";
 import { generateRoomID } from "App/helpers/generateRoomID";
 import { format } from "date-fns";
 import copy from "clipboard-copy";
 import styled from "styled-components";
-import randomColor from "App/helpers/randomColor";
 import SpainFlag from "../../Assets/img/flag-spain.png";
 import Modal from "App/component/Modal";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import Picker from "emoji-picker-react";
 import ReactHtmlParser from "react-html-parser";
 import linkify from "helpers/linkify";
+import {
+  changeFileName,
+  loadAttachment,
+  onFilePicked,
+  toBase64,
+} from "helpers/fileUpload";
+import { useQuery } from "react-query";
+import {
+  fetchOperatorsAndDepartments,
+  fetchSettings,
+  getChats,
+} from "Lib/Axios/endpoints/queries";
 
 window.currentDate = "";
 window.currentWho = "";
@@ -50,32 +56,50 @@ const Status = styled.span`
 
 let audio = new Audio("/sound/newMessage.wav");
 
+window.prevLoaded = false;
 function LiveChat() {
+  const inputFile = useRef(null);
   const history = useHistory();
   const socket = useContext(SocketContext);
   const messagesEndRef = useRef(null);
   const [user] = useState(getUser());
-  const [conversations, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [chatter, setChatter] = useState("");
-  const [visitor, setVisitor] = useState(null);
   const params = useParams();
-  const [prevLoaded, setPrevLoaded] = useState(false);
   const [chats, setChats] = useState([]);
   const [message, setMessage] = useState("");
   const [filter, setFilter] = useState("");
-  const { unreadChats } = useSelector((store) => store);
   const [showQuick, setShowQuick] = useState(false);
-  const [quickResponses, setQuickResponses] = useState([]);
-  const [notes, setNotes] = useState("");
+  const [notesS, setNotes] = useState("");
   const [open, setOpen] = useState(false);
-  const [operators, setOperators] = useState([]);
-  const [operator, setOperator] = useState(0);
-  const [operatorID, setOperatorID] = useState("");
-  const [pages, setPages] = useState([]);
-  const [currentSideTab, setCurrentSideTab] = useState(0);
 
+  const [operator, setOperator] = useState(0);
+  const [currentSideTab, setCurrentSideTab] = useState(0);
   const [showEmoji, setShowEmoji] = useState(false);
+
+  const {
+    data: { operators, departments },
+  } = useQuery("operatorsAndDepartments", fetchOperatorsAndDepartments, {
+    initialData: {},
+  });
+
+  const {
+    data: { conversations, operatorID, pages, chatter, visitor, notes },
+    refetch,
+    isFetched,
+  } = useQuery(["chats", params.user], getChats, {
+    initialData: {},
+    keepPreviousData: true,
+  });
+
+  if (isFetched && !params.user && conversations.length) {
+    history.push(`/LiveChat/${conversations[0]?.uuid}`);
+  }
+
+  const {
+    data: { quickResponse: quickResponses },
+  } = useQuery("settings", fetchSettings, {
+    initialData: {},
+  });
 
   const onEmojiClick = (event, emojiObject) => {
     setMessage((m) => m + emojiObject.emoji);
@@ -103,8 +127,6 @@ function LiveChat() {
         });
       });
     }
-    fetchQuckResponse();
-    fetchOperators();
   }, []);
 
   const closeQuickResponse = () => {
@@ -113,118 +135,50 @@ function LiveChat() {
     }
   };
 
-  const fetchOperators = () => {
-    user &&
+  const uploadAttachment = async (e) => {
+    const file = onFilePicked(e);
+    if (!file) return;
+    try {
+      const fileBase64 = await toBase64(file);
+
       Axios({
         method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/operators/fetch`,
+        url: `${process.env.REACT_APP_BASE_URL}/chat/uploadAttachment`,
         data: {
-          cID: user?.cID,
+          file: fileBase64,
+          type: file.type,
         },
       })
         .then((result) => {
           if (result.data.success) {
-            setLoading(false);
-            setOperators([{ ...user }, ...result.data.operators]);
+            sendTheMessage(result.data.message, true);
+            addConversations([
+              {
+                message: result.data.message,
+                attachment: true,
+                sender: "Operator",
+                seen: false,
+                timestamp: new Date(),
+              },
+            ]);
           } else {
             //
+            const alertID = StatusAlertService.showError("File not uploaded");
           }
         })
         .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
+          StatusAlertService.showError(handleError(e));
         });
-  };
-
-  const fetchQuckResponse = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/settings`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setLoading(false);
-            setQuickResponses(result.data.configuration.quickResponse);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
+    } catch (e) {
+      return console.log(e);
+    }
   };
 
   useEffect(() => {
-    setPrevLoaded(false);
-    socket.off("previousConversation");
-    socket.off("message");
-    setChats([]);
-  }, [params?.user]);
-
-  useEffect(() => {
-    getChats();
-  }, [history?.location]);
-
-  const getChats = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/live-chat${
-          params.user ? "/" + params.user : ""
-        }`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            const c = result.data.conversations;
-            c.sort(
-              (a, b) =>
-                new Date(b.latestChat.timestamp).getTime() -
-                new Date(a.latestChat.timestamp).getTime()
-            );
-            if (!params.user && c.length) {
-              return history.push(`/LiveChat/${c[0]?.uuid}`);
-            }
-            setConversation(
-              params.user
-                ? [
-                    c.filter((a, b) => a.uuid === params.user)[0],
-                    ...c.filter((a, b) => a.uuid !== params.user),
-                  ]
-                : c
-            );
-
-            setOperatorID(result.data.operatorID);
-            let p = result.data.pages;
-            p.sort((a, b) => b.timestamp - a.timestamp);
-            setPages(p);
-            setChatter(result.data.user);
-            setVisitor(result.data.visitor);
-
-            setNotes(result.data.visitor.notes || "");
-            setLoading(false);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
-
-  useEffect(() => {
-    if (chatter) {
+    if (chatter && chatter === params?.user) {
       socket.emit("joinRoom", generateRoomID(user.cID, chatter));
 
-      !prevLoaded &&
+      !window.prevLoaded &&
         socket.emit("loadPreviousConversation", {
           companyID: user.cID,
           uuid: chatter,
@@ -236,9 +190,9 @@ function LiveChat() {
       });
 
       socket.on("previousConversation", (convs) => {
-        if (!prevLoaded && convs.chats) {
-          setPrevLoaded(true);
-          // console.log(convs);
+        if (!window.prevLoaded && convs.chats) {
+          window.prevLoaded = true;
+
           convs.chats && addConversations(convs.chats);
         }
       });
@@ -246,6 +200,12 @@ function LiveChat() {
         addConversations([message], true);
       });
     }
+    return () => {
+      window.prevLoaded = false;
+      socket.off("previousConversation");
+      socket.off("message");
+      setChats([]);
+    };
   }, [chatter, socket]);
 
   useEffect(() => {
@@ -292,6 +252,10 @@ function LiveChat() {
   const loadMessages = (chat, index) => {
     let element;
 
+    let message = chat.attachment
+      ? loadAttachment(chat.message) || linkify(chat.message)
+      : linkify(chat.message);
+
     let nDate = format(new Date(chat.timestamp), "PP");
     if (chat.sender === "Visitor") {
       if (!window.currentDate || window.currentDate !== nDate) {
@@ -315,7 +279,9 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_img_user" alt="" /> */}
-              <p>{ReactHtmlParser(linkify(chat.message))}</p>
+              <p style={{ wordWrap: "break-word" }}>
+                {ReactHtmlParser(message)}
+              </p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{visitor.name}</p>
                 <p>.</p>
@@ -339,7 +305,9 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_user" alt="" /> */}
-              <p>{ReactHtmlParser(linkify(chat.message))}</p>
+              <p style={{ wordWrap: "break-word" }}>
+                {ReactHtmlParser(message)}
+              </p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{visitor.name}</p>
                 <p>.</p>
@@ -375,7 +343,9 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_img_user" alt="" /> */}
-              <p>{ReactHtmlParser(linkify(chat?.message))}</p>
+              <p style={{ wordWrap: "break-word" }}>
+                {ReactHtmlParser(message)}
+              </p>
               <div className="date-area d-flex-align-center">
                 <p className="name">Jhon</p>
                 <p>.</p>
@@ -398,7 +368,9 @@ function LiveChat() {
               }`}
             >
               {/* <img src={Person1} className="person_img_user" alt="" /> */}
-              <p>{ReactHtmlParser(linkify(chat?.message))}</p>
+              <p style={{ wordWrap: "break-word" }}>
+                {ReactHtmlParser(message)}
+              </p>
               <div className="date-area d-flex-align-center">
                 <p className="name">{user?.name}</p>
                 <p>.</p>
@@ -423,7 +395,7 @@ function LiveChat() {
         {
           message,
           sender: "Operator",
-          seend: false,
+          seen: false,
           timestamp: new Date(),
         },
       ]);
@@ -434,10 +406,11 @@ function LiveChat() {
       return false;
     }
   };
-  const sendTheMessage = (message) => {
+  const sendTheMessage = (message, attachment = false) => {
     socket.emit("message", {
       message,
       roomID: generateRoomID(user.cID, chatter),
+      attachment,
     });
   };
 
@@ -464,8 +437,8 @@ function LiveChat() {
       .then((result) => {
         if (result.data.success) {
           setLoading(false);
-          setOperatorID(newOperatorID);
-          setOperator(0);
+          // setOperatorID(newOperatorID);
+          // setOperator(0);
           setOpen(false);
         } else {
           //
@@ -585,7 +558,7 @@ function LiveChat() {
               </div>
 
               <div className="users">
-                {conversations.map(
+                {conversations?.map(
                   (conversation, index) =>
                     // filter &&
                     conversation.name
@@ -642,7 +615,16 @@ function LiveChat() {
                               ) : (
                                 ""
                               )}
-                              {conversation?.latestChat?.message}
+                              {(conversation?.latestChat?.message).includes(
+                                '"file":'
+                              ) ? (
+                                <span>
+                                  <i className="ms-2 me-1 fas fa-paperclip"></i>
+                                  attachment
+                                </span>
+                              ) : (
+                                conversation?.latestChat?.message
+                              )}
                             </p>
                           </div>
                           <div className="right-side">
@@ -912,9 +894,18 @@ function LiveChat() {
                             cursor: "pointer",
                           }}
                           type="button"
+                          onClick={() => inputFile.current.click()}
                         >
                           <i className="fas fa-paperclip"></i>
                         </button>
+                        <input
+                          type="file"
+                          id="file"
+                          onChange={uploadAttachment}
+                          accept=".png,.jpeg,.jpg,.gif,.doc,.docx,.pdf,.xls,.xlsx,.mp4,.3gp,.txt,.csv,"
+                          ref={inputFile}
+                          style={{ display: "none" }}
+                        />
                         <button
                           onClick={() => setShowEmoji((b) => !b)}
                           style={{
@@ -1171,7 +1162,7 @@ function LiveChat() {
                     <div className="tags-area">
                       <label htmlFor="add-tags">Add Tags</label>
                       <textarea
-                        value={notes}
+                        value={notesS}
                         onChange={(e) => setNotes(e.target.value)}
                         name=""
                         id="add-tags"

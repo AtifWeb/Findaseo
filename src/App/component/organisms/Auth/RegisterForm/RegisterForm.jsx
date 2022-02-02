@@ -53,15 +53,17 @@ export const RegisterForm = () => {
   const gotoNext = () => {
     let errorCount = 0;
     for (let step of Step) {
-      if (!data[step.id]) {
+      let selector = document.querySelector(`#${step.id}`);
+      let selectorError = document.querySelector(`#${step.id}-error`);
+      if (!data[step.id] && step.id !== undefined) {
         errorCount++;
         // @todo match pattern
-        document.querySelector(`#${step.id}`).style.borderColor = "red";
-        document.querySelector(`#${step.id}-error`).style.display =
-          "inline-block";
+
+        if (selector) selector.style.borderColor = "red";
+        if (selectorError) selectorError.style.display = "inline-block";
       } else {
-        document.querySelector(`#${step.id}`).style.borderColor = "#ddd";
-        document.querySelector(`#${step.id}-error`).style.display = "none";
+        if (selector) selector.style.borderColor = "#ddd";
+        if (selectorError) selectorError.style.display = "none";
       }
     }
 

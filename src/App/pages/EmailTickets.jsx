@@ -18,52 +18,26 @@ import { format } from "date-fns";
 import { Dropdown } from "App/component/BodyHeader";
 import NeutralButton from "App/component/NeutralButton";
 import { capitalize } from "@material-ui/core";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { useQuery } from "react-query";
+import { fetchTickets } from "Lib/Axios/endpoints/queries";
 
 function EmailTickets() {
   const params = useParams();
   const history = useHistory();
-  const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [user] = useState(getUser());
-  const [counts, setCounts] = useState({});
-  const [departments, setDepartments] = useState([]);
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    fetchTickets();
-  }, [params?.type]);
-  const fetchTickets = (department = false) => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/email-ticket/fetch`,
-        data: {
-          cID: user?.cID,
-          type: params?.type || "all",
-          department,
-        },
-      })
-        .then((result) => {
-          // console.log(result.data);
-          if (result.data.success) {
-            setTickets(result.data.tickets);
-            setCounts(result.data.counts);
-            setDepartments(result.data.departments);
-            setLoading(false);
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
+
+  const {
+    data: { tickets, departments, counts },
+    refetch,
+  } = useQuery(["tickets", department], fetchTickets, {
+    initialData: {},
+  });
 
   const filterByDepartment = (department) => {
-    // console.log(department);
-    fetchTickets(department);
+    refetch({ queryKey: ["tickets", department] });
   };
 
   useEffect(() => {
@@ -107,7 +81,7 @@ function EmailTickets() {
               } d-flex-align-center`}
             >
               <p>All Tickets</p>
-              <span>{counts.all || 0}</span>
+              <span>{counts?.all || 0}</span>
             </li>
             <li
               onClick={() => history.push("/EmailTickets/open")}
@@ -116,7 +90,7 @@ function EmailTickets() {
               } d-flex-align-center`}
             >
               <p>Open</p>
-              <span>{counts.open || 0}</span>
+              <span>{counts?.open || 0}</span>
             </li>
             <li
               onClick={() => history.push("/EmailTickets/due")}
@@ -125,7 +99,7 @@ function EmailTickets() {
               } d-flex-align-center`}
             >
               <p>Due Today</p>
-              <span>{counts.due || 0}</span>
+              <span>{counts?.due || 0}</span>
             </li>
             <li
               onClick={() => history.push("/EmailTickets/onhold")}
@@ -134,7 +108,7 @@ function EmailTickets() {
               } d-flex-align-center`}
             >
               <p>On Hold</p>
-              <span>{counts.onhold || 0}</span>
+              <span>{counts?.onhold || 0}</span>
             </li>
             <li
               onClick={() => history.push("/EmailTickets/unassigned")}
@@ -143,7 +117,7 @@ function EmailTickets() {
               } d-flex-align-center`}
             >
               <p>Unassigned</p>
-              <span>{counts.unassigned || 0}</span>
+              <span>{counts?.unassigned || 0}</span>
             </li>
           </ul>
           <div className="body-box">
@@ -238,8 +212,15 @@ function EmailTickets() {
 
                 <div className="slider-area  d-flex-align-center">
                   <p>
-                    <span>1</span> - <span>{tickets?.length}</span> of
-                    <span> {tickets.length}</span>
+                    <span>1</span> -{" "}
+                    <span>
+                      {tickets && tickets[params?.type || "all"]?.length}
+                    </span>{" "}
+                    of
+                    <span>
+                      {" "}
+                      {(tickets && tickets[params?.type || "all"]?.length) || 0}
+                    </span>
                   </p>
                   <div className="slider-images d-flex-align-center">
                     <img src={LeftArrow} alt="" />
@@ -253,7 +234,8 @@ function EmailTickets() {
 
             <div className="table-body-area">
               {tickets &&
-                tickets?.map((ticket, index) => (
+                tickets[params?.type || "all"] &&
+                tickets[params?.type || "all"]?.map((ticket, index) => (
                   <div
                     key={String(index)}
                     className="row d-flex-align-center"

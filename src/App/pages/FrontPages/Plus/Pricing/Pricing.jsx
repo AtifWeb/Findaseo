@@ -8,7 +8,7 @@ import { PricingFaq } from "../../../../component/templates/Pricing/PricingFaq/P
 import { PricingQuestion } from "../../../../../helpers/constants/PricingQuestions";
 import { CommonHero } from "../../../../component/templates/Common/CommonHero/CommonHero";
 import { HomeContactBanner } from "../../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 export const Pricing = () => {
   return (
     <FrontPageLayout>

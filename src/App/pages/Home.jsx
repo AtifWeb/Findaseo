@@ -43,19 +43,29 @@ import {
   thisYear,
 } from "./analytics/filters";
 import { format } from "date-fns";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import { useQueries } from "react-query";
+import { fetchStats, fetchTodolist } from "Lib/Axios/endpoints/queries";
 
 function Home() {
   const history = useHistory();
   const [user] = useState(getUser());
 
-  const [contacts, setContacts] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [tickets, setTickets] = useState([]);
-  const [todolist, setTodolist] = useState({});
-  const [visits, setVisits] = useState([]);
+  // const {
+  //   data: todolist,
+  // } = useQuery("todolist", fetchTodolist, { initialData: {} });
+
+  const [todolistQuery, statsQeury] = useQueries([
+    { queryKey: "todolist", queryFn: fetchTodolist, initialData: {} },
+    { queryKey: "stats", queryFn: fetchStats, initialData: {} },
+  ]);
+
+  const { data: todolist } = todolistQuery;
+  const {
+    data: { bookings, contacts, visits, tickets },
+  } = statsQeury;
+
   const [visitsByCountry, setVisitsByCountry] = useState({});
-  const [loading, setLoading] = useState(false);
   const [filterOption, setFilterOption] = useState(filterOptions[0]);
   const [lineData, setLineData] = useState({
     labels: [],
@@ -98,17 +108,6 @@ function Home() {
       ],
     };
   };
-
-  // useEffect(() => {
-  //   getContacts();
-  //   fetchBookings();
-  //   fetchTickets();
-  //   fetchTodolist();
-  // }, []);
-  useEffect(() => {
-    fetchStats();
-    fetchTodolist();
-  }, []);
 
   useEffect(() => {
     visits && filterByCountry();
@@ -190,54 +189,6 @@ function Home() {
     }
     // console.log({ labels, data: datas });
     setLineData({ labels, data: datas });
-  };
-
-  const fetchStats = () => {
-    user &&
-      Axios({
-        method: "post",
-        url: `${process.env.REACT_APP_BASE_URL}/getStats`,
-        data: {
-          cID: user?.cID,
-        },
-      })
-        .then((result) => {
-          if (result.data.success) {
-            setTickets(result.data.stats?.tickets);
-            setBookings(result.data.stats?.bookings);
-            setContacts(result.data.stats?.contacts);
-            setVisits(result.data.stats?.visits);
-            // console.log({ visits: result.data.stats?.visits });
-          } else {
-            //
-          }
-        })
-        .catch((e) => {
-          console.log(handleError(e));
-          setLoading(false);
-        });
-  };
-
-  const fetchTodolist = () => {
-    if (!user) return;
-    Axios({
-      method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/todolist`,
-      data: {
-        cID: user?.cID,
-      },
-    })
-      .then((result) => {
-        if (result.data.success) {
-          setTodolist(result.data.todolist);
-        } else {
-          //
-        }
-      })
-      .catch((e) => {
-        console.log(handleError(e));
-        setLoading(false);
-      });
   };
 
   return (

@@ -5,7 +5,7 @@ import { ComingSoon } from "../../../../component/templates/ComingSoon/ComingSoo
 import { FeaturesCompany } from "../../../../component/templates/Features/FeaturesCompany";
 import { CommonHero } from "../../../../component/templates/Common/CommonHero/CommonHero";
 import { HomeContactBanner } from "../../../../component/organisms/Home/HomeContactBanner/HomeContactBanner";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 export const Features = () => {
   return (
     <FrontPageLayout>
