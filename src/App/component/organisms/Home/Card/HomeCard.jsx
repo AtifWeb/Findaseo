@@ -6,6 +6,7 @@ export const HomeCard = ({
   desc,
   LargeText = null,
   img = null,
+  imgClass=null,
   list = null,
 }) => {
   return (
@@ -16,7 +17,12 @@ export const HomeCard = ({
       >
         {LargeText !== null && <h1 className={styles.LongText}>{LargeText}</h1>}
 
-        {img != null && <img src={img} alt="" className={styles.image} />}
+        {img != null && <picture>
+          <source srcSet={img} className= {imgClass} />          
+          <img src={img} className={imgClass}/>
+         </picture>
+         }
+        {/* {img != null && <img src={img} alt="" className={styles.image} />} */}
       </div>
       <div className={styles.content}>
         <h1 className={styles.head}>{title}</h1>

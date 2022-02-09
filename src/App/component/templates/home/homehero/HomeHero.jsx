@@ -28,7 +28,10 @@ export const HomeHero = () => {
       </div>
 
       <div className={styles.Image}>
+        <picture>
+        <source srcSet="../images/homepage.webp"/>
         <img src="../images/homepage.jpg" alt="" className={styles.pureImage} />
+        </picture>
       </div>
     </div>
   );

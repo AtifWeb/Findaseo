@@ -8,6 +8,7 @@ const useGetSubdomain = () => {
 
   useEffect(() => {
     let data = parse(`${protocol}//${host}`);
+    data.subdomain = 'www.localhost'
     setSubdomain({
       ...data,
       subdomain: data?.subdomain.replace("www.", ""),

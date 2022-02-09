@@ -31,14 +31,17 @@ export const CommonHero = ({
           />
         )}
       </div>
-
-      <img
-        src={imageSrc}
-        alt=""
-        className={`${styles.pureImage} ${
-          width_full != null && styles.full_width
-        }`}
-      />
+        <picture>
+      <source srcSet={imageSrc}/>
+        {/* <img src="../images/homepage.jpg" alt="" className={styles.pureImage} /> */}
+        <img
+          src={imageSrc}
+          alt=""
+          className={`${styles.pureImage} ${
+            width_full != null && styles.full_width
+          }`}
+        />
+        </picture>
     </div>
   );
 };
