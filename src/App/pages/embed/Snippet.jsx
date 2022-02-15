@@ -409,10 +409,10 @@ const Snippet = () => {
                   }
                 />
                 {/* <LiveChatSearch /> */}
-                {/* <BookMeeting
+                <BookMeeting
                   company={params.company}
                   companyName={companyName}
-                /> */}
+                />
               </div>
               <PrechatSurvey
                 close={() => setOpen((prev) => !prev)}
@@ -581,7 +581,7 @@ const Snippet = () => {
                   <div style={{ background: "white", textAlign: "center" }}>
                     <small className="text-muted py-auto">
                       {" "}
-                      {/* Powered by{" "} */}
+                      Powered by{" "}
                       <a href="https://pavelify.com" target="_blank">
                         <i
                           style={{ color: appearance?.backgroundColor }}

@@ -80,6 +80,10 @@
 
 .top_600 {
   border-radius: 0px;
+  
+  align-items:flex-end;
+  padding-bottom : 10px;
+  align-content: center;
 }
 .LiveChatMessageArea_600 {
   height: 100vh;

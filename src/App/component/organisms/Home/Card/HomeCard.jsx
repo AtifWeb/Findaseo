@@ -17,9 +17,10 @@ export const HomeCard = ({
       >
         {LargeText !== null && <h1 className={styles.LongText}>{LargeText}</h1>}
 
-        {img != null && <picture>
-          <source srcSet={img} className= {imgClass} />          
-          <img src={img} className={imgClass}/>
+        {img != null && 
+         <picture >
+          <source  srcSet={img} className= {imgClass} />          
+          <img src={img} className={styles.image}/>
          </picture>
          }
         {/* {img != null && <img src={img} alt="" className={styles.image} />} */}
