@@ -39,7 +39,7 @@ Real Time Analytics
       {`! function(e, t) {
           e.chatID = "61a68cd2276b4e17ff166ca9";
           var a = t.createElement("script");
-          a.type = "text/javascript", a.async = !0, a.src = "http://vcap.me:3000/embed.js";
+          a.type = "text/javascript", a.async = !0, a.src = "https://pavelify.com/embed.js";
           var c = t.getElementsByTagName("script")[0];
           c.parentNode.insertBefore(a, c)
           }(window, document)
