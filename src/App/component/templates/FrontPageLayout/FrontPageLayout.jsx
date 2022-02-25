@@ -18,7 +18,7 @@ export const FrontPageLayout = ({ children, activeLink, auth = null }) => {
       </div>
 
       {/* Live Widget */}
-      <LiveChat />
+      {/* <LiveChat /> */}
 
       {/* footer */}
 

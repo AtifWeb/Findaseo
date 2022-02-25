@@ -4,29 +4,44 @@ import styles from "./FooterList.module.css";
 export const FooterList = ({ EachList }) => {
   return (
     <ul className={styles.FooterList}>
-      {EachList.map((EachItem) => (
-        <>
-          {EachItem.type != "form" && (
-            <li
-              className={`${
-                EachItem.type == "heading"
-                  ? styles.specialtext
-                  : styles.normalText
-              }`}
-            >
-              {EachItem.type == "listItems" ? (
-                <Link
-                  to={EachItem.url}
-                  style={{ color: "#fff", textDecoration: "none" }}
-                >
-                  {EachItem.text}
-                </Link>
-              ) : (
-                <>{EachItem.text}</>
-              )}
-            </li>
-          )}
-          {EachItem.type == "form" && (
+      {EachList.map((EachItem, index) => (
+        <div key={String(index)}>
+          {EachItem.type != "form" &&
+            (EachItem.type === "image" ? (
+              <img
+                style={{ width: "140px", marginTop: "-60px" }}
+                src={`images/${EachItem.text}`}
+              />
+            ) : (
+              <li
+                className={`${
+                  EachItem.type === "heading"
+                    ? styles.specialtext
+                    : styles.normalText
+                }`}
+              >
+                {EachItem.type === "heading" ? (
+                  EachItem.text
+                ) : !EachItem.external ? (
+                  <Link
+                    style={{ color: "white" }}
+                    to={{ pathname: EachItem.url }}
+                  >
+                    {EachItem.text}
+                  </Link>
+                ) : (
+                  <a
+                    style={{ color: "white" }}
+                    target="_blank"
+                    href={EachItem.url}
+                  >
+                    {" "}
+                    {EachItem.text}
+                  </a>
+                )}
+              </li>
+            ))}
+          {EachItem.type === "form" && (
             <form className={styles.form}>
               <input
                 type="text"
@@ -36,7 +51,7 @@ export const FooterList = ({ EachList }) => {
               <button className={styles.button}>{EachItem.buttontext}</button>
             </form>
           )}
-        </>
+        </div>
       ))}
     </ul>
   );

@@ -7,28 +7,28 @@ export const FooterOptions = [
   // ],
   [
     {
-      text: "Logo",
-      type: "heading",
+      text: "logo.png",
+      type: "image",
     },
     {
-      text: "Privacy Policy,",
+      text: " Account",
       type: "listItems",
-      url: "/plus/PrivacyPolicy",
-    },
-    {
-      text: "Terms and conditions",
-      type: "listItems",
-      url: "/plus/Terms",
+      url: "/auth/login",
     },
     {
       text: "Careers",
       type: "listItems",
-      url: "/",
+      url: "/careers",
     },
     {
-      text: " Affiliates",
+      text: "Privacy Policy",
       type: "listItems",
-      url: "/",
+      url: "/PrivacyPolicy",
+    },
+    {
+      text: "Terms of Use",
+      type: "listItems",
+      url: "/Terms",
     },
   ],
   [
@@ -39,51 +39,52 @@ export const FooterOptions = [
     {
       text: "Features",
       type: "listItems",
-      url: "/",
+      url: "/features",
     },
-    {
-      text: "Pricing",
-      type: "listItems",
-      url: "/",
-    },
-    {
-      text: "Product",
-      type: "listItems",
-      url: "/",
-    },
+    // {
+    //   text: "Pricing",
+    //   type: "listItems",
+    //   url: "/pricing",
+    // },
+    // {
+    //   text: "Product",
+    //   type: "listItems",
+    //   url: "/",
+    // },
     {
       text: "Support",
       type: "listItems",
-      url: "/",
+      url: "mail:hello@pavelify.help",
+      external: true,
     },
   ],
-  [
-    {
-      text: "Integration",
-      type: "heading",
-    },
-    {
-      text: "About Us",
-      type: "listItems",
-      url: "/",
-    },
-    {
-      text: "Blog",
-      type: "listItems",
-      url: "/",
-    },
-    {
-      text: "Media",
-      type: "listItems",
-      url: "/",
-    },
-    {
-      text: "contact Us",
-      type: "listItems",
-      url: "/",
-    },
-  ],
-  [],
+  // [
+  //   {
+  //     text: "Integration",
+  //     type: "heading",
+  //   },
+  //   {
+  //     text: "About Us",
+  //     type: "listItems",
+  //     url: "/",
+  //   },
+  //   {
+  //     text: "Blog",
+  //     type: "listItems",
+  //     url: "/",
+  //   },
+  //   {
+  //     text: "Media",
+  //     type: "listItems",
+  //     url: "/",
+  //   },
+  //   {
+  //     text: "Contact Us",
+  //     type: "listItems",
+  //     url: "/",
+  //   },
+  // ],
+  // // [],
   // [
   //   {
   //     text: "Subscribe",

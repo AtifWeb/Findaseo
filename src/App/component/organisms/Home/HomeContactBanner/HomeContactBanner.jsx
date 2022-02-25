@@ -9,10 +9,11 @@ export const HomeContactBanner = () => {
         <h1 className={styles.heading}>
           Start Converting Your Website Traffic Now
         </h1>
-        <p>14 days free trial, No credit card required.</p>
+        {/* <p>14 days free trial, No credit card required.</p> */}
         <UsePavelifyLink
           text="Use Pavelify for Free"
-          style={{ width: "30%", backgroundColor: "#0F295C", color: "#fff" }}
+          style={{ width: "20%", backgroundColor: "#0F295C", color: "#fff" }}
+          link={"/auth/register"}
         />
       </div>
     </div>

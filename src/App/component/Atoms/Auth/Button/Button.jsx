@@ -8,24 +8,30 @@ export const Button = ({
   style,
   onClick = null,
   ext_class = null,
+  loading = false,
+  link = "",
 }) => {
-  return onClick == null ? (
+  return onClick === null ? (
     <button
-      className={`${styles.button} ${outline == true && styles.outline} 
+      className={`${styles.button} ${outline === true && styles.outline} 
       }`}
       style={style}
     >
       {type !== null ? (
-        <Link className={`${styles.link} ${outline == true && styles.outline}`}>
+        <Link
+          to={link}
+          className={`${styles.link} ${outline === true && styles.outline}`}
+        >
           {text}
         </Link>
       ) : (
-        <p style={{marginBottom:0}}>{text}</p>
+        <p style={{ marginBottom: 0 }}>{text}</p>
       )}
     </button>
   ) : (
     <button
-      className={`${styles.button} ${outline == true && styles.outline}
+      disabled={loading}
+      className={`${styles.button} ${outline === true && styles.outline}
       
       ${ext_class !== null && "next_button"}
       
@@ -34,11 +40,15 @@ export const Button = ({
       onClick={onClick}
     >
       {type !== null ? (
-        <Link className={`${styles.link} ${outline == true && styles.outline}`}>
+        <Link
+          className={`${styles.link} ${outline === true && styles.outline}`}
+        >
           {text}
         </Link>
       ) : (
-        <p style={{marginBottom:0}}>{text}</p>
+        <p style={{ marginBottom: 0 }}>
+          {loading ? <i className="fas fa-spin fa-spinner"></i> : text}
+        </p>
       )}
     </button>
   );

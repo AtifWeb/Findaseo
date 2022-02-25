@@ -1,18 +1,122 @@
+import handleError from "App/helpers/handleError";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import StatusAlert, { StatusAlertService } from "react-status-alert";
 import { Fields } from "../../../../../helpers/constants/RegisterFormFeilds";
 import { Button } from "../../../Atoms/Auth/Button/Button";
 import { InputWrapper } from "../../../molecules/Auth/InputWrapper/InputWrapper";
 import { HandleNextStep } from "./events/HandleStep";
-import styles from "./Register.module.css";
 import { Link } from "react-router-dom";
+import styles from "./Register.module.css";
+import useGetSubdomain from "App/hooks/useGetSubdomain";
 export const RegisterForm = () => {
   const [Step, setStep] = useState([]);
+  const [data, setData] = useState({
+    cname: "",
+    email: "",
+    fname: "",
+    lname: "",
+    password: "",
+    phone_number: "",
+    radio: "",
+    subdomain: "",
+    cweb: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const { subdomain, domain } = useGetSubdomain();
+
   useEffect(() => {
     setStep(Fields[0]);
   }, []);
 
+  useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      subdomain: prev.cname
+        .replace(/[^-a-zA-Z0-9 ]+/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase(),
+    }));
+  }, [data?.cname]);
+
+  useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      subdomain: prev.subdomain
+        .replace(/[^-a-zA-Z0-9 ]+/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase(),
+    }));
+  }, [data?.subdomain]);
+
+  const gotoNext = () => {
+    let errorCount = 0;
+    for (let step of Step) {
+      let selector = document.querySelector(`#${step.id}`);
+      let selectorError = document.querySelector(`#${step.id}-error`);
+      if (!data[step.id] && step.id !== undefined) {
+        errorCount++;
+        // @todo match pattern
+
+        if (selector) selector.style.borderColor = "red";
+        if (selectorError) selectorError.style.display = "inline-block";
+      } else {
+        if (selector) selector.style.borderColor = "#ddd";
+        if (selectorError) selectorError.style.display = "none";
+      }
+    }
+
+    if (!errorCount) {
+      if (Step[0] && Step[0].id === "cname") {
+        reg();
+      } else {
+        HandleNextStep(setStep, Fields);
+      }
+    }
+  };
+
+  const reg = () => {
+    //  if (!email || !password || !companyName) return;
+    // return console.log(data);
+    setLoading(true);
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/auth/register`,
+      data: {
+        email: data.email,
+        website: data.cweb,
+        password: data.password,
+        companyName: data.subdomain,
+        companyFullName: data.cname,
+        name: data.fname + " " + data.lname,
+      },
+    })
+      .then((result) => {
+        setLoading(false);
+        if (result.data.success) {
+          const alertID = StatusAlertService.showSuccess(
+            "Registration successful"
+          );
+          // console.log(alertID);
+          window.location = "/";
+        } else {
+          //
+        }
+      })
+      .catch((e) => {
+        console.log(handleError(e));
+        const alertID = StatusAlertService.showError(
+          handleError(e) || "An error came up, please try again"
+        );
+        // console.log(alertID);
+        setLoading(false);
+      });
+  };
+
   return (
     <div className={styles.RegisterForm}>
+      <StatusAlert />
       <div className={styles.progressWrapper}>
         <p>
           Step <span className="step2">1</span> of 3
@@ -22,12 +126,12 @@ export const RegisterForm = () => {
         </span>
       </div>
       <h2 className={`${styles.heading} heading-steps`}>
-        Try Pavelify 14 days free Trial
+        {/* Use Pavelify 14 days free Trial */}
       </h2>
       <div className={styles.FeildsWrapper}>
         {Step.map((feild) => (
           <>
-            {feild.object == "InputWrapper" && (
+            {feild.object === "InputWrapper" && (
               <InputWrapper
                 id={feild.id}
                 labelText={feild.label}
@@ -35,9 +139,13 @@ export const RegisterForm = () => {
                 inputPlaceholder={feild.inputPlaceholder}
                 InputWidth="100%"
                 style={{ gridColumn: "span 2", marginTop: 0 }}
+                value={data[feild.id]}
+                onChange={(e) =>
+                  setData((prev) => ({ ...prev, [feild.id]: e.target.value }))
+                }
               />
             )}
-            {feild.object == "GridInputWrapper" && (
+            {feild.object === "GridInputWrapper" && (
               <InputWrapper
                 id={feild.id}
                 labelText={feild.label}
@@ -45,9 +153,12 @@ export const RegisterForm = () => {
                 inputPlaceholder={feild.inputPlaceholder}
                 InputWidth="100%"
                 style={{ marginTop: 0 }}
+                value={data[feild.id]}
+                onChange={(e) =>
+                  setData((prev) => ({ ...prev, [feild.id]: e.target.value }))
+                }
               />
             )}
-
             {feild.object == "subdomain" && (
               <div
                 className={styles.DomainInput}
@@ -59,12 +170,18 @@ export const RegisterForm = () => {
                     type="text"
                     placeholder={feild.inputPlaceholder}
                     id={feild.id}
+                    value={data[feild.id]}
+                    onChange={(e) =>
+                      setData((prev) => ({
+                        ...prev,
+                        [feild.id]: e.target.value,
+                      }))
+                    }
                   />
                   <p>.Pavelify.com</p>
                 </div>
               </div>
             )}
-
             {feild.object == "text" && (
               <p
                 style={{
@@ -74,55 +191,72 @@ export const RegisterForm = () => {
                 }}
               >
                 {feild.text}{" "}
-                <Link
-                  to="https://pavelify.com/Terms"
+                <a
+                  href={`${window.location.protocol}//${domain}/Terms`}
+                  target={"_blank"}
                   style={{ color: "#13225f" }}
                 >
                   {feild.linkterm}
-                </Link>{" "}
+                </a>{" "}
                 and{" "}
-                <Link
-                  to="https://pavelify.com/PrivacyPolicy"
+                <a
+                  href={`${window.location.protocol}//${domain}/PrivacyPolicy`}
+                  target={"_blank"}
                   style={{ color: "#13225f" }}
                 >
                   {feild.linkprivacy}
-                </Link>
+                </a>
               </p>
             )}
 
-            {/* {feild.object == "radio" && (
+            {/* {feild.object === "radio" && (
               <div style={{ gridColumn: "span 2" }}>
                 <h4 className={styles.radioheading}>{feild.heading}</h4>
-                <ul>
-                  {feild["checkboxes"].map((EachCheckbox) => (
-                    <li className={styles.radiolist}>
-                      <input
-                        type="radio"
-                        style={{ marginRight: 10 }}
-                        name="solving"
-                      />
-                      <label htmlFor="">{EachCheckbox}</label>
+
+                <ul id="radio">
+                  {feild["checkboxes"].map((EachCheckbox, index) => (
+                    <li key={String(index)} className={styles.radiolist}>
+                      <label htmlFor={EachCheckbox}>
+                        <input
+                          type="radio"
+                          id={EachCheckbox}
+                          style={{ marginRight: 10 }}
+                          name="solving"
+                          value={data[feild.id]}
+                          onChange={(e) =>
+                            setData((prev) => ({
+                              ...prev,
+                              [feild.id]: EachCheckbox,
+                            }))
+                          }
+                        />
+                        {EachCheckbox}
+                      </label>
                     </li>
                   ))}
                 </ul>
+                <small
+                  id={`${feild.id}-error`}
+                  style={{ color: "red", display: "none" }}
+                >
+                  Please select one option
+                </small>
               </div>
             )} */}
 
-            {feild.object == "button" && (
-              <Button
-                text={feild.text}
-                style={{ gridColumn: "span 2", marginBottom: 0 }}
-              />
-            )}
+            {/* {feild.object === "button" && (
+              <Button text={feild.text} style={{ gridColumn: "span 2" }} />
+            )} */}
           </>
         ))}
       </div>
 
       <Button
+        loading={loading}
         ext_class="next_button"
-        text="Next"
+        text={Step[0] && Step[0].id === "cname" ? "Complete" : "Next"}
         style={{ marginTop: 20 }}
-        onClick={(e) => HandleNextStep(setStep, Fields)}
+        onClick={gotoNext}
       />
     </div>
   );

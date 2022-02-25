@@ -4,8 +4,8 @@ import styles from "./FooterWrapperNav.module.css";
 export const FooterWrapperNav = ({ FooterOptions }) => {
   return (
     <div className={`${styles.FooterWrapperNav} w-1200`}>
-      {FooterOptions.map((EachList) => (
-        <FooterList EachList={EachList} />
+      {FooterOptions.map((EachList, index) => (
+        <FooterList key={String(index)} EachList={EachList} />
       ))}
     </div>
   );

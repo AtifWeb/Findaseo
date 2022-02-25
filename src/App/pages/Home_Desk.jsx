@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../component/Sidebar";
 import SpainFlag from "../../Assets/img/flag-spain.png";
 import { Badge, Table } from "react-bootstrap";
@@ -41,10 +41,11 @@ function Home_Desk() {
       {/* sidebar */}
       <Sidebar active="help_desk" />
       <div className="body-area">
+        <ComingSoon />
         <div className="body_sidebar">
           <div className="body_sidebar_box">
-            <img src={SpainFlag} alt="" />
-            <p> English</p>
+            {/* <img src={SpainFlag} alt="" />
+            <p> English</p> */}
           </div>
           <div
             className="body_sidebar_box no_bg "
@@ -185,7 +186,7 @@ function Home_Desk() {
                 </td>
                 <td>
                   <Button variant="primary">
-                    <i class="fas fa-cog"></i>
+                    <i className="fas fa-cog"></i>
                   </Button>
                 </td>
               </tr>
@@ -196,5 +197,23 @@ function Home_Desk() {
     </div>
   );
 }
+
+const ComingSoon = () => (
+  <div
+    style={{
+      zIndex: 20,
+      position: "absolute",
+      background: "#ddd",
+      width: "100vw",
+      height: "100vh",
+      opacity: "0.7",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <h2 className="text-center">Coming Soon!</h2>
+  </div>
+);
 
 export default Home_Desk;

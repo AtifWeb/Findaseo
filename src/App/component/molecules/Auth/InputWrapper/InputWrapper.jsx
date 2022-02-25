@@ -9,6 +9,9 @@ export const InputWrapper = ({
   InputWidth,
   style,
   inputStyle = null,
+  value,
+  onChange,
+  error = "Field is required",
 }) => {
   return (
     <div className={styles.InputWrapper} style={style}>
@@ -20,7 +23,12 @@ export const InputWrapper = ({
         type={inputType}
         placeholder={inputPlaceholder}
         width={InputWidth}
+        value={value}
+        onChange={onChange}
       />
+      <small id={`${id}-error`} style={{ color: "red", display: "none" }}>
+        {error}
+      </small>
     </div>
   );
 };

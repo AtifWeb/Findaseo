@@ -1,5 +1,5 @@
-export const CalenderJs = () => {
-  let CurrentDate = new Date();
+export const CalenderJs = (date, setDate) => {
+  let CurrentDate = date || new Date();
   let CurrentMonth = CurrentDate.getMonth();
   let CurrentYear = CurrentDate.getFullYear();
   let TotalDays = 31;
@@ -37,18 +37,22 @@ export const CalenderJs = () => {
   };
 
   const ActivateThisDay = (e) => {
-    const Element = document.querySelector(`#${e.target.id}`);
-    document.querySelectorAll(".calender-days  > *").forEach((EachDay) => {
-      EachDay.classList.remove("active-day");
-    });
-    Element.classList.toggle("active-day");
+    if (e.target.id) {
+      const Element = document.querySelector(`#${e.target.id}`);
+      document.querySelectorAll(".calender-days  > *").forEach((EachDay) => {
+        EachDay.classList.remove("active-day");
+      });
+      let day = Element.childNodes[1].innerText;
+      setDate(new Date(`${CurrentMonth + 1} ${day} ${CurrentYear}`));
+      Element.classList.toggle("active-day");
+    }
   };
 
   // Helping function to get total daus
   const GetTotalDays = (Month) => {
-    if (Month == 3 || Month == 5 || Month == 8 || Month == 10) {
+    if (Month === 3 || Month === 5 || Month === 8 || Month === 10) {
       Month = 30;
-    } else if (Month == 1) {
+    } else if (Month === 1) {
       Month = 28;
     } else {
       Month = 31;
@@ -66,7 +70,7 @@ export const CalenderJs = () => {
   // Event Function
 
   const NavigateBack = (e) => {
-    if (CurrentMonth == 0) {
+    if (CurrentMonth === 0) {
       CurrentMonth = 11;
     } else {
       CurrentMonth--;
@@ -78,7 +82,7 @@ export const CalenderJs = () => {
   };
 
   const NavigateFront = (e) => {
-    if (CurrentMonth == 11) {
+    if (CurrentMonth === 11) {
       CurrentMonth = 0;
     } else {
       CurrentMonth++;
@@ -128,6 +132,9 @@ export const CalenderJs = () => {
       document
         .querySelector(`#calender-day-${CurrentDate.getDate()}`)
         .classList.add("active-day");
+      setDate(
+        new Date(`${CurrentMonth + 1} ${CurrentDate.getDate()} ${CurrentYear}`)
+      );
     }
     //   Add Event Listeners In New Divs
     CalenderDays = document.querySelectorAll(".calender-days div");

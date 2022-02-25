@@ -19,7 +19,7 @@ export const ConfirmationPopUpCalender = () => {
         </p>
         <div>
           <div className={styles.Close} onClick={RemovePopUp}>
-            <i class="fas fa-arrow-left"></i>
+            <i className="fas fa-arrow-left"></i>
           </div>
         </div>
         <ul className={styles.Ul}>

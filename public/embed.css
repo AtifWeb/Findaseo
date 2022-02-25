@@ -1,0 +1,33 @@
+#pavelify-container > iframe.pavelify-iframe-takeover {
+  width: 100px;
+  height: 70px;
+  display: block;
+  bottom: 0;
+  right: 0;
+}
+
+#pavelify-container > iframe.mobile {
+  width: 100vw;
+  height: 100vh;
+}
+
+#pavelify-container > iframe.desktop {
+  width: 400px;
+  height: 640px;
+}
+
+#pavelify-container > iframe.pavelify-iframe-info-msg {
+  width: initial;
+  height: 70px;
+  display: initial;
+  bottom: 20px;
+  left: 20px;
+}
+
+#pavelify-container > iframe {
+  position: fixed;
+  width: 0;
+  height: 0;
+  display: none;
+  border: none;
+}

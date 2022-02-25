@@ -1,10 +1,11 @@
+import { HandleCovertingScreen } from "App/pages/embed/toggleShow";
 import React from "react";
 import { HandleBotDisplay } from "../../templates/LiveChat/events/HandleBotDisplay";
 import { BookMeeting } from "./BookMeeting/BookMeeting";
 import styles from "./CollapseAbleLiveChat.module.css";
 import { LiveChatConversation } from "./LiveChatConversation/LiveChatConversation";
 import { LiveChatSearch } from "./LiveChatSearch/LiveChatSearch";
-export const CollapseAbleLiveChat = () => {
+const CollapseAbleLiveChat = () => {
   return (
     <div
       className={`${styles.CollapseAbleLiveChat} collapse-bot`}
@@ -16,7 +17,7 @@ export const CollapseAbleLiveChat = () => {
           onClick={HandleBotDisplay}
           onTouchStart={HandleBotDisplay}
         >
-          <i class="fas fa-times"></i>
+          <i className="fas fa-times"></i>
         </div>
         <h1 className={styles.heading}>Hello from Pavelify 👋🏻</h1>
         <p className={styles.para}>
@@ -24,9 +25,11 @@ export const CollapseAbleLiveChat = () => {
           you today?
         </p>
       </div>
-      <LiveChatConversation />
+      <LiveChatConversation HandleCovertingScreen={HandleCovertingScreen} />
       <LiveChatSearch />
       <BookMeeting />
     </div>
   );
 };
+
+export default CollapseAbleLiveChat;

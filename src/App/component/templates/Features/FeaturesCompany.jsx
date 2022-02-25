@@ -10,6 +10,7 @@ export const FeaturesCompany = () => {
         <div className={styles.featuresWrapper}>
           {Features.map((Each) => (
             <FeatureCard
+              key={Each.LargeText}
               img={Each.img}
               title={Each.value}
               largeImg={Each.largeImg}

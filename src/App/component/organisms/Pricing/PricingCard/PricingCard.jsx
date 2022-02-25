@@ -14,14 +14,14 @@ export const PricingCard = ({
   return (
     <div className={styles.PricingCard}>
       <h1 className={styles.mainheading}>{title}</h1>
-      {type == null && (
+      {type === null && (
         <>
           {" "}
           <p className={styles.price}>{price}</p>
           <small className={styles.duration}>{duration}</small>
           <button className={styles.button}>Get Started for Free</button>
           <Link className={styles.freeTrailLink} to={free_trail_link}>
-            Free Trail
+            Free Trial
           </Link>
         </>
       )}

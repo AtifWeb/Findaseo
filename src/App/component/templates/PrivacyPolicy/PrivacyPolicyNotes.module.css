@@ -10,12 +10,12 @@
   width: 80%;
 }
 
-.BeforeList{
+.BeforeList {
   font-size: 2rem;
 }
 
-@media screen and (max-width:600px) {
-  .BeforeList{
+@media screen and (max-width: 600px) {
+  .BeforeList {
     font-size: 1.5rem;
   }
 }

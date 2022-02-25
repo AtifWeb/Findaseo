@@ -1,0 +1,24 @@
+body {
+  background: transparent;
+}
+.messages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.right,
+.left {
+  padding: 4px 10px;
+  border-radius: 16px;
+  min-width: 50px;
+}
+.right {
+  align-self: flex-end;
+  background-color: #eff2f6;
+  text-align: right;
+  color: #333;
+}
+
+.left {
+  align-self: flex-start;
+}

@@ -11,8 +11,7 @@ export const HomeHero = () => {
         </h1>
         <p className={styles.para}>
           Pavelify gives your business sales and customer satisfaction edge over
-          your competitors. Yes, Businesses love Pavelify, But Customers love it
-          too.
+          your competitors.
         </p>
         <small className={styles.small}>
           Live chat, Email Ticketing, Appointment Scheduling, Help Center and
@@ -21,14 +20,18 @@ export const HomeHero = () => {
 
         <UsePavelifyLink
           text="Use Pavelify for Free"
-          style={{ width: "50%" }}
+          style={{ width: "35%" }}
+          link="/auth/register"
         />
 
         {/* <HomeEmaiSender widthInput="70%" /> */}
       </div>
 
       <div className={styles.Image}>
+        <picture>
+        <source srcSet="../images/homepage.webp"/>
         <img src="../images/homepage.jpg" alt="" className={styles.pureImage} />
+        </picture>
       </div>
     </div>
   );

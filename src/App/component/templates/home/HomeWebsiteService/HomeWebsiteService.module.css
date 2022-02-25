@@ -1,3 +1,6 @@
+.imagewithheight{
+  height: 220%;
+}
 .HomeWebsiteService {
   padding: 5rem 0rem;
   background: #f8f9f9;
@@ -63,7 +66,7 @@
     margin: 4rem auto;
   }
   .MainHeading {
-    font-size: 28px;
+    font-size: 24px;
   }
   .MainHeading,
   .para {

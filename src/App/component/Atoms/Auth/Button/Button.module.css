@@ -6,6 +6,7 @@
   border-radius: 5px;
   height: 60px;
   font-family: "Poppins", sans-serif;
+  cursor: pointer;
 }
 .outline {
   background: #fff;

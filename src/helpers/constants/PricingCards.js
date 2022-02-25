@@ -9,7 +9,7 @@ export const PricingCardcontent = [
   },
   {
     title: "Essential",
-    price: "$29/Month",
+    price: "$35/Month",
     duration: "Suitable for early stage Startups ",
     buy_now_link: "",
     free_trail_link: "",
@@ -31,7 +31,7 @@ export const PricingCardcontent = [
     buy_now_link: "",
     free_trail_link: "",
     services: [
-      "Up to 7  Agents",
+      "Up to 5 Agents",
 
       "Live chat",
 
@@ -59,7 +59,7 @@ export const PricingCardcontent = [
     buy_now_link: "",
     free_trail_link: "",
     services: [
-      "Unlimited Agents",
+      "Up to 10 Agents",
 
       "Live chat",
 

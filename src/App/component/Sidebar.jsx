@@ -1,14 +1,79 @@
-import React from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import "../../Assets/styles/css/layout.css";
 import SideBarLogo from "../../Assets/img/Pavelify.png";
-import Home from "../../Assets/img/svg/home.svg";
+// import Home from "../../Assets/img/svg/home.svg";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useHistory, useLocation, useParams } from "react-router";
+import { SocketContext } from "App/context/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "App/helpers/auth";
+import {
+  addUnreadChats,
+  addUnreadTickets,
+  addVisitors,
+  addUpcomingBookings,
+} from "App/redux/actions";
+
+export const Badge = styled.span`
+  position: absolute;
+  right: 10px;
+  color: white;
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 20px;
+  top: 5px;
+`;
+let audio = new Audio("/sound/incomingVisitor.wav");
 function Sidebar({ active }) {
+  const params = useParams();
+  const location = useLocation();
+  const history = useHistory();
+  const route = location.pathname.split("/")[1];
+
+  const { onlineVisitors, unreadTickets, unreadChats, upcomingBookings } =
+    useSelector((store) => store);
+  const dispatch = useDispatch();
+  const socket = useContext(SocketContext);
+  const [user] = useState(getUser());
+
+  const handleJoinVisitors = useCallback(
+    ({ visitors, tickets, upcomingBookings }) => {
+      tickets !== undefined && dispatch(addUnreadTickets(tickets));
+      upcomingBookings && dispatch(addUpcomingBookings(upcomingBookings));
+      dispatch(addVisitors(visitors));
+      visitors?.length &&
+        visitors?.length > onlineVisitors?.length &&
+        audio.play();
+    },
+    []
+  );
+
+  const handeUnreadChats = useCallback(({ unreadChats }) => {
+    dispatch(addUnreadChats(unreadChats));
+  }, []);
+
+  useEffect(() => {
+    socket.emit("joinRoom", user.cID);
+
+    socket.emit("getOnlineVisitors", user.cID);
+
+    socket.on("onlineVisitors", handleJoinVisitors);
+    socket.on("unreadChats", handeUnreadChats);
+    return () => {
+      socket.off("onlineVisitors", handleJoinVisitors);
+      socket.off("unreadChats", handeUnreadChats);
+    };
+  }, [handleJoinVisitors, socket, handeUnreadChats]);
+
   return (
     <div className="Sidebar">
       <img src={SideBarLogo} alt="" />
       <nav>
-        <li className={`${active == "home" && "active"}`}>
+        <li className={`${active === "home" && "active"}`}>
           <Link to="/">
             <svg
               width="34"
@@ -25,8 +90,8 @@ function Sidebar({ active }) {
           </Link>
         </li>
 
-        <li className={`${active == "LiveChat" && "active"}`}>
-          <Link to="/dashboard/LiveChat">
+        <li className={`${active === "LiveChat" && "active"}`}>
+          <Link to="/LiveChat">
             <svg
               width="34"
               height="34"
@@ -43,11 +108,12 @@ function Sidebar({ active }) {
                 fill="#6A7097"
               />
             </svg>
+            {unreadChats?.length ? <Badge> {unreadChats?.length}</Badge> : null}
           </Link>
         </li>
 
-        <li className={`${active == "EmailTickets" && "active"}`}>
-          <Link to="/dashhboard/EmailTickets">
+        <li className={`${active === "EmailTickets" && "active"}`}>
+          <Link to="/EmailTickets">
             <svg
               width="34"
               height="34"
@@ -60,11 +126,12 @@ function Sidebar({ active }) {
                 fill="#6A7097"
               />
             </svg>
+            {unreadTickets ? <Badge> {unreadTickets}</Badge> : null}
           </Link>
         </li>
 
-        <li className={`${active == "calender" && "active"}`}>
-          <Link to="/dashhboard/CalenderBooking">
+        <li className={`${active === "calendar" && "active"}`}>
+          <Link to="/CalendarBooking">
             <svg
               width="34"
               height="34"
@@ -85,11 +152,12 @@ function Sidebar({ active }) {
                 fill="#6A7097"
               />
             </svg>
+            {upcomingBookings ? <Badge> {upcomingBookings}</Badge> : null}
           </Link>
         </li>
 
-        <li className={`${active == "LiveVisitor" && "active"}`}>
-          <Link to="/dashboard/LiveVisitors">
+        <li className={`${active === "LiveVisitor" && "active"}`}>
+          <Link to="/LiveVisitors">
             <svg
               width="34"
               height="34"
@@ -122,11 +190,14 @@ function Sidebar({ active }) {
                 fill="#6A7097"
               />
             </svg>
+            {onlineVisitors?.length ? (
+              <Badge> {onlineVisitors?.length}</Badge>
+            ) : null}
           </Link>
         </li>
 
-        <li className={`${active == "contact" && "active"}`}>
-          <Link to="/dashhboard/contact">
+        <li className={`${active === "contact" && "active"}`}>
+          <Link to="/contact">
             <svg
               width="30"
               height="30"
@@ -145,9 +216,8 @@ function Sidebar({ active }) {
             </svg>
           </Link>
         </li>
-
-        <li className={`${active == "help_desk" && "active"}`}>
-          <Link to="/dashhboard/help_desk">
+        <li>
+          <Link to="/knowledgebase">
             <svg
               width="34"
               height="34"
@@ -178,9 +248,8 @@ function Sidebar({ active }) {
             </svg>
           </Link>
         </li>
-
-        <li className={`${active == "Analytics" && "active"}`}>
-          <Link to="/dashhboard/Analytics">
+        <li className={`${active === "Analytics" && "active"}`}>
+          <Link to="/Analytics">
             <svg
               width="34"
               height="34"
@@ -195,8 +264,8 @@ function Sidebar({ active }) {
             </svg>
           </Link>
         </li>
-        <li className={`${active == "operators" && "active"}`}>
-          <Link to="/dashboard/operators">
+        <li className={`${active === "operators" && "active"}`}>
+          <Link to="/operators">
             <svg
               width="35"
               height="34"
@@ -211,8 +280,8 @@ function Sidebar({ active }) {
             </svg>
           </Link>
         </li>
-        <li className={`${active == "settings" && "active"}`}>
-          <Link to="/dashhboard/settings">
+        <li className={`${active === "settings" && "active"}`}>
+          <Link to="/settings">
             <svg
               width="34"
               height="34"
@@ -230,7 +299,7 @@ function Sidebar({ active }) {
       </nav>
 
       <div className="logout-area">
-        <Link to="">
+        <Link to="/logout">
           <svg
             width="34"
             height="34"

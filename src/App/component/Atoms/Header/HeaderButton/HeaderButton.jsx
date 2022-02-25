@@ -5,7 +5,7 @@ export const HeaderButton = ({ text, buttonType, url }) => {
   return (
     <Link
       to={url}
-      className={`${buttonType == "outline" ? styles.Outline : styles.Solid} ${
+      className={`${buttonType === "outline" ? styles.Outline : styles.Solid} ${
         styles.button
       }`}
     >

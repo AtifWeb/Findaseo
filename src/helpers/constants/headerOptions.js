@@ -1,44 +1,30 @@
 export const HeaderOptions = [
-  {
-    name: "home",
-    url: "/",
-    type: null,
-  },
-  {
-    name: "Pricing",
-    url: "/plus/pricing",
-    type: null,
-  },
+  // {
+  //   name: "Pricing",
+  //   url: "/pricing",
+  //   type: null,
+  // },
   {
     name: "Features",
-    url: "/plus/features",
+    url: "/features",
     type: null,
   },
+
   {
-    name: "Careers",
-    url: "/plus/careers",
-    type: null,
-  },
-  {
-    name: "Privacy Policy",
-    url: "/plus/PrivacyPolicy",
-    type: null,
-  },
-  {
-    name: "Try Pavelify for Free",
-    url: "/plus/auth/register",
+    name: "Use Pavelify for Free",
+    url: "/auth/register",
     type: "button",
     buttonType: "solid",
   },
   {
     name: "Login",
-    url: "/plus/auth/login",
+    url: "/auth/login",
     type: "button",
-    buttonType: "solid",
+    buttonType: "outline",
   },
   {
     name: "Register",
-    url: "/plus/auth/register",
+    url: "/auth/register",
     type: "button",
     buttonType: "outline",
   },

@@ -8,8 +8,15 @@ export const HomeWebsiteService = () => {
         <div className={styles.Grid}>
           <div>
             <h1 className={styles.MainHeading}>
-              Convert More Website Visitors into Paying Customers in Record Time
+              Convert More Website Visitors <br /> into Paying Customers <br />{" "}
+              in Record Time
             </h1>
+            <img
+              src="./images/pavelify-screen.jpg"
+              alt=""
+              style={{ objectFit: "contain", width: "100%", maxWidth: "600px" }}
+              className="my-2"
+            />
             <p className={styles.para}>
               Hit your Sales and revenue goals faster with the all in one
               conversational and conversion platform. Built for customer
@@ -28,19 +35,20 @@ export const HomeWebsiteService = () => {
             bgcolor="#fff"
             title="Business Messenger"
             desc="Allow your customers to communicate with your business real time while browsing your website, on Messenger, Instagram, or email and chat with them from one platform. No need to switch between different tabs."
-            img="./images/Business Messenger.jpg"
+            img="./images/Business Messenger.webp"
           />
           <HomeCard
             bgcolor="#fff"
             title="Stay Organized"
             desc="Manage your customers queries and solve their problems in real time while staying organized with Knowledge base help center. Give your team what they need to stay efficient. Automate your support workflow."
-            img="./images/Stay Organized.png"
+            img="./images/Stay Organized.webp"
           />
           <HomeCard
             bgcolor="#fff"
             title="Convert More Business"
             desc="Allow your customers the flexibility of scheduling phone call, zoom, Google meet or Microsoft live conversations with your business. Send appointment booking links, or embed on your website."
-            img="./images/convert_business.jpg"
+            img="./images/convert_business 350 250.webp"
+            // imgStyle={styles.imagewithheight}
           />
           {/* <HomeCard
             LargeText="R"

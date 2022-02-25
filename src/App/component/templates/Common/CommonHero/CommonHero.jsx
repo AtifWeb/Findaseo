@@ -26,18 +26,22 @@ export const CommonHero = ({
         {form !== null && (
           <UsePavelifyLink
             text="Use Pavelify for Free"
-            style={{ width: "50%" }}
+            style={{ width: "35%" }}
+            link={"/auth/register"}
           />
         )}
       </div>
-
-      <img
-        src={imageSrc}
-        alt=""
-        className={`${styles.pureImage} ${
-          width_full != null && styles.full_width
-        }`}
-      />
+        <picture>
+      <source srcSet={imageSrc}/>
+        {/* <img src="../images/homepage.jpg" alt="" className={styles.pureImage} /> */}
+        <img
+          src={imageSrc}
+          alt=""
+          className={`${styles.pureImage} ${
+            width_full != null && styles.full_width
+          }`}
+        />
+        </picture>
     </div>
   );
 };
