@@ -1,0 +1,17 @@
+﻿
+
+Hey there, welcome to Pavelify. 
+Here are a few things to get you started. We hope you enjoy Pavelify and we look forward to supporting you should you have any questions or need any assistance. 
+
+Install the live chat widget to chat with your site visitors (https://app.pavelify.com/settings/LiveChat )
+Upload a profile photo and update your profile (https://app.pavelify.com/settings/Account)
+Connect your support email to reply to customers  (https://app.pavelify.com/settings/EmailSetup)
+Setup appointment scheduling (https://app.pavelify.com/CalendarBooking/calendars)
+
+ Add team members /operators  (https://app.pavelify.com/operators) 
+
+Integrate your apps (https://app.pavelify.com/settings/Integrations)
+
+
+
+

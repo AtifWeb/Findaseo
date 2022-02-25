@@ -49,9 +49,9 @@ function App() {
           <Route path="/dashhboard/CalenderBooking" exact>
             <CalenderBooking />
           </Route>
-          <Route path="/" exact>
+          {/* <Route path="/" exact>
             <HomePage />
-          </Route>
+          </Route> */}
           {/* <Route path="/dashhboard/settings" exact>
             <Settings />
           </Route> */}
@@ -79,7 +79,7 @@ function App() {
           <Route path="/dashboard/operators" exact>
             <Operators />
           </Route>
-          <Route path="/dashboard/LiveChat" exact>
+          <Route path="/" exact>
             <LiveChat />
           </Route>
           <Route path="/dashboard/LiveVisitors" exact>

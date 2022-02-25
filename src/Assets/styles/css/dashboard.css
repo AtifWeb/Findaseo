@@ -1377,6 +1377,24 @@
   padding: 1rem 0rem;
   border-bottom: 1px solid #0000001a;
 }
+.messages-box-area .left-side .users .user:first-child .images_wrapper,
+.message-container .profile_area .images_wrapper {
+  background-color: #0f1957;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.message-container .profile_area .images_wrapper {
+  width: 60px;
+  height: 60px;
+}
+.messages-box-area .left-side .users .user:first-child .images_wrapper img,
+.message-container .profile_area .images_wrapper img {
+  width: 90%;
+}
 .messages-box-area .left-side .users .user .images_wrapper,
 .messages-box-area > .right-side .profile-area .images_wrapper {
   position: relative;
@@ -1396,6 +1414,9 @@
   transform: translateX(20%);
   width: 30px;
 }
+.messages-box-area .left-side .users .user {
+  cursor: pointer;
+}
 .messages-box-area .left-side .users .user .presentation {
   margin-left: 10px;
   align-items: flex-start;
@@ -1405,6 +1426,9 @@
 .messages-box-area .left-side .users .user .presentation .left-side p {
   margin-top: 2px;
 }
+.messages-box-area .left-side .users .user .presentation .left-side h4 {
+  margin-bottom: 0px !important;
+}
 .messages-box-area .left-side .users .user .presentation .left-side h4,
 .messages-box-area .left-side .users .user .presentation .left-side p {
   font-size: 15px;
@@ -1412,6 +1436,7 @@
 .messages-box-area .left-side .users .user .presentation .left-side p,
 .messages-box-area .left-side .users .user .presentation .right-side p {
   color: #9ca2c9;
+  margin-bottom: 0px !important;
 }
 .messages-box-area .left-side .users .user .presentation .right-side p {
   font-size: 12px;
@@ -1465,6 +1490,51 @@
   padding: 2rem 3rem;
   background: #eff3f6;
   padding-bottom: 6rem;
+}
+.message-container .profile_area,
+.message-container .profile_area .presentation {
+  display: flex;
+  align-items: baseline;
+}
+.message-container .profile_area .presentation h1 {
+  font-size: 20px;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+.message-container .profile_area .presentation small {
+  color: #acacb2;
+}
+.message-container .content_area p {
+  margin-bottom: 0px;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #57575a;
+}
+
+.ListChatBotDefault {
+  padding-left: 0px;
+  margin-top: 2rem !important;
+}
+.ListChatBotDefault > * + * {
+  margin-top: 1rem;
+}
+.ListChatBotDefault a {
+  display: flex;
+  align-items: center;
+}
+.ListChatBotDefault a img {
+  width: 40px;
+  height: 40px;
+}
+.ListChatBotDefault p {
+  margin: 0px;
+  margin-left: 10px;
+  font-size: 14px;
+  text-decoration: underline;
+  color: #57575a;
+}
+.ListChatBotDefault p:hover {
+  text-decoration: none;
 }
 .messages-box-area
   .middle-side
@@ -1544,7 +1614,9 @@
   background: #2d96d6;
   color: #fff;
 }
-
+.defaultmessage .date-area {
+  color: #000 !important;
+}
 /* message-sender-form */
 .messages-box-area
   .middle-side
@@ -1672,7 +1744,7 @@
   font-weight: 700;
   color: #282d4a;
   margin-top: 7px;
-
+  margin-bottom: 0px;
   text-align: center;
 }
 .messages-box-area > .right-side .profile-area .email {
